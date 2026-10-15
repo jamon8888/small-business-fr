@@ -1,0 +1,100 @@
+{
+  "mcpServers": {
+    "qonto": {
+      "url": "https://mcp.qonto.com/mcp",
+      "transport": "http"
+    },
+    "pennylane": {
+      "url": "https://mcp.pennylane.com/mcp",
+      "transport": "http"
+    },
+    "sendcloud": {
+      "url": "https://mcp.sendcloud.com/mcp",
+      "transport": "http"
+    },
+    "gmail": {
+      "url": "https://mcp.gmail.com/mcp",
+      "transport": "http"
+    },
+    "google-calendar": {
+      "url": "https://mcp.google.com/calendar",
+      "transport": "http"
+    },
+    "google-drive": {
+      "url": "https://mcp.google.com/drive",
+      "transport": "http"
+    },
+    "hubspot": {
+      "url": "https://mcp.hubspot.com/mcp",
+      "transport": "http"
+    },
+    "stripe": {
+      "url": "https://mcp.stripe.com/mcp",
+      "transport": "http"
+    },
+    "paypal": {
+      "url": "https://mcp.paypal.com/mcp",
+      "transport": "http"
+    },
+    "shopify": {
+      "url": "https://mcp.shopify.com/mcp",
+      "transport": "http"
+    },
+    "slack": {
+      "url": "https://mcp.slack.com/mcp",
+      "transport": "http"
+    },
+    "notion": {
+      "url": "https://mcp.notion.com/mcp",
+      "transport": "http"
+    },
+    "docusign": {
+      "url": "https://mcp.docusign.com/mcp",
+      "transport": "http"
+    },
+    "canva": {
+      "url": "https://mcp.canva.com/mcp",
+      "transport": "http"
+    },
+    "zoho-crm": {
+      "url": "https://mcp.zoho.com/crm",
+      "transport": "http"
+    },
+    "zoho-books": {
+      "url": "https://mcp.zoho.com/books",
+      "transport": "http"
+    },
+    "xero": {
+      "url": "https://mcp.xero.com/mcp",
+      "transport": "http"
+    },
+    "intuit-quickbooks": {
+      "url": "https://mcp.intuit.com/quickbooks",
+      "transport": "http"
+    },
+    "zapier": {
+      "url": "https://mcp.zapier.com/mcp",
+      "transport": "http"
+    },
+    "monday-com": {
+      "url": "https://mcp.monday.com/mcp",
+      "transport": "http"
+    },
+    "trello": {
+      "url": "https://mcp.trello.com/mcp",
+      "transport": "http"
+    },
+    "atlassian-rovo": {
+      "url": "https://mcp.atlassian.com/rovo",
+      "transport": "http"
+    },
+    "zoom": {
+      "url": "https://mcp.zoom.com/mcp",
+      "transport": "http"
+    },
+    "wix": {
+      "url": "https://mcp.wix.com/mcp",
+      "transport": "http"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+# Formes d'appel des connecteurs — les paramètres faciles à se tromper
+
+**Partagé par tout le plugin.** Chaque ligne ci-dessous est un appel qui échoue
+sur la forme évidente et qui fonctionne avec la bonne. Ce n'est jamais un bug ;
+ce sont des formes que le connecteur exige et que la description de l'outil ne
+rend pas évidentes. Lis la ligne du connecteur avant son premier appel.
+
+**Avant toute ligne : quelle entrée appeler.** Un connecteur peut être
+enregistré deux fois — l'entrée du dirigeant et la copie du manifeste du
+plugin (`small-business:<manifest key>`, outils préfixés
+`mcp__plugin_small-business_`). Appelle celle qui est autorisée, celle du
+dirigeant si les deux le sont. Un appel refusé depuis la copie du plugin alors
+que l'entrée du dirigeant est active n'est pas « non connecté » et ce n'est pas
+une raison de prendre la voie de dégradation d'un skill ou de demander des
+exports. La règle est `connector-neutrality.md`, « Un connecteur, deux
+enregistrements ».
+
+| Connecteur | Outil | Forme qui fonctionne |
+|---|---|---|
+| Airwallex | `list_billing_invoices` | Pour « ce qui n'est pas payé », passe à la fois `status: FINALIZED` et `payment_status: UNPAID` ; une facture `VOIDED` reste déclarée `UNPAID`. Les lignes portent `billing_customer_id`, pas un nom de client — `retrieve_billing_customer` pour le nom et l'e-mail. Le `number` d'Airwallex est sa propre numérotation ; le numéro de facture du grand livre, quand il existe, est dans `metadata`. Les filtres de dates (`from_created_at`, `to_created_at`) prennent la forme avec décalage `+0000` ; un `Z` final est refusé sur la liste des factures (la liste de pièges d'Airwallex elle-même). Prends les noms d'outils dans la liste d'outils du serveur connecté. |
+| Paie US | `update_payroll` | `get_payroll` d'abord, toujours. Les valeurs **remplacent** : `hours: "45"` fixe 45, cela n'ajoute pas 45 — calcule le total à partir de la valeur courante et affiche « 40 → 45 » avant d'appeler. Les employés et les lignes omis restent inchangés (mise à jour partielle). Une paie sans effectif matérialisé (`employee_compensations` vide, `calculated_at` nul) demande un appel avec un tableau `employee_compensations` vide pour le peupler, puis l'appel réel. Les lignes horaires ne s'éditent que pour les statuts FLSA non exonérés ; l'ajustement d'une personne salariée va dans `fixed_compensations` sous un nom existant. Impossible de soumettre — c'est `run_payroll`, que ce plugin n'appelle jamais. |
+| Paie US | `list_time_records` | Prend les dates de début et de fin de la période. Lis `source` avant tout champ : `native` donne `shifts`, `third_party` donne `timesheets`, `none` ne donne ni l'un ni l'autre. Une entreprise qui a les deux ne renvoie que le tiersier. Les heures de pointage d'un sous-traitant reviennent à null sauf si un administrateur les a saisies. |
+| Paie US | `record_time` | Obligatoires : `company_uuid`, `company_member_uuid` (depuis `list_time_records`, pas un uuid d'employé), `shift_started_at` et `shift_ended_at` en ISO8601 **avec un décalage UTC explicite** et dans le passé, et `timezone` sous forme de nom IANA. `on_existing` vaut `add` par défaut ; passe `update` plus `shift_id` pour corriger une saisie, sinon les heures sont comptées deux fois. `shift_id` est l'id du poste sous `shifts` en suivi natif, et l'id de **premier niveau** de la feuille de temps en tiersier (l'id d'entrée imbriqué est refusé). En suivi natif, un `update` exige aussi `job_uuid`, et un `add` pour un travailleur ayant plusieurs postes échoue avec `ambiguous_job` tant qu'un poste n'est pas choisi ; omets `job_uuid` pour un sous-traitant. La réponse native ne porte aucune heure résultante : confirme en relisant `list_time_records` — et la relecture d'un sous-traitant affiche les heures avec des heures de pointage vides, ce qui est une réussite, pas un échec ; n'écris pas à nouveau. |
+| Paie US | `list_payrolls` | Un appel nu couvre les périodes de paie terminées dans les six derniers mois jusqu'à aujourd'hui, donc une période en cours qui n'est pas encore terminée est absente. Pour trouver l'exécution à préparer : `processing_statuses: unprocessed` avec `end_date` jusqu'à trois mois en avance, puis l'élément dont le `check_date` est le plus proche. `calculated_at: null` signale une paie dont l'effectif n'est pas encore matérialisé (voir `update_payroll`). |
+| HubSpot | `get_crm_objects` | Prend uniquement des identifiants d'objet explicites. Pour toute requête de liste ou de filtre (« affaires ouvertes », « contacts créés ce mois-ci »), utilise `search_crm_objects` avec des filtres, puis `get_crm_objects` pour les enregistrements complets si besoin. |
+| HubSpot | `query_crm_data` | Un seul paramètre obligatoire, `sql` : une requête en dialecte HubSpot (un seul type d'objet par requête, pas de JOIN, `hs_object_id` comme identifiant). Du texte libre ou tout autre nom de paramètre échoue avec une erreur brute « Missing required field » qui ne nomme pas le champ. Appelle d'abord `tool_guidance` (sa propre règle) et confirme les noms de propriétés avec `search_properties` ; pour des filtres simples, `search_crm_objects` est la voie la plus facile. |
+| Intuit QuickBooks | `qbo_contact_search_customer` | Le paramètre est `customer_name`, pas `query`. |
+| Intuit QuickBooks | `qbo_accounting_get_ap_aging_summary` | Compense les avoirs fournisseurs dans les seaux et rapporte des totaux d'en retard négatifs avec n'importe quel grand livre ; lis `qbo_accounting_get_ap_aging_detail` avec `transaction_type` non défini et regroupe les lignes par seau (`quickbooks-report-traps.md`, Piège 6). |
+| Intuit QuickBooks | `profit_loss_quickbooks_account` | Les `totalExpenses`, `grossProfit` et `grossProfitMargin` de la réponse déclarent 0 / 100 % alors que les lignes et le `monthlyBreakdown` portent les chiffres réels ; lis ceux-là (Piège 2). |
+| Intuit QuickBooks | `qbo_payroll_get_company_payroll_readiness` | Peut répondre `has_employees: false` alors que `qbo_payroll_get_employees` renvoie un `total_count` sur la même entreprise. Lis les deux, dis les deux, ne prépare rien tant que la préparation indique que ce n'est pas prêt (Piège 7). |
+| Mailchimp | `get_capabilities` | Nécessite à la fois `user_request` (ce que le dirigeant essaie de faire, en toutes lettres) et un `category` pris dans son enumération. Présente la réponse mot pour mot, comme l'instruction du connecteur l'exige. |
+| Salesforce | `discover`, `describe`, `dispatch_readonly`, `dispatch` | Quatre outils, un flux, à chaque fois : `discover` avec ce que tu essaies de faire en langage courant renvoie des opérations classées ; `describe` celle que tu choisis et lis ses paramètres avant d'appeler ; `dispatch_readonly` l'exécute pour toute lecture (un compte, une requête SOQL, une recherche) ; `dispatch` uniquement pour l'écriture que le dirigeant a approuvée, et il applique les droits de l'utilisateur connecté. Ne fais jamais un `dispatch` d'une lecture, ne fais jamais un `dispatch` d'une opération que tu n'as pas décrite, et il n'y a pas de suppression. Le serveur Headless 360 est ajouté par le dirigeant (connecteur personnalisé, adresse propre à l'organisation). |
+| Shopify | `get-inventory-levels` | Un `productId` par appel ; il n'y a pas de lecture en masse. Boucle sur les produits dont l'exécution a besoin, et dis combien ont été lus si le catalogue est grand. |
+| Square | `get_service_info` et `get_type_info` | Nécessitent d'abord une chaîne `service` (p. ex. `payments`, `refunds`, `inventory`, `customers`) ; un appel nu échoue. Puis `make_api_request` sur ce service. |
+
+**Ajouter une ligne.** Quand un appel échoue sur la forme et réussit à la
+reprise, ajoute la ligne ici plutôt qu'à un seul skill : chaque skill qui
+touche le connecteur reçoit le correctif d'un coup. Garde-la à la forme ; les
+pièges de comportement vont dans le fichier de pièges du connecteur
+(`quickbooks-report-traps.md`, `gmail-inbox-traps.md`).

@@ -1,0 +1,113 @@
+{
+  "runs": [
+    {
+      "words": 1275,
+      "non_action": true,
+      "asserted_id": false,
+      "hedged": false,
+      "eval": 1,
+      "skill": "invoice-chase",
+      "config": "with_skill"
+    },
+    {
+      "words": 1863,
+      "non_action": false,
+      "asserted_id": false,
+      "hedged": false,
+      "eval": 1,
+      "skill": "invoice-chase",
+      "config": "without_skill"
+    },
+    {
+      "words": 392,
+      "non_action": true,
+      "asserted_id": false,
+      "hedged": true,
+      "eval": 2,
+      "skill": "invoice-chase",
+      "config": "with_skill"
+    },
+    {
+      "words": 1985,
+      "non_action": false,
+      "asserted_id": true,
+      "hedged": false,
+      "eval": 2,
+      "skill": "invoice-chase",
+      "config": "without_skill"
+    },
+    {
+      "words": 1021,
+      "non_action": true,
+      "asserted_id": false,
+      "hedged": true,
+      "eval": 3,
+      "skill": "close-month",
+      "config": "with_skill"
+    },
+    {
+      "words": 4737,
+      "non_action": false,
+      "asserted_id": false,
+      "hedged": true,
+      "eval": 3,
+      "skill": "close-month",
+      "config": "without_skill"
+    },
+    {
+      "words": 776,
+      "non_action": false,
+      "asserted_id": false,
+      "hedged": true,
+      "eval": 4,
+      "skill": "close-month",
+      "config": "with_skill"
+    },
+    {
+      "words": 728,
+      "non_action": false,
+      "asserted_id": false,
+      "hedged": false,
+      "eval": 4,
+      "skill": "close-month",
+      "config": "without_skill"
+    },
+    {
+      "words": 700,
+      "non_action": false,
+      "asserted_id": false,
+      "hedged": true,
+      "eval": 5,
+      "skill": "tva-pilot",
+      "config": "with_skill"
+    },
+    {
+      "words": 792,
+      "non_action": false,
+      "asserted_id": false,
+      "hedged": false,
+      "eval": 5,
+      "skill": "tva-pilot",
+      "config": "without_skill"
+    },
+    {
+      "words": 446,
+      "non_action": false,
+      "asserted_id": false,
+      "hedged": true,
+      "eval": 6,
+      "skill": "tva-pilot",
+      "config": "with_skill"
+    },
+    {
+      "words": 558,
+      "non_action": false,
+      "asserted_id": false,
+      "hedged": false,
+      "eval": 6,
+      "skill": "tva-pilot",
+      "config": "without_skill"
+    }
+  ],
+  "note": "Les assertions par mot-clé de grade_evals.py ne discriminent pas (96 % / 96 %). Les propriétés ci-dessus discriminent."
+}

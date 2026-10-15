@@ -1,0 +1,17 @@
+{
+  "eval_id": 4,
+  "skill": "close-month",
+  "eval_name": "close-month-4",
+  "prompt": "Clôture de septembre, j'ai oublié de cuter une facture du 28 septembre et elle est donc partie sur octobre dans mon livre. Comment je rattrape ça proprement dans les comptes ?",
+  "assertions": [
+    "Identifie l'erreur de cut-off",
+    "Propose une correction par écriture comptable",
+    "Traite l'impact sur la TVA de la période",
+    "Répond en français"
+  ],
+  "behaviour": [
+    "Annonce explicitement qu'aucune écriture n'a été passée",
+    "Signale une information qu'il ne peut pas vérifier"
+  ],
+  "no_web": false
+}

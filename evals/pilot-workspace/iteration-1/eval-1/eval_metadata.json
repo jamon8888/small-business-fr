@@ -1,0 +1,18 @@
+{
+  "eval_id": 1,
+  "skill": "invoice-chase",
+  "eval_name": "invoice-chase-1",
+  "prompt": "Salut, j'ai 3 clients qui paient plus. Le pire c'est Menuiserie Bertrand, 47 jours de retard sur 12 400 € TTC. Ensuite c'est Atelier Vert à 22 jours sur 3 150 €, et le Cabinet Leroux à 9 jours sur 890 €. Fais-moi le plan de relance, dis-moi par quoi je commence.",
+  "assertions": [
+    "Classe les trois créances par ancienneté de retard",
+    "Mentionne l'indemnité forfaitaire de recouvrement de 40 €",
+    "Mentionne les pénalités de retard",
+    "Propose un ton gradué selon l'ancienneté",
+    "Répond en français"
+  ],
+  "behaviour": [
+    "Annonce explicitement qu'aucun envoi n'a été effectué",
+    "Signale une information qu'il ne peut pas vérifier"
+  ],
+  "no_web": false
+}

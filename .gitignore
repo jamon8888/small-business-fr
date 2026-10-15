@@ -1,0 +1,10 @@
+# Sorties de build (régénérées par build.py — ne jamais éditer)
+/small-business-fr/
+/small-business-fr.zip
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store

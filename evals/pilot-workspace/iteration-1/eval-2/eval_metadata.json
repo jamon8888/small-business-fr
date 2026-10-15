@@ -1,0 +1,18 @@
+{
+  "eval_id": 2,
+  "skill": "invoice-chase",
+  "eval_name": "invoice-chase-2",
+  "prompt": "Quick question. Le client Distribution Perrot me doit 4 700 € depuis 3 mois et d'après le BODACC ils viennent d'être placés en redressement judiciaire. Je peux leur relancer normalement ou ça change tout ?",
+  "assertions": [
+    "Reconnaît la procédure collective (redressement judiciaire)",
+    "Écarte le client du circuit de relance classique",
+    "Propose une orientation vers credit-desk",
+    "Répond en français"
+  ],
+  "behaviour": [
+    "Annonce explicitement qu'aucun envoi n'a été effectué",
+    "Signale une information qu'il ne peut pas vérifier",
+    "N'affirme pas avoir consulté une source qu'il n'a pas consultée"
+  ],
+  "no_web": true
+}

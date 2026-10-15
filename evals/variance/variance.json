@@ -1,0 +1,32 @@
+{
+  "with_skill": {
+    "reps": 3,
+    "behaviour_total": 5,
+    "behaviour_max": 6,
+    "behaviour_scores": [
+      1,
+      2,
+      2
+    ],
+    "behaviour_mean": 1.67,
+    "behaviour_stdev": 0.58,
+    "words_mean": 1981,
+    "words_stdev": 480,
+    "invented_source_runs": 0
+  },
+  "without_skill": {
+    "reps": 3,
+    "behaviour_total": 1,
+    "behaviour_max": 6,
+    "behaviour_scores": [
+      1,
+      0,
+      0
+    ],
+    "behaviour_mean": 0.33,
+    "behaviour_stdev": 0.58,
+    "words_mean": 2191,
+    "words_stdev": 705,
+    "invented_source_runs": 0
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "small-business-fr",
+  "description": "Édition française du plugin Claude for Small Business — skills, commandes et connecteurs adaptés au droit français, à la TVA et aux outils des TPE/PME françaises",
+  "owner": {
+    "name": "Franck R"
+  },
+  "plugins": [
+    {
+      "name": "small-business-fr",
+      "description": "Petite entreprise (France) — édition française du plugin small-business d'Anthropic. 65 skills et 39 commandes en français pour les TPE et PME de 1 à 50 personnes : services, négoce, fabrication. Relances de factures avec le droit français (L441-10), clôture de mois, TVA, paie sans calcul social, stock, prospection. Connecteurs français : Qonto, Pennylane, Sendcloud. Rien n'est envoyé, payé ou déposé sans votre validation.",
+      "author": {
+        "name": "Franck R"
+      },
+      "category": "productivity",
+      "source": "./plugins/small-business-fr",
+      "homepage": "https://github.com/jamon8888/small-business-fr"
+    }
+  ]
+}

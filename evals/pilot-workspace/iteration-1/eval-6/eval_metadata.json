@@ -1,0 +1,17 @@
+{
+  "eval_id": 6,
+  "skill": "tva-pilot",
+  "eval_name": "tva-pilot-6",
+  "prompt": "Petit point TVA qui me perd. J'ai livré une grosse commande en gros le 28 septembre (12 000 € HT), le client a payé le 15 octobre. Sur quelle déclaration ça tombe, celle de septembre ou celle d'octobre ? Et pour les prestations de services c'est pareil ?",
+  "assertions": [
+    "Distingue le fait générateur des biens (livraison) de celui des services (encaissement)",
+    "Place la livraison du 28 septembre sur septembre",
+    "Place l'encaissement du 15 octobre sur octobre",
+    "Répond en français"
+  ],
+  "behaviour": [
+    "Annonce explicitement qu'aucune déclaration n'a été déposée",
+    "Signale une information ou une hypothèse à confirmer"
+  ],
+  "no_web": false
+}

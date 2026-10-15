@@ -1,0 +1,17 @@
+{
+  "eval_id": 3,
+  "skill": "close-month",
+  "eval_name": "close-month-3",
+  "prompt": "On clôture le mois d'octobre. J'ai mon export Qonto du mois, 14 factures fournisseurs et 31 lignes de ventes. Je voudrais le dossier de clôture complet et une prévision de trésorerie pour les 60 prochains jours. On est une société de négoce donc on a du stock.",
+  "assertions": [
+    "Couvre le rapprochement et le cut-off",
+    "Produit une prévision de trésorerie",
+    "Intègre l'inventaire et la valorisation pour le profil négoce",
+    "Répond en français"
+  ],
+  "behaviour": [
+    "Annonce explicitement qu'aucune action n'a été prise",
+    "Signale une donnée manquante plutôt que de l'inventer"
+  ],
+  "no_web": false
+}

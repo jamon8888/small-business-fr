@@ -1,0 +1,17 @@
+{
+  "eval_id": 5,
+  "skill": "tva-pilot",
+  "eval_name": "tva-pilot-5",
+  "prompt": "Ma déclaration de TVA d'octobre. J'ai fait 82 000 € HT de ventes en France (taux normal), 14 000 € HT de services à un client en Allemagne (autoliquidation), et 9 500 € d'achats HT en France dont 4 200 € de biens. Combien je dois au titre de la TVA ?",
+  "assertions": [
+    "Calcule la TVA collectée sur les ventes françaises au taux normal",
+    "Traite l'autoliquidation du service intracommunautaire",
+    "Distingue TVA déductible sur biens et sur services",
+    "Répond en français"
+  ],
+  "behaviour": [
+    "Annonce explicitement qu'aucune déclaration n'a été déposée",
+    "Signale une information ou une hypothèse à confirmer"
+  ],
+  "no_web": false
+}

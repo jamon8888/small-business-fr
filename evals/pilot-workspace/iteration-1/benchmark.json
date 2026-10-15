@@ -1,0 +1,176 @@
+{
+  "skill_name": "small-business-fr-pilot",
+  "iteration": 1,
+  "configurations": [
+    {
+      "config": "with_skill",
+      "label": "avec skill",
+      "runs": 6,
+      "domain": {
+        "passed": 23,
+        "total": 25
+      },
+      "behaviour": {
+        "passed": 9,
+        "total": 13
+      },
+      "mean_words": 809,
+      "per_eval": [
+        {
+          "eval_id": 1,
+          "skill": "invoice-chase",
+          "words": 1275,
+          "domain": "5/5",
+          "behaviour": "1/2",
+          "controlled": false
+        },
+        {
+          "eval_id": 2,
+          "skill": "invoice-chase",
+          "words": 638,
+          "domain": "2/4",
+          "behaviour": "2/3",
+          "controlled": true
+        },
+        {
+          "eval_id": 3,
+          "skill": "close-month",
+          "words": 1021,
+          "domain": "4/4",
+          "behaviour": "2/2",
+          "controlled": false
+        },
+        {
+          "eval_id": 4,
+          "skill": "close-month",
+          "words": 776,
+          "domain": "4/4",
+          "behaviour": "1/2",
+          "controlled": false
+        },
+        {
+          "eval_id": 5,
+          "skill": "tva-pilot",
+          "words": 700,
+          "domain": "4/4",
+          "behaviour": "1/2",
+          "controlled": false
+        },
+        {
+          "eval_id": 6,
+          "skill": "tva-pilot",
+          "words": 446,
+          "domain": "4/4",
+          "behaviour": "2/2",
+          "controlled": false
+        }
+      ]
+    },
+    {
+      "config": "without_skill",
+      "label": "baseline",
+      "runs": 6,
+      "domain": {
+        "passed": 24,
+        "total": 25
+      },
+      "behaviour": {
+        "passed": 4,
+        "total": 13
+      },
+      "mean_words": 1643,
+      "per_eval": [
+        {
+          "eval_id": 1,
+          "skill": "invoice-chase",
+          "words": 1863,
+          "domain": "5/5",
+          "behaviour": "0/2",
+          "controlled": false
+        },
+        {
+          "eval_id": 2,
+          "skill": "invoice-chase",
+          "words": 1182,
+          "domain": "3/4",
+          "behaviour": "1/3",
+          "controlled": true
+        },
+        {
+          "eval_id": 3,
+          "skill": "close-month",
+          "words": 4737,
+          "domain": "4/4",
+          "behaviour": "1/2",
+          "controlled": false
+        },
+        {
+          "eval_id": 4,
+          "skill": "close-month",
+          "words": 728,
+          "domain": "4/4",
+          "behaviour": "1/2",
+          "controlled": false
+        },
+        {
+          "eval_id": 5,
+          "skill": "tva-pilot",
+          "words": 792,
+          "domain": "4/4",
+          "behaviour": "0/2",
+          "controlled": false
+        },
+        {
+          "eval_id": 6,
+          "skill": "tva-pilot",
+          "words": 558,
+          "domain": "4/4",
+          "behaviour": "1/2",
+          "controlled": false
+        }
+      ]
+    }
+  ],
+  "controlled_eval": "eval-2",
+  "variance": {
+    "with_skill": {
+      "reps": 3,
+      "behaviour_total": 5,
+      "behaviour_max": 6,
+      "behaviour_scores": [
+        1,
+        2,
+        2
+      ],
+      "behaviour_mean": 1.67,
+      "behaviour_stdev": 0.58,
+      "words_mean": 1981,
+      "words_stdev": 480,
+      "invented_source_runs": 0
+    },
+    "without_skill": {
+      "reps": 3,
+      "behaviour_total": 1,
+      "behaviour_max": 6,
+      "behaviour_scores": [
+        1,
+        0,
+        0
+      ],
+      "behaviour_mean": 0.33,
+      "behaviour_stdev": 0.58,
+      "words_mean": 2191,
+      "words_stdev": 705,
+      "invented_source_runs": 0
+    }
+  },
+  "observations": [
+    "Les assertions métier ne discriminent pas (+0 sur 25). Elles restent utiles comme garde-fou de régression, pas comme mesure.",
+    "Comportement : 9/13 avec skill contre 4/13 sans — c'est la seule métrique qui sépare les deux bras.",
+    "Volume : 809 mots contre 1643 (-834) sur cette itération, mais l'étude de variance montre que cet avantage s'évanouit une fois l'outillage égalisé — ne pas s'y fier.",
+    "L'outillage était un facteur confoundant : le bras baseline avait le web, le bras avec skill non. La baseline inventait alors une consultation BODACC avec un RCS précis. Après égalisation (eval-2 rejoué sans web des deux côtés), l'écart de comportement passe de +7 à +5 : le gain réel est plus petit que le premier mesurage ne le semblait.",
+    "Étude de variance (3 répétitions par bras, outillage égalisé) : comportement 1,67 ± 0,58 avec skill contre 0,33 ± 0,58 sans — l'écart dépasse le bruit.",
+    "Ce qui tient après égalisation : la non-action explicite, 3/3 avec skill contre 0/3 sans. C'est le seul signal propre.",
+    "Ce qui ne tient pas : la concision (1 981 ± 480 mots avec skill contre 2 191 ± 705 sans — l'avantage mesuré à l'itération 1 venait en grande partie de l'outillage), et l'assertion de source inventée (0/3 dans les deux bras une fois le web retiré des deux côtés — c'était un artefact, pas un effet du skill)."
+  ]
+}
