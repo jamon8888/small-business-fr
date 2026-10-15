@@ -9,6 +9,9 @@ deux.
 à la TVA, à la facturation électronique et aux connecteurs français (Qonto,
 Pennylane, Sendcloud).
 
+**Version : [v1.1.0-fr.1](https://github.com/jamon8888/small-business-fr/releases)**
+— historique dans le [CHANGELOG](CHANGELOG.md).
+
 > Édition communautaire, non publiée ni approuvée par Anthropic.
 > Basée sur le plugin `small-business` v1.35.1 (Apache-2.0) — voir LICENSE et NOTICE.
 
@@ -61,6 +64,27 @@ directement à un collègue.
 Le routeur (`smb-router`) choisit le skill adapté quand tu décribes le travail
 sans nommer de commande.
 
+## Connecteurs (24)
+
+| Domaine | Connecteurs |
+|---|---|
+| Banque & comptabilité | Qonto, Pennylane, QuickBooks, Xero, Zoho Books |
+| Paiements | Stripe, PayPal |
+| CRM & ventes | HubSpot, Zoho CRM, Monday |
+| E-mails & expédition | Gmail, Sendcloud, Slack |
+| Calendrier & visio | Google Calendar, Zoom |
+| Documents & contrats | Google Drive, Notion, DocuSign |
+| Commerce & design | Shopify, Wix, Canva |
+| Autres | Trello, Atlassian Rovo, Zapier (vers tout autre outil) |
+
+Ton outil n'y est pas ? Le skill `build-connector` le connecte via l'annuaire
+des connecteurs ou Zapier.
+
+## Hors périmètre v1
+
+BTP, restauration, santé, professions réglementées, alimentaire à traçabilité
+sanitaire stricte, alcool, grande distribution EDI.
+
 ## Ce que le plugin ne fait jamais
 
 - Aucune déclaration déposée.
@@ -83,7 +107,13 @@ Le build, la localisation et la porte de qualité sont documentés dans
 ```bash
 python3 build.py --clean      # régénère le plugin + le zip
 python3 production_check.py   # 11 contrôles qualité
+./release.sh 1.2.0-fr.1       # bump + build + contrôle + tag + Release avec zip
 ```
+
+La porte de qualité tourne automatiquement sur chaque push et PR
+(workflow `quality`). Les retours d'utilisateurs se font via les
+[issues](https://github.com/jamon8888/small-business-fr/issues) (modèles
+bug / amélioration prévus).
 
 ## Licence
 

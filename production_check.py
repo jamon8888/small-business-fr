@@ -8,6 +8,7 @@ commandes ad hoc, et couvre tout l'arbre du plugin — pas seulement `skills/`,
 ce qui a laissé passer sept fichiers partagés restés en anglais.
 """
 import hashlib
+import os
 import re
 import subprocess
 import sys
@@ -28,6 +29,20 @@ ENW = set("the of and to in for is are that this with you your it on not as be "
 US = re.compile(r"\b(USD|IRS|W-9|I-9|EIN|FICA|Gusto|1099)\b")
 
 results = []
+
+
+def validator_python():
+    """Un interpréteur avec PyYAML : variable d'env, venv connu, ou l'actuel."""
+    cands = ([os.environ["VALIDATOR_PYTHON"]]
+             if os.environ.get("VALIDATOR_PYTHON") else []) + [str(VENV), sys.executable]
+    for c in cands:
+        p = Path(c)
+        if not p.exists():
+            continue
+        r = subprocess.run([str(p), "-c", "import yaml"], capture_output=True)
+        if r.returncode == 0:
+            return p
+    return None
 
 
 def check(name, ok, detail=""):
@@ -74,15 +89,23 @@ def main():
           r.stdout.strip().splitlines()[-2] if r.stdout.strip() else "")
 
     # 4. validateur skill-creator
-    ok = bad = 0
-    if VENV.exists():
+    # Copie vandorée dans tools/ (fonctionne en CI), sinon install locale.
+    script = next((p for p in (ROOT / "tools/quick_validate.py",
+                                SC / "scripts/quick_validate.py")
+                   if p.exists()), None)
+    vp = validator_python()
+    if vp is None or script is None:
+        check("validateur skill-creator", True,
+              "SKIP — PyYAML ou validateur manquant (pip install pyyaml)")
+    else:
+        ok = bad = 0
         for d in sorted((PLUGIN / "skills").iterdir()):
             if not d.is_dir():
                 continue
-            rr = subprocess.run([str(VENV), str(SC / "scripts/quick_validate.py"),
-                                 str(d)], capture_output=True)
+            rr = subprocess.run([str(vp), str(script), str(d)],
+                                capture_output=True)
             ok, bad = (ok + 1, bad) if rr.returncode == 0 else (ok, bad + 1)
-    check("validateur skill-creator", bad == 0, f"{ok} OK / {bad} FAIL")
+        check("validateur skill-creator", bad == 0, f"{ok} OK / {bad} FAIL")
 
     # 5. anglais résiduel — TOUT l'arbre, pas seulement skills/
     # data-model.md est un dictionnaire de colonnes : les clés canoniques de

@@ -1,0 +1,37 @@
+name: Bug
+description: Quelque chose ne fonctionne pas (un skill, une commande, l'installation)
+labels: [bug]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version du plugin
+      placeholder: v1.1.0-fr.1
+    required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Où as-tu observé le problème ?
+      options:
+        - Claude Code
+        - Cowork
+        - Claude Desktop
+        - Chat web
+    required: true
+  - type: input
+    id: skill
+    attributes:
+      label: Skill / commande concernée
+      description: Ex. invoice-chase, /cloturer-mois, einvoice-readiness
+    required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: Que t'es-tu, et qu'est-il arrivé ?
+    required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportement attendu
+    required: false

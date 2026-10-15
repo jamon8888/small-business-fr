@@ -1,0 +1,29 @@
+name: Amélioration / demande
+description: Une idée d'amélioration ou un besoin manquant
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Besoin
+      description: Quel problème veux-tu résoudre, pour quelle situation concrete ?
+    required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Idée de solution
+      description: Optionnel — comment imagines-tu que le plugin devrait s'y prendre ?
+    required: false
+  - type: dropdown
+    id: domaine
+    attributes:
+      label: Domaine
+      options:
+        - Comptabilité / fiscalité
+        - Encaissement / clients
+        - Produits / stock
+        - Recrutement / paie
+        - Croissance / marketing
+        - Facturation électronique
+        - Autre
+    required: true
