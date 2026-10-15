@@ -15,7 +15,8 @@ description: >
 
 ## But
 Émission de devis, factures, avoirs, factures d'acompte.
-Pas de Factur-X en v1.
+Le Factur-X (e-facture) se prépare avec `einvoice-readiness` — ce skill
+n'émet que des documents classiques.
 
 ## Contrôles (mentions obligatoires)
 1. Numérotation continue : pas de trou, pas de doublon.

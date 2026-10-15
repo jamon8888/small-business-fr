@@ -34,7 +34,7 @@ TVA, Stock, Canaux de commande). Si absent : appeler smb-onboard.
 - « mes échéances », « le calendrier » → calendrier-fiscal-fr
 - « la liasse », « l'IS » → tax-prep
 - « mon dossier comptable » → dossier-expert-comptable
-- « facture électronique » → einvoice-readiness
+- « facture électronique », « Factur-X », « plateforme agréée », « PFP » → einvoice-readiness
 - « micro », « mon CA » → micro-entrepreneur
 - « paie », « variables de paie » → payroll-prep
 

@@ -16,7 +16,7 @@
 | Vices cachés | C. civ. 1641 et s. | 2026-10-14 |
 | Livraisons intracommunautaires, export | CGI 262 ter I, 262 I | 2026-10-14 |
 | REP (emballages, DEEE) | C. env. L541-10 et s. | 2026-10-14 |
-| Facturation électronique | Loi de finances 2024 | **à revérifier** |
+| Facturation électronique (réception 09/2026, émission 09/2027 PME) | LF 2024 + décrets ; impots.gouv.fr | 2026-10-15 |
 | Prospection B2B/B2C, CNIL | CPCE L34-5, RGPD | 2026-10-14 |
 | Bloctel | Bloctel | 2026-10-14 |
 | FEC | LPF L47 A | 2026-10-14 |

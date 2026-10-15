@@ -1,4 +1,4 @@
-# Jeu de routage FR — v1.0.0-fr.1
+# Jeu de routage FR — v1.1.0-fr.1
 
 ≥ 270 phrases. Seuils : 95 % sur phrases claires, 85 % sur ambiguës.
 
