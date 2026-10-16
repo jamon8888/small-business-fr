@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Briefing du pack — juin</title>
+<style>
+  :root{
+    --ink:#1a1d21; --muted:#6b7280; --line:#e5e7eb; --bg:#f7f8fa;
+    --card:#ffffff; --accent:#1f5eff; --good:#15803d; --warn:#b45309; --critical:#b91c1c;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+       font-variant-numeric:tabular-nums;padding:32px 16px}
+  .wrap{max-width:880px;margin:0 auto}
+  h1{font-size:22px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 24px}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:28px}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .tile .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .tile .value{font-size:22px;font-weight:650;margin-top:4px}
+  .tile .ctx{font-size:12px;color:var(--muted);margin-top:2px}
+  .tile .ctx .up{color:var(--good)} .tile .ctx .down{color:var(--critical)}
+  h2{font-size:15px;margin:28px 0 10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);
+        border-radius:10px;overflow:hidden;font-variant-numeric:tabular-nums}
+  th,td{text-align:right;padding:10px 14px;border-bottom:1px solid var(--line);font-size:14px}
+  th:first-child,td:first-child{text-align:left}
+  th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);background:#fafbfc}
+  tr:last-child td{border-bottom:none}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:12px}
+  .panel p{margin:0 0 12px}
+  .pulse .headline{font-weight:650}
+  ul.watch{list-style:none;margin:8px 0 0;padding:0}
+  ul.watch li{display:flex;gap:10px;align-items:baseline;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+  .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto;transform:translateY(1px)}
+  .dot.warn{background:var(--warn)} .dot.critical{background:var(--critical)}
+  .note{font-size:12px;color:var(--muted);margin-top:4px}
+  .files{display:flex;gap:12px;flex-wrap:wrap}
+  .file{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:14px}
+  .file b{display:block} .file span{color:var(--muted);font-size:12px}
+  .cadence{margin-top:28px;font-size:15px}
+  footer{margin-top:32px;padding-top:12px;border-top:1px solid var(--line);
+         font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Briefing du pack — juin</h1>
+  <p class="sub">Pack « Expert-comptable » · exécution sur définition enregistrée · lundi matin</p>
+
+  <div class="tiles">
+    <div class="tile"><div class="label">Trésorerie</div><div class="value">84 300 €</div>
+      <div class="ctx"><span class="down">−8,1 %</span> vs mai (91 750 €)</div></div>
+    <div class="tile"><div class="label">Chiffre d'affaires</div><div class="value">248 600 €</div>
+      <div class="ctx"><span class="up">+7,5 %</span> vs juin 2025 (231 200 €)</div></div>
+    <div class="tile"><div class="label">Créances clients</div><div class="value">312 400 €</div>
+      <div class="ctx">48 900 € échues · <span class="down">DSO 42 j</span></div></div>
+    <div class="tile"><div class="label">TVA nette</div><div class="value">17 270 €</div>
+      <div class="ctx">collectée 38 420 € / déductible 21 150 €</div></div>
+    <div class="tile"><div class="label">Marge brute</div><div class="value">34,2 %</div>
+      <div class="ctx"><span class="down">−0,8 pt</span> vs mai (35,0 %)</div></div>
+    <div class="tile"><div class="label">Carnet de commandes</div><div class="value">386 000 €</div>
+      <div class="ctx">≈ 1,6 mois de CA · <span class="up">+9,9 %</span></div></div>
+  </div>
+
+  <h2>Le pack</h2>
+  <table>
+    <tr><th>Indicateur</th><th>Juin</th><th>Référence</th><th>Variation</th></tr>
+    <tr><td>Trésorerie fin de mois</td><td>84 300 €</td><td>91 750 € (mai)</td><td>−8,1 %</td></tr>
+    <tr><td>Chiffre d'affaires</td><td>248 600 €</td><td>231 200 € (juin 2025)</td><td>+7,5 %</td></tr>
+    <tr><td>Créances clients</td><td>312 400 €</td><td>287 900 € (mai)</td><td>+8,5 %</td></tr>
+    <tr><td>Créances échues (&gt; 30 j)</td><td>48 900 €</td><td>33 200 € (mai)</td><td>+47,3 %</td></tr>
+    <tr><td>DSO / DPO / DIO</td><td>42 j / 38 j / 52 j</td><td>39 j / 37 j / 49 j (mai)</td><td>+3 / +1 / +3 j</td></tr>
+    <tr><td>TVA collectée</td><td>38 420 €</td><td>35 710 € (mai)</td><td>+7,3 %</td></tr>
+    <tr><td>TVA déductible</td><td>21 150 €</td><td>19 820 € (mai)</td><td>+6,7 %</td></tr>
+    <tr><td>TVA nette à décaisser</td><td>17 270 €</td><td>15 890 € (mai)</td><td>+8,7 %</td></tr>
+    <tr><td>Marge brute</td><td>34,2 %</td><td>35,0 % (mai)</td><td>−0,8 pt</td></tr>
+    <tr><td>Carnet de commandes</td><td>386 000 €</td><td>351 200 € (mai)</td><td>+9,9 %</td></tr>
+  </table>
+  <p class="note">TVA de juin transmise le 24/07. Deux factures &gt; 60 j : F-2391 (Bretagne Métal, 14 800 €) et F-2417 (SARL Fontenay, 6 500 €).</p>
+
+  <h2>Pouls — l'entreprise va-t-elle bien ?</h2>
+  <div class="panel pulse">
+    <p class="headline">Santé correcte : ventes +7,5 % sur un an, carnet qui couvre 1,6 mois, trésorerie à 84 300 €.
+    Une seule chose demande attention : 21 300 € sur deux factures de plus de 60 jours, à recouvrer avant le prochain gros décaissement.</p>
+    <ul class="watch">
+      <li><span class="dot critical"></span>SARL Fontenay — 6 500 €, 71 jours (F-2417)</li>
+      <li><span class="dot warn"></span>Bretagne Métal — 14 800 €, 63 jours (F-2391)</li>
+      <li><span class="dot warn"></span>Trésorerie sous le seuil de surveillance (85 000 €)</li>
+    </ul>
+  </div>
+
+  <h2>Livrables</h2>
+  <div class="files">
+    <div class="file"><b>report-pack-juin.xlsx</b><span>trésorerie · impayés · TVA · indicateurs · carnet</span></div>
+    <div class="file"><b>briefing-juin.html</b><span>ce briefing, lisible en une page</span></div>
+  </div>
+
+  <p class="cadence">Vous voulez ça tous les lundis matin ?</p>
+
+  <footer>Sources : logiciel comptable et CRM, export du mois de juin.</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+ "eval_id": 17,
+ "config": "without_skill",
+ "skill": "crm-autopilot",
+ "domain_passed": 1,
+ "domain_total": 3,
+ "behaviour_passed": 1,
+ "behaviour_total": 2,
+ "expectations": [
+  {
+   "text": "Enrichit avec le SIREN / données officielles",
+   "passed": false,
+   "weight": "domain",
+   "evidence": "pattern absent → FAIL"
+  },
+  {
+   "text": "Enregistre la forme juridique",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Applique le cadre RGPD au contact",
+   "passed": false,
+   "weight": "domain",
+   "evidence": "pattern absent → FAIL"
+  },
+  {
+   "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+   "passed": false,
+   "weight": "behaviour",
+   "evidence": "pattern absent → FAIL"
+  },
+  {
+   "text": "N'invente pas de source ou de référence spécifique",
+   "passed": true,
+   "weight": "behaviour",
+   "evidence": "pattern absent → PASS"
+  }
+ ]
+}

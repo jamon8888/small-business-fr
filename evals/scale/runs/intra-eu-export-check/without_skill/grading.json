@@ -1,0 +1,47 @@
+{
+ "eval_id": 27,
+ "config": "without_skill",
+ "skill": "intra-eu-export-check",
+ "domain_passed": 3,
+ "domain_total": 4,
+ "behaviour_passed": 1,
+ "behaviour_total": 2,
+ "expectations": [
+  {
+   "text": "Vérifie le n° de TVA intracommunautaire via VIES",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Pose la mention d'exonération",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Exige les preuves de transport",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Vérifie l'Incoterm / EORI si hors UE",
+   "passed": false,
+   "weight": "domain",
+   "evidence": "pattern absent → FAIL"
+  },
+  {
+   "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+   "passed": false,
+   "weight": "behaviour",
+   "evidence": "pattern absent → FAIL"
+  },
+  {
+   "text": "N'invente pas de source ou de référence spécifique",
+   "passed": true,
+   "weight": "behaviour",
+   "evidence": "pattern absent → PASS"
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+{
+ "eval_id": 3,
+ "config": "with_skill",
+ "skill": "ap-processor",
+ "domain_passed": 2,
+ "domain_total": 4,
+ "behaviour_passed": 2,
+ "behaviour_total": 2,
+ "expectations": [
+  {
+   "text": "Met en œuvre le rapprochement commande / réception / facture",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Traite la TVA déductible sur l'achat",
+   "passed": false,
+   "weight": "domain",
+   "evidence": "pattern absent → FAIL"
+  },
+  {
+   "text": "Ouvre un litige / avoir sur les 2 unités abîmées et l'excédent",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Impuie au plan comptable",
+   "passed": false,
+   "weight": "domain",
+   "evidence": "pattern absent → FAIL"
+  },
+  {
+   "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+   "passed": true,
+   "weight": "behaviour",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "N'invente pas de source ou de référence spécifique",
+   "passed": true,
+   "weight": "behaviour",
+   "evidence": "pattern absent → PASS"
+  }
+ ]
+}

@@ -17,8 +17,21 @@ description: >
 3. Clients dont les conditions dérogent à la grille : signalés.
 4. Simulation prix d'achat ou tarif.
 
+## Quand la marge bouge (changement de prix d'achat ou de tarif)
+1. Chiffrer l'impact : marge et taux de marge avant / après, avec l'ordre de
+   grandeur (ex. 33 % → 25 %) et le montant unitaire (ex. 8 € → 9 €).
+2. Proposer les leviers, classés par effort croissant :
+   - répercuter une partie du surcoût sur le prix de vente (revalorisation) ;
+   - renégocier le prix d'achat (volume, durée du contrat, fournisseur alternatif) ;
+   - réduire un autre poste (logistique, conditionnement, mix de produits) ;
+   - si aucun levier ne tient la marge cible, recommander d'arrêter ou de
+     déclasser la référence.
+3. Ne jamais recommander une hausse de prix de vente sans avoir d'abord posé
+   la renégociation fournisseur et la réduction de coût.
+
 ## Sorties
-Grilles par segment, tableau de marge, dérogations, calendrier annuel.
+Grilles par segment, tableau de marge, dérogations, calendrier annuel, et note
+de simulation d'impact avec les leviers chiffrés.
 
 ## Confidentialité
 Voir shared/commercial-confidentiality.md.

@@ -1,0 +1,907 @@
+{
+ "skill_name": "small-business-fr-scale",
+ "iteration": 1,
+ "note": "Évaluation de scale sur les 62 skills non couverts par le pilot (invoice-chase, close-month, tva-pilot). Un cas par skill, deux bras (with_skill / without_skill). Toutes les assertions sont déterministes (regex) : `assertions` = justesse métier (garde-fous de régression), `behaviour` = comportements qui distinguent le skill (non-action explicite, pas de source inventée). common_behaviour s'ajoute aux behaviour de chaque cas.",
+ "configurations": [
+  {
+   "config": "with_skill",
+   "label": "avec skill",
+   "runs": 62,
+   "domain": {
+    "passed": 196,
+    "total": 202
+   },
+   "behaviour": {
+    "passed": 70,
+    "total": 125
+   },
+   "mean_words": 887,
+   "per_eval": [
+    {
+     "eval_id": 1,
+     "skill": "ad-manager",
+     "words": 1838,
+     "domain": "3/3",
+     "behaviour": "2/2"
+    },
+    {
+     "eval_id": 2,
+     "skill": "aides-et-marches-fr",
+     "words": 1174,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 3,
+     "skill": "ap-processor",
+     "words": 751,
+     "domain": "2/4",
+     "behaviour": "2/2"
+    },
+    {
+     "eval_id": 4,
+     "skill": "b2b-stock-planner",
+     "words": 610,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 5,
+     "skill": "brand-style",
+     "words": 472,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 6,
+     "skill": "build-agent",
+     "words": 857,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 7,
+     "skill": "build-connector",
+     "words": 1117,
+     "domain": "3/3",
+     "behaviour": "2/2"
+    },
+    {
+     "eval_id": 8,
+     "skill": "business-pulse",
+     "words": 414,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 9,
+     "skill": "calendrier-fiscal-fr",
+     "words": 778,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 10,
+     "skill": "call-list",
+     "words": 837,
+     "domain": "3/3",
+     "behaviour": "2/2"
+    },
+    {
+     "eval_id": 11,
+     "skill": "canva-creator",
+     "words": 562,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 12,
+     "skill": "cash-flow-snapshot",
+     "words": 781,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 13,
+     "skill": "catalog-quote",
+     "words": 458,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 14,
+     "skill": "content-strategy",
+     "words": 1014,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 15,
+     "skill": "contract-review",
+     "words": 684,
+     "domain": "4/4",
+     "behaviour": "2/2"
+    },
+    {
+     "eval_id": 16,
+     "skill": "credit-desk",
+     "words": 569,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 17,
+     "skill": "crm-autopilot",
+     "words": 296,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 18,
+     "skill": "customer-reorder",
+     "words": 383,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 19,
+     "skill": "devis-facture-fr",
+     "words": 427,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 20,
+     "skill": "dossier-expert-comptable",
+     "words": 638,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 21,
+     "skill": "einvoice-readiness",
+     "words": 905,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 22,
+     "skill": "fulfillment-desk",
+     "words": 735,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 23,
+     "skill": "grow-pipeline",
+     "words": 835,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 24,
+     "skill": "growth-pulse",
+     "words": 719,
+     "domain": "2/2",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 25,
+     "skill": "hiring-screener",
+     "words": 1654,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 26,
+     "skill": "inbox-manager",
+     "words": 356,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 27,
+     "skill": "intra-eu-export-check",
+     "words": 668,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 28,
+     "skill": "inventory-planner",
+     "words": 898,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 29,
+     "skill": "job-post-builder",
+     "words": 974,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 30,
+     "skill": "lead-finder",
+     "words": 2582,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 31,
+     "skill": "lead-triage",
+     "words": 1759,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 32,
+     "skill": "marketing-monday",
+     "words": 1168,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 33,
+     "skill": "micro-entrepreneur",
+     "words": 915,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 34,
+     "skill": "monday-brief",
+     "words": 788,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 35,
+     "skill": "month-end-prep",
+     "words": 908,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 36,
+     "skill": "order-intake",
+     "words": 803,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 37,
+     "skill": "outreach-composer",
+     "words": 431,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 38,
+     "skill": "pay-the-bills",
+     "words": 340,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 39,
+     "skill": "payroll-prep",
+     "words": 742,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 40,
+     "skill": "pricing-desk",
+     "words": 969,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 41,
+     "skill": "product-compliance",
+     "words": 1061,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 42,
+     "skill": "proposal-builder",
+     "words": 838,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 43,
+     "skill": "purchase-desk",
+     "words": 623,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 44,
+     "skill": "quote-followup",
+     "words": 672,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 45,
+     "skill": "reactivate",
+     "words": 1331,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 46,
+     "skill": "renewal-watch",
+     "words": 1132,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 47,
+     "skill": "report-builder",
+     "words": 628,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 48,
+     "skill": "report-pack",
+     "words": 554,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 49,
+     "skill": "restock",
+     "words": 650,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 50,
+     "skill": "review-reputation",
+     "words": 526,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 51,
+     "skill": "seo-ai-visibility",
+     "words": 2742,
+     "domain": "3/3",
+     "behaviour": "2/2"
+    },
+    {
+     "eval_id": 52,
+     "skill": "smb-onboard",
+     "words": 921,
+     "domain": "2/3",
+     "behaviour": "1/3"
+    },
+    {
+     "eval_id": 53,
+     "skill": "smb-router",
+     "words": 621,
+     "domain": "3/3",
+     "behaviour": "2/2"
+    },
+    {
+     "eval_id": 54,
+     "skill": "social-content-engine",
+     "words": 1256,
+     "domain": "3/3",
+     "behaviour": "2/2"
+    },
+    {
+     "eval_id": 55,
+     "skill": "speed-to-lead",
+     "words": 831,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 56,
+     "skill": "stock-count-cutoff",
+     "words": 1104,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 57,
+     "skill": "tax-prep",
+     "words": 891,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 58,
+     "skill": "ticket-deflector",
+     "words": 1669,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 59,
+     "skill": "time-to-invoice",
+     "words": 735,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 60,
+     "skill": "verifier-tiers",
+     "words": 718,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 61,
+     "skill": "visit-report",
+     "words": 630,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 62,
+     "skill": "working-capital",
+     "words": 1062,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    }
+   ]
+  },
+  {
+   "config": "without_skill",
+   "label": "sans skill",
+   "runs": 62,
+   "domain": {
+    "passed": 175,
+    "total": 202
+   },
+   "behaviour": {
+    "passed": 63,
+    "total": 125
+   },
+   "mean_words": 963,
+   "per_eval": [
+    {
+     "eval_id": 1,
+     "skill": "ad-manager",
+     "words": 945,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 2,
+     "skill": "aides-et-marches-fr",
+     "words": 1579,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 3,
+     "skill": "ap-processor",
+     "words": 895,
+     "domain": "2/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 4,
+     "skill": "b2b-stock-planner",
+     "words": 322,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 5,
+     "skill": "brand-style",
+     "words": 672,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 6,
+     "skill": "build-agent",
+     "words": 670,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 7,
+     "skill": "build-connector",
+     "words": 668,
+     "domain": "1/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 8,
+     "skill": "business-pulse",
+     "words": 766,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 9,
+     "skill": "calendrier-fiscal-fr",
+     "words": 934,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 10,
+     "skill": "call-list",
+     "words": 913,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 11,
+     "skill": "canva-creator",
+     "words": 898,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 12,
+     "skill": "cash-flow-snapshot",
+     "words": 603,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 13,
+     "skill": "catalog-quote",
+     "words": 447,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 14,
+     "skill": "content-strategy",
+     "words": 829,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 15,
+     "skill": "contract-review",
+     "words": 808,
+     "domain": "3/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 16,
+     "skill": "credit-desk",
+     "words": 468,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 17,
+     "skill": "crm-autopilot",
+     "words": 454,
+     "domain": "1/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 18,
+     "skill": "customer-reorder",
+     "words": 354,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 19,
+     "skill": "devis-facture-fr",
+     "words": 696,
+     "domain": "3/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 20,
+     "skill": "dossier-expert-comptable",
+     "words": 638,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 21,
+     "skill": "einvoice-readiness",
+     "words": 1029,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 22,
+     "skill": "fulfillment-desk",
+     "words": 625,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 23,
+     "skill": "grow-pipeline",
+     "words": 847,
+     "domain": "3/3",
+     "behaviour": "2/2"
+    },
+    {
+     "eval_id": 24,
+     "skill": "growth-pulse",
+     "words": 640,
+     "domain": "2/2",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 25,
+     "skill": "hiring-screener",
+     "words": 1141,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 26,
+     "skill": "inbox-manager",
+     "words": 663,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 27,
+     "skill": "intra-eu-export-check",
+     "words": 890,
+     "domain": "3/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 28,
+     "skill": "inventory-planner",
+     "words": 449,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 29,
+     "skill": "job-post-builder",
+     "words": 420,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 30,
+     "skill": "lead-finder",
+     "words": 1731,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 31,
+     "skill": "lead-triage",
+     "words": 1106,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 32,
+     "skill": "marketing-monday",
+     "words": 1248,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 33,
+     "skill": "micro-entrepreneur",
+     "words": 1187,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 34,
+     "skill": "monday-brief",
+     "words": 761,
+     "domain": "3/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 35,
+     "skill": "month-end-prep",
+     "words": 1007,
+     "domain": "1/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 36,
+     "skill": "order-intake",
+     "words": 554,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 37,
+     "skill": "outreach-composer",
+     "words": 690,
+     "domain": "1/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 38,
+     "skill": "pay-the-bills",
+     "words": 690,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 39,
+     "skill": "payroll-prep",
+     "words": 536,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 40,
+     "skill": "pricing-desk",
+     "words": 1276,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 41,
+     "skill": "product-compliance",
+     "words": 1868,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 42,
+     "skill": "proposal-builder",
+     "words": 758,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 43,
+     "skill": "purchase-desk",
+     "words": 886,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 44,
+     "skill": "quote-followup",
+     "words": 1087,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 45,
+     "skill": "reactivate",
+     "words": 2014,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 46,
+     "skill": "renewal-watch",
+     "words": 1217,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 47,
+     "skill": "report-builder",
+     "words": 2037,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 48,
+     "skill": "report-pack",
+     "words": 1423,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 49,
+     "skill": "restock",
+     "words": 614,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 50,
+     "skill": "review-reputation",
+     "words": 1419,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 51,
+     "skill": "seo-ai-visibility",
+     "words": 1243,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 52,
+     "skill": "smb-onboard",
+     "words": 1544,
+     "domain": "2/3",
+     "behaviour": "1/3"
+    },
+    {
+     "eval_id": 53,
+     "skill": "smb-router",
+     "words": 1200,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 54,
+     "skill": "social-content-engine",
+     "words": 959,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 55,
+     "skill": "speed-to-lead",
+     "words": 867,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 56,
+     "skill": "stock-count-cutoff",
+     "words": 1644,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 57,
+     "skill": "tax-prep",
+     "words": 1824,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 58,
+     "skill": "ticket-deflector",
+     "words": 987,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 59,
+     "skill": "time-to-invoice",
+     "words": 840,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 60,
+     "skill": "verifier-tiers",
+     "words": 887,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 61,
+     "skill": "visit-report",
+     "words": 537,
+     "domain": "4/4",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 62,
+     "skill": "working-capital",
+     "words": 1801,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    }
+   ]
+  }
+ ]
+}

@@ -121,6 +121,13 @@ Structure :
 5. **Faites ces trois choses cette semaine** — exactement trois, classées par
    taille d'impact
 
+> **SEO local (brique obligatoire du plan) :** le brief réserve toujours une
+> place au SEO local — fiches Google Business (notes, photos, réponses d'avis)
+> et les actions locales de la semaine (maillage local, actualisation de la
+> fiche). Un plan de semaine sans aucune brique SEO local est incomplet, même
+> si le budget est mince ; c'est la brique à faible coût qui maintient la
+> visibilité de proximité.
+
 Chaque action a besoin de quoi faire, du chiffre de ce brief qui la justifie, et
 de ce qu'elle vaut à peu près. Classer par impact, pas par facilité — le dirigeant
 peut juger ce qui est facile ; seul le brief peut dire ce qui est gros.

@@ -1,0 +1,150 @@
+[
+  {
+    "skill": "crm-autopilot",
+    "prompt": "Nouveau prospect : Boulangerie Martin, 2 salariés, SAS, contact m.martin@martin-boulangerie.fr. Ajoute-le au CRM.",
+    "assertions": [
+      {"text": "Enrichit avec le SIREN / données officielles", "pattern": "(SIREN|recherche|API Recherche)"},
+      {"text": "Enregistre la forme juridique", "pattern": "(SAS|forme juridique)"},
+      {"text": "Applique le cadre RGPD au contact", "pattern": "(RGPD|base légale|consentement)"}
+    ]
+  },
+  {
+    "skill": "customer-reorder",
+    "prompt": "Le client Dupont commande tous les ~30 jours. Sa dernière commande date de 45 jours. Prépare le message de réassort.",
+    "assertions": [
+      {"text": "Raisonne en cycle / intervalle médian de commande", "pattern": "(intervalle|médian|cycle|fréquence)"},
+      {"text": "Identifie le client comme en retard sur son cycle", "pattern": "(45|30 jours|en retard|décalé)"},
+      {"text": "Prépare un message personnalisé (sans l'envoyer)", "pattern": "(brouillon|prépar|message|rédig)"}
+    ]
+  },
+  {
+    "skill": "devis-facture-fr",
+    "prompt": "Émets un devis : 3 jours d'intervention à 650 €/jour, client SIREN 512 384 762, TVA 20 %. Quelles mentions obligatoires porter le document ?",
+    "assertions": [
+      {"text": "Mentionne le SIREN du client", "pattern": "(SIREN)"},
+      {"text": "Mentionne la TVA", "pattern": "(TVA|20 ?%)"},
+      {"text": "Mentionne pénalités de retard et indemnité forfaitaire de 40 €", "pattern": "(pénalit|40 ?€|forfaitaire)"},
+      {"text": "Mentionne conditions d'escompte / délai de paiement", "pattern": "(escompte|conditions de paiement|délai de paiement)"}
+    ]
+  },
+  {
+    "skill": "dossier-expert-comptable",
+    "prompt": "L'expert-comptable demande la clôture de juin. J'ai le relevé bancaire et 2 factures fournisseurs. Qu'est-ce qui manque et qu'est-ce qu'on lui envoie ?",
+    "assertions": [
+      {"text": "Liste les pièces manquantes", "pattern": "(manquant|pièces? (à |que )?(joindre|fournir)|il (me )?manque)"},
+      {"text": "Prépare des relances pré-rédigées", "pattern": "(relance|rappel|pré-rédig)"},
+      {"text": "Daté le paquet envoyé", "pattern": "(daté|date|paquet|dossier)"}
+    ]
+  },
+  {
+    "skill": "einvoice-readiness",
+    "prompt": "SARL de 4 salariés, je suis sur Qonto, et je facture quelques clients du secteur public. Suis-je prêt pour la facturation électronique ?",
+    "assertions": [
+      {"text": "Vérifie la plateforme agréée (PA)", "pattern": "(plateforme agréée|\\bPA\\b)"},
+      {"text": "Vérifie la capacité de réception", "pattern": "(réception)"},
+      {"text": "Traite le circuit public (PFP / Chorus)", "pattern": "(PFP|portail public|Chorus|secteur public)"},
+      {"text": "Situe l'entreprise dans le calendrier (2026 / 2027)", "pattern": "(2026|2027|septembre|échéance)"}
+    ]
+  },
+  {
+    "skill": "fulfillment-desk",
+    "prompt": "3 commandes à expédier aujourd'hui : Paris sous 24 h, Lyon, et une en Belgique. Prépare l'expédition.",
+    "assertions": [
+      {"text": "Génère les bons de préparation", "pattern": "(bon de préparation|préparation)"},
+      {"text": "Génère les bons de livraison", "pattern": "(BL|bon de livraison)"},
+      {"text": "Choisit le transporteur / mode d'envoi", "pattern": "(transporteur|colis|courrier)"},
+      {"text": "Prévoit le suivi", "pattern": "(suivi|tracking|numéro de suivi)"}
+    ]
+  },
+  {
+    "skill": "grow-pipeline",
+    "prompt": "Mon pipeline est à l'arrêt : 6 opportunités pour 42 000 €, rien de nouveau depuis 3 semaines. Que faire cette semaine ?",
+    "assertions": [
+      {"text": "Diagnostic du pipeline (pistes, opportunités)", "pattern": "(pipeline|opportunités?|prospect)"},
+      {"text": "Planifie des relances", "pattern": "(relance|recycl|nourrir|rallumer)"},
+      {"text": "Relie au prévisionnel", "pattern": "(prévision|forecast|objectif)"}
+    ]
+  },
+  {
+    "skill": "growth-pulse",
+    "prompt": "Mes ventes : avril 41 k, mai 39 k, juin 44 k, juillet 40 k. Le moteur de croissance fonctionne ?",
+    "assertions": [
+      {"text": "Analyse la tendance des ventes", "pattern": "(tendance|variabilité|stable|moyenne)"},
+      {"text": "Répond à la question « le moteur fonctionne-t-il »", "pattern": "(croissance|moteur|accélér|ralentiss)"}
+    ]
+  },
+  {
+    "skill": "hiring-screener",
+    "prompt": "14 CV pour un poste de commercial. Comment faire la présélection sans risque de discrimination ?",
+    "assertions": [
+      {"text": "Applique les critères de non-discrimination", "pattern": "(discrimination|non-discrimination)"},
+      {"text": "Travaille sur les CV / candidatures", "pattern": "(CV|candidats?|dossier)"},
+      {"text": "Utilise une grille / checklist objective", "pattern": "(critère|grille|checklist|objectiv)"}
+    ]
+  },
+  {
+    "skill": "inbox-manager",
+    "prompt": "23 e-mails non lus : 3 ressemblent à des commandes clients, 2 sont des factures fournisseurs, 19 du bruit. Trie-les.",
+    "assertions": [
+      {"text": "Détecte les commandes clients", "pattern": "(commande|clients?)"},
+      {"text": "Détecte les factures fournisseurs", "pattern": "(facture|fournisseur)"},
+      {"text": "Route vers les bons skills (order-intake / ap-processor)", "pattern": "(rout|order-intake|ap-processor|tri)"}
+    ]
+  },
+  {
+    "skill": "intra-eu-export-check",
+    "prompt": "Première vente intracommunautaire : client allemand, 7 800 €. Que vérifier avant de facturer ?",
+    "assertions": [
+      {"text": "Vérifie le n° de TVA intracommunautaire via VIES", "pattern": "(VIES)"},
+      {"text": "Pose la mention d'exonération", "pattern": "(exonér|intracommunautaire)"},
+      {"text": "Exige les preuves de transport", "pattern": "(preuve|transport|livraison|colis)"},
+      {"text": "Vérifie l'Incoterm / EORI si hors UE", "pattern": "(Incoterm|EORI)"}
+    ]
+  },
+  {
+    "skill": "inventory-planner",
+    "prompt": "Réf 45 : 120 en stock, 40 vendus le mois dernier, 25 au carnet, délai fournisseur 3 semaines. Quand suis-je en rupture, et qu'est-ce que je commande ?",
+    "assertions": [
+      {"text": "Calcule la vitesse de vente / couverture", "pattern": "(vitesse de vente|couvre|jours de stock|rotation)"},
+      {"text": "Datée la date de rupture", "pattern": "(rupture|épuis|tombe à|en stock jusqu|s'en iront)"},
+      {"text": "Propose une quantité à commander", "pattern": "(commander|réappro|quantité)"}
+    ]
+  },
+  {
+    "skill": "job-post-builder",
+    "prompt": "Rédige une offre d'emploi : magasinier, CDI, convention collective transport, 28 000 € brut par an, basé à Aix.",
+    "assertions": [
+      {"text": "Précise le type de contrat CDI", "pattern": "(CDI)"},
+      {"text": "Cite la convention collective", "pattern": "(convention collective|transport)"},
+      {"text": "Donne la rémunération brute annuelle", "pattern": "(28 ?000|brut|annuel)"},
+      {"text": "Porte la mention H/F", "pattern": "(H/?F|feminin|masculin)"}
+    ]
+  },
+  {
+    "skill": "lead-finder",
+    "prompt": "Trouve-moi 20 revendeurs informatique à Marseille, 1 à 10 salariés.",
+    "assertions": [
+      {"text": "S'appuie sur les bases officielles (Sirene / Pappers / API Recherche d'entreprises)", "pattern": "(Sirene|Pappers|API Recherche d'?entreprises)"},
+      {"text": "Cible par code NAF", "pattern": "(NAF|code NAF)"},
+      {"text": "Filtre par effectif", "pattern": "(effectif|salariés?|1 à 10)"}
+    ]
+  },
+  {
+    "skill": "lead-triage",
+    "prompt": "Lead entrant : « merci de me rappeler ». Comment le qualifier, et quand l'appeler ?",
+    "assertions": [
+      {"text": "Vérifie Bloctel avant l'appel B2C", "pattern": "(Bloctel)"},
+      {"text": "Vérifie jours fériés / horaires", "pattern": "(férié|jour férié|horaires|plage)"},
+      {"text": "Qualifie le lead (besoin, budget, timing)", "pattern": "(qualif|qualification|besoin|budget)"}
+    ]
+  },
+  {
+    "skill": "marketing-monday",
+    "prompt": "Lundi, planifie le marketing de la semaine. Budget 200 €.",
+    "assertions": [
+      {"text": "Planifie par jour de la semaine", "pattern": "(semaine|lundi|mardi|mercredi|jeudi|vendredi|jour)"},
+      {"text": "Inclut la pub payante (Meta / Google)", "pattern": "(Meta|Google Ads|publicité|pubs)"},
+      {"text": "Inclut le SEO local", "pattern": "(SEO|local|fiches|Google Business)"}
+    ]
+  }
+]

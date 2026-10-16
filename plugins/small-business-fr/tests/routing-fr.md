@@ -1,6 +1,4 @@
-# Jeu de routage FR — v1.1.0-fr.1
-
-≥ 270 phrases. Seuils : 95 % sur phrases claires, 85 % sur ambiguës.
+# Jeu de routage FR — v1.1.1-fr.1 270 phrases. Seuils : 95 % sur phrases claires, 85 % sur ambiguës.
 
 ## invoice-chase
 qui me doit de l'argent / j'ai des impayés / relance mes mauvais payeurs /

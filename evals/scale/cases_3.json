@@ -1,0 +1,151 @@
+[
+  {
+    "skill": "micro-entrepreneur",
+    "prompt": "Micro-entrepreneur en services : 7 200 € de CA au 1er trimestre, 8 100 € au 2e. À quoi dois-je faire attention ?",
+    "assertions": [
+      {"text": "Surveille le plafond de chiffre d'affaires", "pattern": "(plafond|seuil)"},
+      {"text": "Rappelle la déclaration URSSAF", "pattern": "(URSSAF|déclaration|trimestrielle)"},
+      {"text": "Surveille le seuil de TVA", "pattern": "(TVA|franchise en base|assujettis)"}
+    ]
+  },
+  {
+    "skill": "monday-brief",
+    "prompt": "Brief du lundi, s'il te plaît.",
+    "assertions": [
+      {"text": "Synthétise la trésorerie", "pattern": "(trésorerie|cash)"},
+      {"text": "Liste les échéances de la semaine", "pattern": "(échéance|échéances)"},
+      {"text": "Montre les impayés", "pattern": "(impayé|encours)"},
+      {"text": "Donne les actions à mener", "pattern": "(action|à (faire|mener)|priorité)"}
+    ]
+  },
+  {
+    "skill": "month-end-prep",
+    "prompt": "Clôture de juin : 3 opérations bancaires non imputées, dont un virement de 3 400 € qui regroupe 4 paiements clients. Que faire ?",
+    "assertions": [
+      {"text": "Rapproche la banque du grand livre", "pattern": "(rapprochement|imput|banque.{0,20}(grand livre|compta))"},
+      {"text": "Lettre / désagrège le virement groupé", "pattern": "(lettrage|désagrég|ventil)"},
+      {"text": "Applique le cut-off (FAE / FNP)", "pattern": "(FAE|FNP|cut-?off|créos)"}
+    ]
+  },
+  {
+    "skill": "order-intake",
+    "prompt": "E-mail client : « 50 unités réf 12 à 11 € pièce, livraison le 15 ». La grille indique 12 €. Mets en forme la commande.",
+    "assertions": [
+      {"text": "Produit un brouillon de commande contrôlé", "pattern": "(brouillon|draft|contrôlée?)"},
+      {"text": "Contrôle le prix contre la grille", "pattern": "(grille|tarif|12 ?€)"},
+      {"text": "Signale l'écart de prix 11 € / 12 €", "pattern": "(écart|différence|11 ?€|prix)"},
+      {"text": "Contrôle la condition de livraison", "pattern": "(livraison|le 15|conditions)"}
+    ]
+  },
+  {
+    "skill": "outreach-composer",
+    "prompt": "Rédige un 1er e-mail de prospection B2B envoyé à une adresse pro d'entreprise.",
+    "assertions": [
+      {"text": "Pose la base légale (intérêt légitime)", "pattern": "(intérêt légitime)"},
+      {"text": "Donne le droit d'opposition / désinscription", "pattern": "(opposition|désinscription|se désabonner)"},
+      {"text": "Respecte le cadre RGPD / CNIL", "pattern": "(RGPD|CNIL)"}
+    ]
+  },
+  {
+    "skill": "pay-the-bills",
+    "prompt": "3 factures fournisseurs à payer : 1 240 €, 890 € et 2 310 €. Prépare le règlement.",
+    "assertions": [
+      {"text": "Vérifie les coordonnées bancaires", "pattern": "(IBAN|coordonnées bancaires|rIB)"},
+      {"text": "Prépare un virement groupé", "pattern": "(virement groupé|lot|groupé)"},
+      {"text": "Passe par la banque (Qonto)", "pattern": "(Qonto|banque)"}
+    ]
+  },
+  {
+    "skill": "payroll-prep",
+    "prompt": "Variables de paie de juillet : un salarié à 150 h a travaillé 158 h, 2 jours de congés payés, 10 jours de titres-restaurant. Prépare l'export.",
+    "assertions": [
+      {"text": "Porte les heures travaillées (158 / 150)", "pattern": "(158|150|heures)"},
+      {"text": "Porte les congés payés", "pattern": "(congé(s)? payé(s)?|\\bCP\\b)"},
+      {"text": "Porte les titres-restaurant", "pattern": "(titres?-?restaurant)"},
+      {"text": "Prépare l'export vers l'outil de paie", "pattern": "(Payfit|Silae|export)"}
+    ]
+  },
+  {
+    "skill": "pricing-desk",
+    "prompt": "Mon fournisseur augmente le prix d'achat de la réf 120 de 8 € à 9 €. Je vends à 12 €. Quel est l'impact sur ma marge, et que faire ?",
+    "assertions": [
+      {"text": "Calcule la marge avant / après", "pattern": "(marge|taux de marge)"},
+      {"text": "Simule l'impact chiffré", "pattern": "(simulation|impact|passe|devient)"},
+      {"text": "Donne un ordre de grandeur (33 % → 25 %)", "pattern": "(33 ?%|25 ?%|8 ?€|9 ?€)"},
+      {"text": "Propose des leviers (revalorisation, renégociation…)", "pattern": "(augmenter|revaloris|répercut|renégocier)"}
+    ]
+  },
+  {
+    "skill": "product-compliance",
+    "prompt": "Je vends une enceinte Bluetooth importée de Chine en France. Quelles conformités vérifier ?",
+    "assertions": [
+      {"text": "Vérifie le marquage CE", "pattern": "(CE|marquage)"},
+      {"text": "Vérifie REACH / FDS", "pattern": "(REACH|FDS|fiche de données de sécurité)"},
+      {"text": "Vérifie DEEE / éco-organisme / emballages", "pattern": "(DEEE|éco-?organisme|WEEE|emballages?)"}
+    ]
+  },
+  {
+    "skill": "proposal-builder",
+    "prompt": "Entretien de découverte fait : audit de 2 jours + 1 mois d'accompagnement, 3 points mensuels. Construis le devis de prestation.",
+    "assertions": [
+      {"text": "Structure en jalons / livrables / forfait", "pattern": "(jalon|livrable|forfait)"},
+      {"text": "Porte les mentions légales FR", "pattern": "(mentions? légales|CGV|conditions)"},
+      {"text": "Produit le devis", "pattern": "(devis|chiffr)"}
+    ]
+  },
+  {
+    "skill": "purchase-desk",
+    "prompt": "BC 2026-045 pour 500 unités : 490 reçues, 10 abîmées. Traite la réception.",
+    "assertions": [
+      {"text": "S'appuie sur le bon de commande", "pattern": "(BC|bon de commande)"},
+      {"text": "Ouvre un litige sur les avaries", "pattern": "(avaries?|abîm|litige|réclamation)"},
+      {"text": "Fait le rapprochement à trois voies", "pattern": "(rapprochement|3 (voies|volets)|commande.{0,25}réception)"}
+    ]
+  },
+  {
+    "skill": "quote-followup",
+    "prompt": "4 devis ouverts : 12 400 € (21 jours), 3 900 € (8 jours), 8 200 € (35 jours, expire dans 2 jours), 1 500 € (3 jours). Par quoi je commence ?",
+    "assertions": [
+      {"text": "Classe par ancienneté", "pattern": "(ancienneté|jours)"},
+      {"text": "Classe par montant", "pattern": "(montant|12 ?400|8 ?200)"},
+      {"text": "Gère les devis en cours d'expiration", "pattern": "(expir|expire)"},
+      {"text": "Propose une relance par étape", "pattern": "(relance|rappel|étape)"}
+    ]
+  },
+  {
+    "skill": "reactivate",
+    "prompt": "14 clients sans commande depuis plus de 6 mois, 58 000 € d'achat cumulé. Réactive-les.",
+    "assertions": [
+      {"text": "Cible les clients inactifs", "pattern": "(inactif|dormant|6 mois)"},
+      {"text": "Segmente / priorise le portefeuille", "pattern": "(segment|prioris|tri|cœur)"},
+      {"text": "Prépare la campagne de réactivation", "pattern": "(message|campagne|e-mail|relance)"}
+    ]
+  },
+  {
+    "skill": "renewal-watch",
+    "prompt": "3 contrats : SaaS A se renouvelle le 31 décembre, préavis 30 jours (côté client). Assurance le 1er mars, préavis 60 jours (côté fournisseur). Nous sommes en septembre. Que surveiller ?",
+    "assertions": [
+      {"text": "Calcule dates de reconduction et préavis", "pattern": "(préavis|reconduction|résiliation)"},
+      {"text": "Donne la date limite de résiliation effective", "pattern": "(date limite|avant le|au plus tard)"},
+      {"text": "Planifie l'alerte avant l'échéance", "pattern": "(alerte|échéance|délai)"}
+    ]
+  },
+  {
+    "skill": "report-builder",
+    "prompt": "Construis mon tableau de bord mensuel.",
+    "assertions": [
+      {"text": "Inclus la trésorerie", "pattern": "(trésorerie|cash)"},
+      {"text": "Inclus DSO / DPO / DIO", "pattern": "(DSO|DPO|DIO)"},
+      {"text": "Inclus marges / impayés / TVA", "pattern": "(marge (par |par client)|impayés?|TVA)"}
+    ]
+  },
+  {
+    "skill": "report-pack",
+    "prompt": "Assemble le pack de rapports de juin pour l'expert-comptable.",
+    "assertions": [
+      {"text": "Assemble le pack / dossier", "pattern": "(pack|ensemble|dossier)"},
+      {"text": "Couvre trésorerie / impayés / TVA", "pattern": "(trésorerie|impayés?|TVA)"},
+      {"text": "Daté le livrable", "pattern": "(daté|date|juin)"}
+    ]
+  }
+]

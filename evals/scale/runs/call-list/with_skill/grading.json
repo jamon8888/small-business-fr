@@ -1,0 +1,41 @@
+{
+ "eval_id": 10,
+ "config": "with_skill",
+ "skill": "call-list",
+ "domain_passed": 3,
+ "domain_total": 3,
+ "behaviour_passed": 2,
+ "behaviour_total": 2,
+ "expectations": [
+  {
+   "text": "Vérifie Bloctel avant les appels B2C",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Vérifie les jours fériés / week-end",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Distingue particuliers et professionnels dans le traitement",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+   "passed": true,
+   "weight": "behaviour",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "N'invente pas de source ou de référence spécifique",
+   "passed": true,
+   "weight": "behaviour",
+   "evidence": "pattern absent → PASS"
+  }
+ ]
+}

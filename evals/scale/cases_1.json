@@ -1,0 +1,151 @@
+[
+  {
+    "skill": "ad-manager",
+    "prompt": "Voici mes pubs TikTok de juin : 3 campagnes, 4 200 € de dépensé, 310 clics, 41 leads, 3 affaires signées pour 6 400 €. Dis-moi ce que je corrige avant de remettre de l'argent.",
+    "assertions": [
+      {"text": "Calcule un coût par lead ou par action", "pattern": "(coût par (lead|contact|action|clic)|CPA|CPL|CPC|CTR|taux de clic)"},
+      {"text": "Hiérarchise les campagnes et propose une réallocation", "pattern": "(meilleure|pire|redirige|pause|coup|arrê|budget vers|réall)"},
+      {"text": "Raisonne en coût d'acquisition / rentabilité", "pattern": "(ROI|ROAS|coût d'?acquisition|rentable)"}
+    ]
+  },
+  {
+    "skill": "aides-et-marches-fr",
+    "prompt": "SAS de 3 personnes, 2 ans, dans l'informatique à Lyon. Quelles aides pourraient nous parler, et où veiller les marchés publics ?",
+    "assertions": [
+      {"text": "Évoque le statut JEI", "pattern": "(JEI|jeune entreprise innovante)"},
+      {"text": "Évoque le CIR", "pattern": "(CIR|crédit d'?impôt (de )?recherche)"},
+      {"text": "Nomme les portails de marchés publics", "pattern": "(BOAMP|PLACE|TED|marchés? publics)"}
+    ]
+  },
+  {
+    "skill": "ap-processor",
+    "prompt": "Facture fournisseur n° 2026-118 : 3 480 € TTC pour 120 unités de l'article 55. J'ai commandé 100, reçu 118 dont 2 abîmées. Que faire avant de payer ?",
+    "assertions": [
+      {"text": "Met en œuvre le rapprochement commande / réception / facture", "pattern": "(rapprochement|3 (voies|volets)|commande.{0,30}réception|litige)"},
+      {"text": "Traite la TVA déductible sur l'achat", "pattern": "(TVA (déductible|sur (les |l'?)(achat|facture))|crédit de TVA)"},
+      {"text": "Ouvre un litige / avoir sur les 2 unités abîmées et l'excédent", "pattern": "(avoir|réclamation|avarié|avaries|litige)"},
+      {"text": "Impuie au plan comptable", "pattern": "(PCG|imputation|compte 6)"}
+    ]
+  },
+  {
+    "skill": "b2b-stock-planner",
+    "prompt": "Carnet pour le mois prochain : ligne A 40 unités, B 15, C 60. Pipeline : 2 affaires A en négociation (70 %), 1 B (30 %). Réassort 3 semaines. Ventes historiques : A 30/mois, B 12, C 55. Qu'est-ce que je commande ?",
+    "assertions": [
+      {"text": "Pondère le pipeline par probabilité", "pattern": "(pondéré|pondérage|probabilité|taux de (conversion|fermeture))"},
+      {"text": "Classe les lignes par priorité (logique ABC)", "pattern": "(ABC|classement|priorité|prioris)"},
+      {"text": "Intègre le délai de réassort de 3 semaines", "pattern": "(délai (d'?approvisionnement|de réassort|réassort)|3 semaines|lead ?time)"}
+    ]
+  },
+  {
+    "skill": "brand-style",
+    "prompt": "Je veux fixer mon identité visuelle et le format de tous les livrables que tu produiras : couleurs, logo, ton. Dis-moi ce qu'il me faut te donner.",
+    "assertions": [
+      {"text": "Demande les couleurs / palette", "pattern": "(couleur|palette|teinte|#)"},
+      {"text": "Demande le logo", "pattern": "(logo)"},
+      {"text": "Fixe un format de livrable", "pattern": "(format|modèle|template|livrable|document)"}
+    ]
+  },
+  {
+    "skill": "build-agent",
+    "prompt": "Chaque vendredi j'exporte mes ventes Shopify et je calcule les marges à la main. Je veux automatiser ça. Comment on transforme ça en skill nommé ?",
+    "assertions": [
+      {"text": "Cadre la création d'un skill réutilisable", "pattern": "(skill|automatisation|automatis|planif|récurrent)"},
+      {"text": "Prévoit un déclencheur (nom ou horaire)", "pattern": "(déclencher|trigger|nommer|par son nom|horaire|planifié)"},
+      {"text": "Demande le détail des étapes / données de la tâche", "pattern": "(étapes|détails|quelles données|quoi exactement|comment tu le fais)"}
+    ]
+  },
+  {
+    "skill": "build-connector",
+    "prompt": "Je suis sur Sage 100 en compta et il n'y a pas de connecteur. Comment faire arriver mes données mensuelles dans le plugin ?",
+    "assertions": [
+      {"text": "Propose de vérifier l'annuaire des connecteurs", "pattern": "(annuaire|catalogue (de |des )?connecteurs)"},
+      {"text": "Propose le relais Zapier", "pattern": "(Zapier)"},
+      {"text": "Propose un export de fichiers", "pattern": "(export|CSV|fichier)"}
+    ]
+  },
+  {
+    "skill": "business-pulse",
+    "prompt": "Donne-moi le pouls de l'entreprise pour le mois en cours.",
+    "assertions": [
+      {"text": "Couvre la trésorerie", "pattern": "(trésorerie|cash|banque)"},
+      {"text": "Couvre les impayés / encours", "pattern": "(impayés|encours|créances|retards de paiement)"},
+      {"text": "Couvre les indicateurs du mois (TVA, échéances, marges, DSO…)", "pattern": "(DSO|DPO|DIO|marge|échéances|TVA)"}
+    ]
+  },
+  {
+    "skill": "calendrier-fiscal-fr",
+    "prompt": "SARL au réel, exercice 2026. Quelles sont mes principales échéances fiscales et sociales à venir ?",
+    "assertions": [
+      {"text": "Évoque les déclarations de TVA", "pattern": "(CA ?3|CA ?12|déclaration de TVA)"},
+      {"text": "Évoque les acomptes d'IS", "pattern": "(acompte(s)? (d'?IS|IS)|impôt sur (les )?sociétés)"},
+      {"text": "Évoque CFE / taxe d'apprentissage / URSSAF / liasse", "pattern": "(CFE|taxe d'?apprentissage|URSSAF|liasse)"},
+      {"text": "Donne des dates réelles (mois nommés)", "pattern": "(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)"}
+    ]
+  },
+  {
+    "skill": "call-list",
+    "prompt": "Prépare ma liste d'appels du jour : 12 prospects dont 8 sont des particuliers.",
+    "assertions": [
+      {"text": "Vérifie Bloctel avant les appels B2C", "pattern": "(Bloctel)"},
+      {"text": "Vérifie les jours fériés / week-end", "pattern": "(férié|jour férié|week-?end|samedi|dimanche)"},
+      {"text": "Distingue particuliers et professionnels dans le traitement", "pattern": "(particulier|consommateur|B2C|privé)"}
+    ]
+  },
+  {
+    "skill": "canva-creator",
+    "prompt": "Brief approuvé : 3 posts Instagram pour la vente d'été, -20 % du 1er au 15 juillet. Exécute la campagne.",
+    "assertions": [
+      {"text": "Construit le calendrier de publication", "pattern": "(calendrier|planif|publication|poster)"},
+      {"text": "Génère ou planifie les designs Canva", "pattern": "(Canva|design|visuel|visuels)"},
+      {"text": "Respecte les éléments du brief (-20 %, 1er-15 juillet)", "pattern": "(- ?20 ?%|vente d'?été|15 juillet|1er juillet)"}
+    ]
+  },
+  {
+    "skill": "cash-flow-snapshot",
+    "prompt": "Cash en banque : 18 400 €. Encaissements attendus : 9 200 € ce mois, 14 600 € le mois prochain. Décaissements : salaires 7 800 €/mois, TVA 2 150 € en septembre, fournisseur 6 300 € dans 30 jours. Où en serai-je dans 90 jours ?",
+    "assertions": [
+      {"text": "Projette sur 30 / 60 / 90 jours", "pattern": "(30 ?jours|60 ?jours|90 ?jours)"},
+      {"text": "Liste les encaissements attendus", "pattern": "(encaissement|encaisse)"},
+      {"text": "Liste les décaissements", "pattern": "(décaissement|décaisse|sortie)"},
+      {"text": "Donne un solde projeté", "pattern": "(solde|trésorerie|serai-?je|il me reste)"}
+    ]
+  },
+  {
+    "skill": "catalog-quote",
+    "prompt": "Devis à chiffrer : 250 unités réf 120 à 12 € l'unité et 100 unités réf 88 à 7,50 €, client à Nantes. Grille : -10 % dès 200 unités, -5 % dès 100. Chiffre le devis et ma marge.",
+    "assertions": [
+      {"text": "Applique les paliers de la grille tarifaire", "pattern": "(palier|seuil|barème|dès 200)"},
+      {"text": "Applique les remises", "pattern": "(remise|- ?10 ?%|- ?5 ?%|remis)"},
+      {"text": "Traite les frais de port / franco", "pattern": "(port|frais de (port|livraison)|franco)"},
+      {"text": "Calcule la marge", "pattern": "(marge|taux de marge)"}
+    ]
+  },
+  {
+    "skill": "content-strategy",
+    "prompt": "Mes marges : 31 % sur les services, 18 % sur les produits. Sur quoi je dois concentrer le contenu ?",
+    "assertions": [
+      {"text": "S'appuie sur la marge lue dans le grand livre", "pattern": "(marge|31 ?%|18 ?%)"},
+      {"text": "Nomme la définition de la marge (taux de marque ou taux de marge)", "pattern": "(taux de (marge|marque))"},
+      {"text": "Décline des axes de stratégie", "pattern": "(stratégie|axe|pilier|prioris|centrer|concentrer)"}
+    ]
+  },
+  {
+    "skill": "contract-review",
+    "prompt": "Le contrat client prévoit un préavis de 1 mois pour lui et 12 mois pour moi. Y a-t-il un problème de droit ?",
+    "assertions": [
+      {"text": "Qualifie l'asymétrie au regard du déséquilibre significatif", "pattern": "(déséquilibre significatif)"},
+      {"text": "Évoque la rupture brutale de relation commerciale", "pattern": "(rupture brutale)"},
+      {"text": "Quantifie l'écart de préavis", "pattern": "(asymétr|asymétrie|12 mois|1 mois|préavis)"},
+      {"text": "Cite le fondement (Code de commerce)", "pattern": "(C\\. ?com|L ?442|L ?441)"}
+    ]
+  },
+  {
+    "skill": "credit-desk",
+    "prompt": "Client X : 8 900 € de factures ouvertes et 2 000 € de commandes confirmées non facturées. Son plafond est de 10 000 €. Je confirme la nouvelle commande ?",
+    "assertions": [
+      {"text": "Calcule l'encours client", "pattern": "(encours)"},
+      {"text": "Le compare au plafond", "pattern": "(plafond)"},
+      {"text": "Classe le client en statut vert / vigilance / bloqué", "pattern": "(vert|vigilance|bloqué|bloquer|statut)"}
+    ]
+  }
+]

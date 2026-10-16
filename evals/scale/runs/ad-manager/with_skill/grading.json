@@ -1,0 +1,41 @@
+{
+ "eval_id": 1,
+ "config": "with_skill",
+ "skill": "ad-manager",
+ "domain_passed": 3,
+ "domain_total": 3,
+ "behaviour_passed": 2,
+ "behaviour_total": 2,
+ "expectations": [
+  {
+   "text": "Calcule un coût par lead ou par action",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Hiérarchise les campagnes et propose une réallocation",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Raisonne en coût d'acquisition / rentabilité",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+   "passed": true,
+   "weight": "behaviour",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "N'invente pas de source ou de référence spécifique",
+   "passed": true,
+   "weight": "behaviour",
+   "evidence": "pattern absent → PASS"
+  }
+ ]
+}

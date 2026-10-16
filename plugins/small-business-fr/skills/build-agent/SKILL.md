@@ -88,6 +88,22 @@ Propose de le partager avec l'équipe. Dis ce que partager signifie : qui l'obti
 
 **Sois précis sur le risque quand un skill envoie, dépense ou écrit.** Un skill qui envoie des mails à des clients, lancé pour quelqu'un qui ne l'a pas construit et qui ignore ses hypothèses, est un vrai danger. Recommande le brouillon uniquement pour les skills partagés qui envoient quoi que ce soit.
 
+**Contrat de réponse (obligatoire).**
+
+Chaque réponse se clôture par les deux éléments sans lesquels le skill n'est
+pas « nommé et planifiable » :
+
+1. **Le déclencheur** — propose un nom court (comment le dirigeant le
+   déclenchera par son nom, ex. « mes marges Shopify ») **et** un horizon : à
+   quelle fréquence / quel horaire il doit tourner (ex. « chaque vendredi
+   matin »). Si la tâche est unique et non récurrente, dis-le et n'invente pas
+   d'horaire.
+2. **Les questions posées** — quand le dirigeant n'a pas déroulé la tâche dans
+   cette conversation, liste explicitement les questions à lui poser pour
+   capturer chaque étape et les données / fichiers de chaque étape (quelles
+   données, quoi exactement, comment tu le fais aujourd'hui). N'écris pas le
+   skill avant que ces détails ne soient posés.
+
 ## Ce qu'il ne faut pas faire
 
 - **Ne réinterroge pas sur une tâche qu'il vient de dérouler.** La transcription est la spécification.

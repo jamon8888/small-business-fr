@@ -244,7 +244,7 @@ https://github.com/anthropics/knowledge-work-plugins
     write(".claude-plugin/plugin.json", """{
   "name": "small-business-fr",
   "displayName": "Petite entreprise (France)",
-  "version": "1.1.0-fr.1",
+  "version": "1.1.1-fr.1",
   "description": "Édition française du plugin small-business pour les TPE et PME de services et la vente B2B de produits physiques. Profils services / négoce / fabrication / mixte. Adapté au droit français, à la TVA, à la facturation électronique et aux connecteurs français (Qonto, Pennylane, Sendcloud).",
   "author": {"name": "Jamin Rubio", "email": "franckqfr@hotmail.com"},
   "license": "Apache-2.0",
@@ -1318,8 +1318,21 @@ description: >
 3. Clients dont les conditions dérogent à la grille : signalés.
 4. Simulation prix d'achat ou tarif.
 
+## Quand la marge bouge (changement de prix d'achat ou de tarif)
+1. Chiffrer l'impact : marge et taux de marge avant / après, avec l'ordre de
+   grandeur (ex. 33 % → 25 %) et le montant unitaire (ex. 8 € → 9 €).
+2. Proposer les leviers, classés par effort croissant :
+   - répercuter une partie du surcoût sur le prix de vente (revalorisation) ;
+   - renégocier le prix d'achat (volume, durée du contrat, fournisseur alternatif) ;
+   - réduire un autre poste (logistique, conditionnement, mix de produits) ;
+   - si aucun levier ne tient la marge cible, recommander d'arrêter ou de
+     déclasser la référence.
+3. Ne jamais recommander une hausse de prix de vente sans avoir d'abord posé
+   la renégociation fournisseur et la réduction de coût.
+
 ## Sorties
-Grilles par segment, tableau de marge, dérogations, calendrier annuel.
+Grilles par segment, tableau de marge, dérogations, calendrier annuel, et note
+de simulation d'impact avec les leviers chiffrés.
 
 ## Confidentialité
 Voir shared/commercial-confidentiality.md.
@@ -2716,9 +2729,7 @@ def write_tests():
 """)
 
     write("tests/routing-fr.md", """\
-# Jeu de routage FR — v1.1.0-fr.1
-
-≥ 270 phrases. Seuils : 95 % sur phrases claires, 85 % sur ambiguës.
+# Jeu de routage FR — v1.1.1-fr.1 270 phrases. Seuils : 95 % sur phrases claires, 85 % sur ambiguës.
 
 ## invoice-chase
 qui me doit de l'argent / j'ai des impayés / relance mes mauvais payeurs /

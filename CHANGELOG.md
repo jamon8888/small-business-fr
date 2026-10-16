@@ -1,5 +1,25 @@
 # Changelog
 
+## v1.1.1-fr.1 — 2026-10-16
+
+### Modifié
+- **3 skills affinés** après l'évaluation de scale (avec / sans skill) — ils
+  étaient les seuls en négatif sur le score métier :
+  - `pricing-desk` : stub de 738 car. complété — section « quand la marge bouge »
+    (impact chiffré avant/après + leviers classés : répercuter, renégocier le
+    prix d'achat, réduire un poste, arrêter/déclasser)
+  - `build-agent` : « Contrat de réponse » obligatoire — proposer le déclencheur
+    (nom + horaire) et poser les questions qui capturent chaque étape / les données
+  - `marketing-monday` : brique **SEO local** obligatoire dans le plan de semaine
+    (fiches Google Business, avis, actions locales)
+
+### Ajouté
+- **Évaluation de scale publiée** : `evals/scale/` (62 skills × 2 bras = 124
+  exécutions, scoring déterministe 100 % regex) + `evals/REPORT.md`
+  - Résultat : avec skill **196/202** métier vs sans **175/202** (Δ +21) ;
+    comportement 70/125 vs 63/125 (Δ +7)
+  - Plus gros gains : build-connector, crm-autopilot, month-end-prep (+2)
+
 ## v1.1.0-fr.1 — 2026-10-15
 
 ### Ajouté

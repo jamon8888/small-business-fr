@@ -1,0 +1,133 @@
+[
+  {
+    "skill": "restock",
+    "prompt": "Réf 7 : 30 unités en stock, 10 vendues par mois, achat 5 €, vente 13 €, délai fournisseur 2 semaines. Je réappro ?",
+    "assertions": [
+      {"text": "Calcule la vitesse de vente", "pattern": "(vitesse de vente|10 (par |/) ?mois|3 mois)"},
+      {"text": "Pose le seuil / point de réassort", "pattern": "(seuil|point de (commande|réappro)|couvre)"},
+      {"text": "Valorise le stock (CMUP / FIFO)", "pattern": "(CMUP|FIFO|valoris|valeur de (son |ses )?stock)"}
+    ]
+  },
+  {
+    "skill": "review-reputation",
+    "prompt": "Avis Google 2 étoiles : « livraison en retard de 4 jours, produit correct ». Comment répondre ?",
+    "assertions": [
+      {"text": "Traite l'avis sur la bonne plateforme (Google)", "pattern": "(Google|avis)"},
+      {"text": "Rédige une réponse publique", "pattern": "(répond|réponse|publique)"},
+      {"text": "Propose un geste / réparation", "pattern": "(désol|excus|remèd|geste|prochain)"}
+    ]
+  },
+  {
+    "skill": "seo-ai-visibility",
+    "prompt": "Suis-je trouvable ? Site d'un plombier à Lyon, aucune fiche Google.",
+    "assertions": [
+      {"text": "Audit de la visibilité locale (fiche Google)", "pattern": "(Google Business|fiche|local)"},
+      {"text": "Audit de la visibilité dans les réponses IA", "pattern": "(IA|réponses IA|LLM|assistant)"},
+      {"text": "Propose des corrections structurelles", "pattern": "(balises|structure|contenu|meta)"}
+    ]
+  },
+  {
+    "skill": "smb-onboard",
+    "prompt": "C'est parti. Cabinet comptable de 3 personnes, au réel. Installe-moi.",
+    "assertions": [
+      {"text": "Capture le profil d'entreprise", "pattern": "(profil|secteur|activité)"},
+      {"text": "Capture le régime fiscal", "pattern": "(régime|fiscal|réel)"},
+      {"text": "Propose les connecteurs adaptés", "pattern": "(connecteur|Qonto|Pennylane)"}
+    ],
+    "behaviour_extra": [
+      {"text": "Pose une seule question à la fois", "pattern": "(une (seule )?question|question à la fois)"}
+    ]
+  },
+  {
+    "skill": "smb-router",
+    "prompt": "Mes fournisseurs tardent et je ne sais plus où en est ma trésorerie. Que faire en premier ?",
+    "assertions": [
+      {"text": "Route la partie trésorerie vers le bon skill", "pattern": "(trésorerie|cash-flow|working-capital|cash)"},
+      {"text": "Route la partie fournisseurs vers le bon skill", "pattern": "(fournisseur|pay-the-bills|ap-processor|DPO)"},
+      {"text": "Propose un ordre de traitement", "pattern": "(en premier|ordre|priorit|d'abord)"}
+    ]
+  },
+  {
+    "skill": "social-content-engine",
+    "prompt": "J'ai posté 2 contenus la semaine dernière, le making-of a bien marché. Qu'est-ce que je programme en suite ?",
+    "assertions": [
+      {"text": "Poursuit le calendrier de publication roulant", "pattern": "(calendrier|planif|prochain)"},
+      {"text": "S'appuie sur la voix / ce qui a marché", "pattern": "(making-of|derrière les scenes|voix|ton|style)"},
+      {"text": "Prévoit les visuels Canva", "pattern": "(Canva|visuel|design)"}
+    ]
+  },
+  {
+    "skill": "speed-to-lead",
+    "prompt": "Lead chaud en direct : « combien pour 500 unités de la réf 88 ? ». Combien de temps pour répondre, et avec quoi ?",
+    "assertions": [
+      {"text": "Fixe un délai de réponse court", "pattern": "(minutes|rapid|vite|dès|immédiat)"},
+      {"text": "Répond au chiffrage demandé", "pattern": "(prix|devis|chiffr|tarif)"},
+      {"text": "Reste sur le besoin exprimé (500 × réf 88)", "pattern": "(88|500)"}
+    ]
+  },
+  {
+    "skill": "stock-count-cutoff",
+    "prompt": "Inventaire de fin d'année : 3 références en écart, 2 en excédent, 1 en manque. Que faire avant la clôture ?",
+    "assertions": [
+      {"text": "Trace et traite les écarts d'inventaire", "pattern": "(écart|écarts)"},
+      {"text": "Valorise au bon principe (CMUP / FIFO)", "pattern": "(CMUP|FIFO|valoris)"},
+      {"text": "Traite les dormants / dépréciation", "pattern": "(dormant|dépréciation|néant)"},
+      {"text": "Pose la coupure d'exercice (FAE / FNP)", "pattern": "(FAE|FNP|créos|cut-?off)"}
+    ]
+  },
+  {
+    "skill": "tax-prep",
+    "prompt": "Prépare la fiscalité du mois de juin.",
+    "assertions": [
+      {"text": "Enchaîne la préparation de la clôture mensuelle", "pattern": "(clôture|mensuelle|month-end)"},
+      {"text": "Prépare la TVA (CA3)", "pattern": "(TVA|CA ?3)"},
+      {"text": "Prépare le dossier de l'expert-comptable", "pattern": "(expert-comptable|dossier|liasse)"}
+    ]
+  },
+  {
+    "skill": "ticket-deflector",
+    "prompt": "Client : « ma commande 4512 n'arrive pas, je veux un remboursement ». PayPal montre livrée. Que faire ?",
+    "assertions": [
+      {"text": "Récupère le statut réel de la commande", "pattern": "(statut|livrée|délivr|commande 4512)"},
+      {"text": "Traite la demande de remboursement", "pattern": "(remboursement|refund)"},
+      {"text": "Rédige une réponse au client (brouillon)", "pattern": "(brouillon|réponse|rédig)"}
+    ]
+  },
+  {
+    "skill": "time-to-invoice",
+    "prompt": "Relevé de temps : 12 h sur l'intervention, le devis prévoyait 10 h à 650 €/h. Le client a validé le démarrage. Je facture ?",
+    "assertions": [
+      {"text": "Lit le relevé de temps (12 h)", "pattern": "(12 ?h|10 ?h|2 ?h)"},
+      {"text": "Contrôle le taux horaire du devis (650 €)", "pattern": "(650|taux|devis)"},
+      {"text": "Gère le dépassement de 2 h (accord client)", "pattern": "(validation|accord|dépass|surcoût)"}
+    ]
+  },
+  {
+    "skill": "verifier-tiers",
+    "prompt": "Avant une commande de 15 000 €, vérifie le fournisseur « Techdis SARL », SIREN 912 456 789.",
+    "assertions": [
+      {"text": "Vérifie l'existence via Sirene", "pattern": "(Sirene|API Recherche)"},
+      {"text": "Vérifie les procédures collectives (BODACC)", "pattern": "(BODACC|procédure(s)? collective(s)?)"},
+      {"text": "Vérifie la cohérence IBAN / nom", "pattern": "(IBAN|cohérence|coordonnées bancaires)"}
+    ]
+  },
+  {
+    "skill": "visit-report",
+    "prompt": "Notes de visite : « vu Dubois, besoin 200 unités/mois, concurrent moins cher de 10 %, budget OK, décision fin de mois, envoyer devis + échantillons ». Structure ça.",
+    "assertions": [
+      {"text": "Structure les besoins / volumes", "pattern": "(besoin|volume|200)"},
+      {"text": "Structure la concurrence", "pattern": "(concurrent|10 ?%)"},
+      {"text": "Structure l'objection / budget", "pattern": "(objection|budget)"},
+      {"text": "Pose la prochaine action datée", "pattern": "(prochaine action|fin de mois|devis|échantillons)"}
+    ]
+  },
+  {
+    "skill": "working-capital",
+    "prompt": "DSO 54 jours, DPO 31, DIO 45. Quelle est ma situation de BFR et que prioriser ?",
+    "assertions": [
+      {"text": "Calcule le cycle de conversion (68 jours)", "pattern": "(cycle de conversion|68)"},
+      {"text": "Décompose DSO / DPO / DIO", "pattern": "(DSO|DPO|DIO)"},
+      {"text": "Priorise les leviers / scénarios", "pattern": "(priorité|scénario|trajectoire|accélér|allong)"}
+    ]
+  }
+]
