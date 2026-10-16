@@ -22,3 +22,6 @@ plafond_encours, assurance_credit.
 - Minimisation des données dans les notes.
 - Pas de donnée personnelle superflue.
 - Durée de conservation respectée.
+
+## Lien cluster Shopify
+Cette compétence dialogue avec la boutique en ligne via `shopify-customers` (hub : `shopify-hub`, doc : [AI Toolkit](../../shared/shopify-ai-toolkit.md)).

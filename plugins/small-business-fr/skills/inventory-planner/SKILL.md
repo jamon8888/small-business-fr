@@ -128,3 +128,6 @@ Termine sur une ligne sur ce qui a été décidé — l'achat total et les réf�
 ## Utiliser un outil qui n'est pas listé
 
 Les connecteurs nommés dans ce skill sont les chemins testés, pas un mur. Si le dirigeant veut que ce flux utilise un outil qui n'est pas connecté ou listé, propose `build-connector` — il vérifie d'abord le répertoire des connecteurs et se connecte via Zapier sinon, jamais en construisant à la main contre une API brute. Une fois la connexion en place, l'outil rejoint ce skill comme n'importe quel connecteur optionnel, sous les mêmes portes de validation.
+
+## Lien cluster Shopify
+Cette compétence dialogue avec la boutique en ligne via `shopify-inventory` (hub : `shopify-hub`, doc : [AI Toolkit](../../shared/shopify-ai-toolkit.md)).

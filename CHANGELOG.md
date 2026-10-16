@@ -1,5 +1,41 @@
 # Changelog
 
+## v1.2.0-fr.1 — 2026-10-16
+
+### Ajouté
+- **Cluster Shopify (9 skills)** — piloter une boutique Shopify complète via
+  l'AI Toolkit officiel de Shopify (serveur MCP `shopify-dev-mcp`, skill
+  `shopify`, GraphQL Admin API) :
+  - `shopify-hub` — point d'entrée, vérifie l'AI Toolkit, route par domaine
+  - `shopify-setup` — connexion : installation du toolkit, accès, scopes,
+    contexte boutique
+  - `shopify-catalog` — produits, variantes, collections, SEO, prix
+  - `shopify-orders` — commandes, expédition, retours, remboursements
+  - `shopify-inventory` — niveaux par emplacement, transferts, réassort
+  - `shopify-customers` — segments, tags, RFM, fidélité
+  - `shopify-marketing` — remises, codes, campagnes, mesure J+7
+  - `shopify-reporting` — set de 10 rapports (pulse, marge, P&L, TVA…)
+  - `shopify-builder` — Flow, Functions, thème (Liquid/Polaris), apps
+- `shared/shopify-ai-toolkit.md` — doc unique de vérité, alignée sur le
+  repo officiel (verrouillage du workflow réel) : installation du
+  toolkit, serveur MCP, **`shopify store auth` / `store execute`**
+  (GraphQL Admin, scopes minimaux, `--allow-mutations`), **ShopifyQL**
+  pour les rapports, opt-out des télémétries
+- Serveur MCP `shopify-dev-mcp` déclaré dans `.mcp.json`
+- Routeur : section « Shopify (boutique en ligne) » + 3 règles de
+  désambiguïsation (stock / produits / promo)
+- **Liens bidirectionnels** : les 12 skills concernés (inventory-planner,
+  crm-autopilot, growth-pulse, fulfillment-desk, marketing-monday,
+  business-pulse, order-intake, catalog-quote, pricing-desk, ticket-deflector,
+  cash-flow-snapshot, report-builder) pointent vers leur équivalent boutique
+- `smb-onboard` : la vente en ligne n'est plus « hors périmètre »
+
+### Évaluation de scale étendue
+- 71 skills × 2 bras = 142 exécutions (9 cas Shopify ajoutés)
+- Avec skill **222/229** (96,9 %) vs sans **197/229** (86,0 %) →
+  Δ métier **+25**, comportement **+7**
+- Cluster Shopify : **26/27 avec vs 22/27 sans (Δ +4)**, aucun skill en négatif
+
 ## v1.1.1-fr.1 — 2026-10-16
 
 ### Modifié

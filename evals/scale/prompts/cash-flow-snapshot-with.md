@@ -35,6 +35,9 @@ jamais devinés.
 ## Repli
 CSV receivables + orders + purchase_orders.
 
+## Lien cluster Shopify
+Cette compétence dialogue avec la boutique en ligne via `shopify-reporting` (hub : `shopify-hub`, doc : [AI Toolkit](../../shared/shopify-ai-toolkit.md)).
+
 
 ### reference/examples/worked-example.md
 # Exemple détaillé — cash-flow-snapshot

@@ -1,0 +1,41 @@
+{
+ "eval_id": 63,
+ "config": "with_skill",
+ "skill": "shopify-hub",
+ "domain_passed": 2,
+ "domain_total": 3,
+ "behaviour_passed": 1,
+ "behaviour_total": 2,
+ "expectations": [
+  {
+   "text": "Vérifie la disponibilité de l'AI Toolkit / de la connexion",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Mappe les domaines vers les skills du cluster",
+   "passed": false,
+   "weight": "domain",
+   "evidence": "pattern absent → FAIL"
+  },
+  {
+   "text": "Propose un plan ordonné de mise en route",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+   "passed": false,
+   "weight": "behaviour",
+   "evidence": "pattern absent → FAIL"
+  },
+  {
+   "text": "N'invente pas de source ou de référence spécifique",
+   "passed": true,
+   "weight": "behaviour",
+   "evidence": "pattern absent → PASS"
+  }
+ ]
+}

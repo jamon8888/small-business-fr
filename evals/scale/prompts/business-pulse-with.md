@@ -20,6 +20,9 @@ Voir report-builder (mêmes indicateurs par profil).
 ## Règle
 Valeurs absentes = « non disponible » (absent-is-not-zero).
 
+## Lien cluster Shopify
+Cette compétence dialogue avec la boutique en ligne via `shopify-reporting` (hub : `shopify-hub`, doc : [AI Toolkit](../../shared/shopify-ai-toolkit.md)).
+
 
 ### reference/data_sources.md
 # Sources de données

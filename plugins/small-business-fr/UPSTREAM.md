@@ -72,5 +72,5 @@ tax-season-organizer, grant-rfp-writer.
 
 ## État
 
-- 65 skills, 39 commandes
+- 74 skills, 39 commandes
 - 167 fichiers de traduction dans `fr/`

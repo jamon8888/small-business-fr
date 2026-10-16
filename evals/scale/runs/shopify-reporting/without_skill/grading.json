@@ -1,0 +1,41 @@
+{
+ "eval_id": 70,
+ "config": "without_skill",
+ "skill": "shopify-reporting",
+ "domain_passed": 2,
+ "domain_total": 3,
+ "behaviour_passed": 1,
+ "behaviour_total": 2,
+ "expectations": [
+  {
+   "text": "Couvre ventes et panier moyen",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Calcule la marge avec les coûts (ou les demande)",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Interprète et propose une action",
+   "passed": false,
+   "weight": "domain",
+   "evidence": "pattern absent → FAIL"
+  },
+  {
+   "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+   "passed": false,
+   "weight": "behaviour",
+   "evidence": "pattern absent → FAIL"
+  },
+  {
+   "text": "N'invente pas de source ou de référence spécifique",
+   "passed": true,
+   "weight": "behaviour",
+   "evidence": "pattern absent → PASS"
+  }
+ ]
+}

@@ -31,6 +31,9 @@ V4 : réservation de stock. V5 : achat d'étiquette.
 ## Repli
 Sans Sendcloud : saisie manuelle du numéro de suivi.
 
+## Lien cluster Shopify
+Cette compétence dialogue avec la boutique en ligne via `shopify-orders` (hub : `shopify-hub`, doc : [AI Toolkit](../../shared/shopify-ai-toolkit.md)).
+
 
 ---
 

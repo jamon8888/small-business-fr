@@ -5,11 +5,13 @@ d'Anthropic, pour les TPE et PME françaises de 1 à 50 personnes qui vendent de
 prestations, des produits à des professionnels (négoce ou fabrication), ou les
 deux.
 
-65 skills et 39 commandes, entièrement en français, adaptés au droit français,
+74 skills et 39 commandes, entièrement en français, adaptés au droit français,
 à la TVA, à la facturation électronique et aux connecteurs français (Qonto,
-Pennylane, Sendcloud).
+Pennylane, Sendcloud). Inclut un **cluster Shopify** de 9 skills qui pilotent
+une boutique en ligne complète (catalogue, commandes, stock, clients,
+marketing, reporting, builder) via l'AI Toolkit officiel de Shopify.
 
-**Version : [v1.1.0-fr.1](https://github.com/jamon8888/small-business-fr/releases)**
+**Version : [v1.2.0-fr.1](https://github.com/jamon8888/small-business-fr/releases)**
 — historique dans le [CHANGELOG](CHANGELOG.md).
 
 > Édition communautaire, non publiée ni approuvée par Anthropic.

@@ -241,6 +241,9 @@ connecte via Zapier sinon, jamais en construisant à la main contre une API brut
 Une fois la connexion en place, l'outil rejoint ce skill comme tout connecteur
 optionnel, sous les mêmes gardes de validation.
 
+## Lien cluster Shopify
+Cette compétence dialogue avec la boutique en ligne via `shopify-reporting` (hub : `shopify-hub`, doc : [AI Toolkit](../../shared/shopify-ai-toolkit.md)).
+
 
 ### reference/data_sources.md
 # Sources de données

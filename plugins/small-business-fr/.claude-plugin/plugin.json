@@ -1,9 +1,9 @@
 {
   "name": "small-business-fr",
   "displayName": "Petite entreprise (France)",
-  "version": "1.1.1-fr.1",
-  "description": "Édition française du plugin small-business pour les TPE et PME de services et la vente B2B de produits physiques. Profils services / négoce / fabrication / mixte. Adapté au droit français, à la TVA, à la facturation électronique et aux connecteurs français (Qonto, Pennylane, Sendcloud).",
+  "version": "1.2.0-fr.1",
+  "description": "Édition française du plugin small-business pour les TPE et PME de services et la vente B2B de produits physiques. Profils services / négoce / fabrication / mixte. Adapté au droit français, à la TVA, à la facturation électronique et aux connecteurs français (Qonto, Pennylane, Sendcloud). Inclut un cluster Shopify (9 skills) pour piloter une boutique en ligne complète via l'AI Toolkit officiel de Shopify.",
   "author": {"name": "Jamin Rubio", "email": "franckqfr@hotmail.com"},
   "license": "Apache-2.0",
-  "keywords": ["france","tpe","pme","b2b","tva","facturation","negoce","services"]
+  "keywords": ["france","tpe","pme","b2b","tva","facturation","negoce","services","shopify","ecommerce"]
 }

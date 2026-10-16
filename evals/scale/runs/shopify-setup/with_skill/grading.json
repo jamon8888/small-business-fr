@@ -1,0 +1,41 @@
+{
+ "eval_id": 64,
+ "config": "with_skill",
+ "skill": "shopify-setup",
+ "domain_passed": 3,
+ "domain_total": 3,
+ "behaviour_passed": 1,
+ "behaviour_total": 2,
+ "expectations": [
+  {
+   "text": "Propose l'installation du serveur MCP shopify-dev-mcp",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Vérifie l'accès (token, scopes, application)",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Consigne le contexte boutique (Business context)",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+   "passed": false,
+   "weight": "behaviour",
+   "evidence": "pattern absent → FAIL"
+  },
+  {
+   "text": "N'invente pas de source ou de référence spécifique",
+   "passed": true,
+   "weight": "behaviour",
+   "evidence": "pattern absent → PASS"
+  }
+ ]
+}

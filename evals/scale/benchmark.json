@@ -6,16 +6,16 @@
   {
    "config": "with_skill",
    "label": "avec skill",
-   "runs": 62,
+   "runs": 71,
    "domain": {
-    "passed": 196,
-    "total": 202
+    "passed": 222,
+    "total": 229
    },
    "behaviour": {
-    "passed": 70,
-    "total": 125
+    "passed": 79,
+    "total": 143
    },
-   "mean_words": 887,
+   "mean_words": 907,
    "per_eval": [
     {
      "eval_id": 1,
@@ -450,22 +450,85 @@
      "words": 1062,
      "domain": "3/3",
      "behaviour": "1/2"
+    },
+    {
+     "eval_id": 63,
+     "skill": "shopify-hub",
+     "words": 617,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 64,
+     "skill": "shopify-setup",
+     "words": 1150,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 65,
+     "skill": "shopify-catalog",
+     "words": 1112,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 66,
+     "skill": "shopify-orders",
+     "words": 888,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 67,
+     "skill": "shopify-inventory",
+     "words": 811,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 68,
+     "skill": "shopify-customers",
+     "words": 1338,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 69,
+     "skill": "shopify-marketing",
+     "words": 1209,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 70,
+     "skill": "shopify-reporting",
+     "words": 997,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 71,
+     "skill": "shopify-builder",
+     "words": 1299,
+     "domain": "3/3",
+     "behaviour": "1/2"
     }
    ]
   },
   {
    "config": "without_skill",
    "label": "sans skill",
-   "runs": 62,
+   "runs": 71,
    "domain": {
-    "passed": 175,
-    "total": 202
+    "passed": 197,
+    "total": 229
    },
    "behaviour": {
-    "passed": 63,
-    "total": 125
+    "passed": 72,
+    "total": 143
    },
-   "mean_words": 963,
+   "mean_words": 1008,
    "per_eval": [
     {
      "eval_id": 1,
@@ -899,6 +962,69 @@
      "skill": "working-capital",
      "words": 1801,
      "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 63,
+     "skill": "shopify-hub",
+     "words": 1141,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 64,
+     "skill": "shopify-setup",
+     "words": 1348,
+     "domain": "1/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 65,
+     "skill": "shopify-catalog",
+     "words": 2069,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 66,
+     "skill": "shopify-orders",
+     "words": 1352,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 67,
+     "skill": "shopify-inventory",
+     "words": 1172,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 68,
+     "skill": "shopify-customers",
+     "words": 1341,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 69,
+     "skill": "shopify-marketing",
+     "words": 1509,
+     "domain": "3/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 70,
+     "skill": "shopify-reporting",
+     "words": 1203,
+     "domain": "2/3",
+     "behaviour": "1/2"
+    },
+    {
+     "eval_id": 71,
+     "skill": "shopify-builder",
+     "words": 743,
+     "domain": "2/3",
      "behaviour": "1/2"
     }
    ]

@@ -40,6 +40,13 @@
       "url": "https://mcp.shopify.com/mcp",
       "transport": "http"
     },
+    "shopify-dev-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@shopify/dev-mcp@latest"
+      ]
+    },
     "slack": {
       "url": "https://mcp.slack.com/mcp",
       "transport": "http"

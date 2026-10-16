@@ -45,7 +45,8 @@ Ni conseil fiscal, ni juridique, ni social.
 
 ## Secteurs hors périmètre v1
 BTP, restauration, santé, professions réglementées, alimentaire à traçabilité
-sanitaire stricte, alcool, grande distribution EDI, vente B2C en ligne.
+sanitaire stricte, alcool, grande distribution EDI.
+La vente en ligne est couverte par le cluster Shopify (`shopify-hub`).
 Le plugin fonctionne sur le socle commun et le dit.
 
 

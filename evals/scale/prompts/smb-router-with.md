@@ -64,6 +64,17 @@ TVA, Stock, Canaux de commande). Si absent : appeler smb-onboard.
 - « chiffrer une prestation » → proposal-builder
 - « émettre un devis » → devis-facture-fr
 
+### Shopify (boutique en ligne)
+- « ma boutique », « mon Shopify », « la store » → shopify-hub
+- « connecter ma boutique », « installer le toolkit » → shopify-setup
+- « mes produits », « catalogue », « collection » (boutique) → shopify-catalog
+- « commander boutique », « expédier en ligne », « retour client » → shopify-orders
+- « stock boutique », « réassort en ligne » → shopify-inventory
+- « mes clients boutique », « segment », « fidélité » → shopify-customers
+- « promo », « code réduction », « campagne boutique » → shopify-marketing
+- « ventes boutique », « marge boutique », « P&L de la store » → shopify-reporting
+- « automatiser », « app », « fonction », « thème » → shopify-builder
+
 ## Étape 3 — Désambiguïsation
 | Phrase | Cible | Pièges |
 |---|---|---|
@@ -76,8 +87,10 @@ TVA, Stock, Canaux de commande). Si absent : appeler smb-onboard.
 | « la TVA » | tva-pilot | tax-prep |
 | « facture » (émettre) | devis-facture-fr | ap-processor |
 | « commande » (client) | order-intake | purchase-desk |
-| « stock » | b2b-stock-planner / inventory-planner | selon profil |
+| « stock » | b2b-stock-planner / inventory-planner / shopify-inventory | B2B ou boutique ? |
 | « expédier » | fulfillment-desk | intra-eu-export-check |
+| « produits » (catalogue boutique) | shopify-catalog | catalog-quote (devis B2B) |
+| « promo » | pricing-desk (grille B2B) / shopify-marketing (boutique) | canal de vente |
 
 Doute entre deux skills : une seule question fermée en français.
 

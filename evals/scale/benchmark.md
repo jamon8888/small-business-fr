@@ -4,8 +4,8 @@
 
 | Configuration | Runs | Métier (domain) | Comportement (behaviour) | Mots/moy.
 |---|---|---|---|---|
-| avec skill | 62 | 196/202 | 70/125 | 887 |
-| sans skill | 62 | 175/202 | 63/125 | 963 |
+| avec skill | 71 | 222/229 | 79/143 | 907 |
+| sans skill | 71 | 197/229 | 72/143 | 1008 |
 
 ## Par skill (avec skill − sans skill)
 
@@ -62,6 +62,15 @@
 | restock | 2/3 | 2/3 | +0 | 1/2 | 1/2 | +0 |
 | review-reputation | 3/3 | 3/3 | +0 | 1/2 | 1/2 | +0 |
 | seo-ai-visibility | 3/3 | 3/3 | +0 | 2/2 | 1/2 | +1 |
+| shopify-builder | 3/3 | 2/3 | +1 | 1/2 | 1/2 | +0 |
+| shopify-catalog | 3/3 | 3/3 | +0 | 1/2 | 1/2 | +0 |
+| shopify-customers | 3/3 | 3/3 | +0 | 1/2 | 1/2 | +0 |
+| shopify-hub | 2/3 | 2/3 | +0 | 1/2 | 1/2 | +0 |
+| shopify-inventory | 3/3 | 3/3 | +0 | 1/2 | 1/2 | +0 |
+| shopify-marketing | 3/3 | 3/3 | +0 | 1/2 | 1/2 | +0 |
+| shopify-orders | 3/3 | 3/3 | +0 | 1/2 | 1/2 | +0 |
+| shopify-reporting | 3/3 | 2/3 | +1 | 1/2 | 1/2 | +0 |
+| shopify-setup | 3/3 | 1/3 | +2 | 1/2 | 1/2 | +0 |
 | smb-onboard | 2/3 | 2/3 | +0 | 1/3 | 1/3 | +0 |
 | smb-router | 3/3 | 3/3 | +0 | 2/2 | 1/2 | +1 |
 | social-content-engine | 3/3 | 2/3 | +1 | 2/2 | 1/2 | +1 |

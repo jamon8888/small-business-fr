@@ -27,6 +27,9 @@ plafond_encours, assurance_credit.
 - Pas de donnée personnelle superflue.
 - Durée de conservation respectée.
 
+## Lien cluster Shopify
+Cette compétence dialogue avec la boutique en ligne via `shopify-customers` (hub : `shopify-hub`, doc : [AI Toolkit](../../shared/shopify-ai-toolkit.md)).
+
 
 ### reference/cleanup-checklist.md
 # Liste de contrôle du nettoyage

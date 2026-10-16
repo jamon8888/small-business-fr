@@ -174,6 +174,10 @@ Le client a une réponse, chaque remboursement est passé par son propre garde-f
 
 Les connecteurs nommés dans ce skill sont les chemins testés, pas un mur. Si le dirigeant veut que ce flux utilise un outil qui n'est ni connecté ni listé, propose `build-connector` — il vérifie d'abord le répertoire des connecteurs et se connecte via Zapier sinon, jamais en construisant à la main contre une API brute. Une fois la connexion en place, l'outil rejoint ce skill comme n'importe quel autre connecteur optionnel, sous les mêmes garde-fous de validation.
 
+## Lien cluster Shopify
+Cette compétence dialogue avec la boutique en ligne via `shopify-orders` (hub : `shopify-hub`, doc : [AI Toolkit](../../shared/shopify-ai-toolkit.md)).
+
+
 ### reference/examples/deny-refund-request.md
 # Exemple : demande de remboursement hors politique — refusée, alternative proposée
 

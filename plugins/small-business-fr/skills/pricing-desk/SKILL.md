@@ -35,3 +35,6 @@ de simulation d'impact avec les leviers chiffrés.
 
 ## Confidentialité
 Voir shared/commercial-confidentiality.md.
+
+## Lien cluster Shopify
+Cette compétence dialogue avec la boutique en ligne via `shopify-catalog` (hub : `shopify-hub`, doc : [AI Toolkit](../../shared/shopify-ai-toolkit.md)).

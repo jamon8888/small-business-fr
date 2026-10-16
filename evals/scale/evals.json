@@ -1,1945 +1,2215 @@
 {
- "skill_name": "small-business-fr-scale",
- "note": "Évaluation de scale sur les 62 skills non couverts par le pilot (invoice-chase, close-month, tva-pilot). Un cas par skill, deux bras (with_skill / without_skill). Toutes les assertions sont déterministes (regex) : `assertions` = justesse métier (garde-fous de régression), `behaviour` = comportements qui distinguent le skill (non-action explicite, pas de source inventée). common_behaviour s'ajoute aux behaviour de chaque cas.",
- "common_behaviour": [
-  {
-   "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-   "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-  },
-  {
-   "text": "N'invente pas de source ou de référence spécifique",
-   "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-   "negate": true
-  }
- ],
- "evals": [
-  {
-   "id": 1,
-   "skill": "ad-manager",
-   "prompt": "Voici mes pubs TikTok de juin : 3 campagnes, 4 200 € de dépensé, 310 clics, 41 leads, 3 affaires signées pour 6 400 €. Dis-moi ce que je corrige avant de remettre de l'argent.",
-   "assertions": [
-    {
-     "text": "Calcule un coût par lead ou par action",
-     "pattern": "(coût par (lead|contact|action|clic)|CPA|CPL|CPC|CTR|taux de clic)"
-    },
-    {
-     "text": "Hiérarchise les campagnes et propose une réallocation",
-     "pattern": "(meilleure|pire|redirige|pause|coup|arrê|budget vers|réall)"
-    },
-    {
-     "text": "Raisonne en coût d'acquisition / rentabilité",
-     "pattern": "(ROI|ROAS|coût d'?acquisition|rentable)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 2,
-   "skill": "aides-et-marches-fr",
-   "prompt": "SAS de 3 personnes, 2 ans, dans l'informatique à Lyon. Quelles aides pourraient nous parler, et où veiller les marchés publics ?",
-   "assertions": [
-    {
-     "text": "Évoque le statut JEI",
-     "pattern": "(JEI|jeune entreprise innovante)"
-    },
-    {
-     "text": "Évoque le CIR",
-     "pattern": "(CIR|crédit d'?impôt (de )?recherche)"
-    },
-    {
-     "text": "Nomme les portails de marchés publics",
-     "pattern": "(BOAMP|PLACE|TED|marchés? publics)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 3,
-   "skill": "ap-processor",
-   "prompt": "Facture fournisseur n° 2026-118 : 3 480 € TTC pour 120 unités de l'article 55. J'ai commandé 100, reçu 118 dont 2 abîmées. Que faire avant de payer ?",
-   "assertions": [
-    {
-     "text": "Met en œuvre le rapprochement commande / réception / facture",
-     "pattern": "(rapprochement|3 (voies|volets)|commande.{0,30}réception|litige)"
-    },
-    {
-     "text": "Traite la TVA déductible sur l'achat",
-     "pattern": "(TVA (déductible|sur (les |l'?)(achat|facture))|crédit de TVA)"
-    },
-    {
-     "text": "Ouvre un litige / avoir sur les 2 unités abîmées et l'excédent",
-     "pattern": "(avoir|réclamation|avarié|avaries|litige)"
-    },
-    {
-     "text": "Impuie au plan comptable",
-     "pattern": "(PCG|imputation|compte 6)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 4,
-   "skill": "b2b-stock-planner",
-   "prompt": "Carnet pour le mois prochain : ligne A 40 unités, B 15, C 60. Pipeline : 2 affaires A en négociation (70 %), 1 B (30 %). Réassort 3 semaines. Ventes historiques : A 30/mois, B 12, C 55. Qu'est-ce que je commande ?",
-   "assertions": [
-    {
-     "text": "Pondère le pipeline par probabilité",
-     "pattern": "(pondéré|pondérage|probabilité|taux de (conversion|fermeture))"
-    },
-    {
-     "text": "Classe les lignes par priorité (logique ABC)",
-     "pattern": "(ABC|classement|priorité|prioris)"
-    },
-    {
-     "text": "Intègre le délai de réassort de 3 semaines",
-     "pattern": "(délai (d'?approvisionnement|de réassort|réassort)|3 semaines|lead ?time)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 5,
-   "skill": "brand-style",
-   "prompt": "Je veux fixer mon identité visuelle et le format de tous les livrables que tu produiras : couleurs, logo, ton. Dis-moi ce qu'il me faut te donner.",
-   "assertions": [
-    {
-     "text": "Demande les couleurs / palette",
-     "pattern": "(couleur|palette|teinte|#)"
-    },
-    {
-     "text": "Demande le logo",
-     "pattern": "(logo)"
-    },
-    {
-     "text": "Fixe un format de livrable",
-     "pattern": "(format|modèle|template|livrable|document)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 6,
-   "skill": "build-agent",
-   "prompt": "Chaque vendredi j'exporte mes ventes Shopify et je calcule les marges à la main. Je veux automatiser ça. Comment on transforme ça en skill nommé ?",
-   "assertions": [
-    {
-     "text": "Cadre la création d'un skill réutilisable",
-     "pattern": "(skill|automatisation|automatis|planif|récurrent)"
-    },
-    {
-     "text": "Prévoit un déclencheur (nom ou horaire)",
-     "pattern": "(déclencher|trigger|nommer|par son nom|horaire|planifié)"
-    },
-    {
-     "text": "Demande le détail des étapes / données de la tâche",
-     "pattern": "(étapes|détails|quelles données|quoi exactement|comment tu le fais)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 7,
-   "skill": "build-connector",
-   "prompt": "Je suis sur Sage 100 en compta et il n'y a pas de connecteur. Comment faire arriver mes données mensuelles dans le plugin ?",
-   "assertions": [
-    {
-     "text": "Propose de vérifier l'annuaire des connecteurs",
-     "pattern": "(annuaire|catalogue (de |des )?connecteurs)"
-    },
-    {
-     "text": "Propose le relais Zapier",
-     "pattern": "(Zapier)"
-    },
-    {
-     "text": "Propose un export de fichiers",
-     "pattern": "(export|CSV|fichier)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 8,
-   "skill": "business-pulse",
-   "prompt": "Donne-moi le pouls de l'entreprise pour le mois en cours.",
-   "assertions": [
-    {
-     "text": "Couvre la trésorerie",
-     "pattern": "(trésorerie|cash|banque)"
-    },
-    {
-     "text": "Couvre les impayés / encours",
-     "pattern": "(impayés|encours|créances|retards de paiement)"
-    },
-    {
-     "text": "Couvre les indicateurs du mois (TVA, échéances, marges, DSO…)",
-     "pattern": "(DSO|DPO|DIO|marge|échéances|TVA)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 9,
-   "skill": "calendrier-fiscal-fr",
-   "prompt": "SARL au réel, exercice 2026. Quelles sont mes principales échéances fiscales et sociales à venir ?",
-   "assertions": [
-    {
-     "text": "Évoque les déclarations de TVA",
-     "pattern": "(CA ?3|CA ?12|déclaration de TVA)"
-    },
-    {
-     "text": "Évoque les acomptes d'IS",
-     "pattern": "(acompte(s)? (d'?IS|IS)|impôt sur (les )?sociétés)"
-    },
-    {
-     "text": "Évoque CFE / taxe d'apprentissage / URSSAF / liasse",
-     "pattern": "(CFE|taxe d'?apprentissage|URSSAF|liasse)"
-    },
-    {
-     "text": "Donne des dates réelles (mois nommés)",
-     "pattern": "(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 10,
-   "skill": "call-list",
-   "prompt": "Prépare ma liste d'appels du jour : 12 prospects dont 8 sont des particuliers.",
-   "assertions": [
-    {
-     "text": "Vérifie Bloctel avant les appels B2C",
-     "pattern": "(Bloctel)"
-    },
-    {
-     "text": "Vérifie les jours fériés / week-end",
-     "pattern": "(férié|jour férié|week-?end|samedi|dimanche)"
-    },
-    {
-     "text": "Distingue particuliers et professionnels dans le traitement",
-     "pattern": "(particulier|consommateur|B2C|privé)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 11,
-   "skill": "canva-creator",
-   "prompt": "Brief approuvé : 3 posts Instagram pour la vente d'été, -20 % du 1er au 15 juillet. Exécute la campagne.",
-   "assertions": [
-    {
-     "text": "Construit le calendrier de publication",
-     "pattern": "(calendrier|planif|publication|poster)"
-    },
-    {
-     "text": "Génère ou planifie les designs Canva",
-     "pattern": "(Canva|design|visuel|visuels)"
-    },
-    {
-     "text": "Respecte les éléments du brief (-20 %, 1er-15 juillet)",
-     "pattern": "(- ?20 ?%|vente d'?été|15 juillet|1er juillet)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 12,
-   "skill": "cash-flow-snapshot",
-   "prompt": "Cash en banque : 18 400 €. Encaissements attendus : 9 200 € ce mois, 14 600 € le mois prochain. Décaissements : salaires 7 800 €/mois, TVA 2 150 € en septembre, fournisseur 6 300 € dans 30 jours. Où en serai-je dans 90 jours ?",
-   "assertions": [
-    {
-     "text": "Projette sur 30 / 60 / 90 jours",
-     "pattern": "(30 ?jours|60 ?jours|90 ?jours)"
-    },
-    {
-     "text": "Liste les encaissements attendus",
-     "pattern": "(encaissement|encaisse)"
-    },
-    {
-     "text": "Liste les décaissements",
-     "pattern": "(décaissement|décaisse|sortie)"
-    },
-    {
-     "text": "Donne un solde projeté",
-     "pattern": "(solde|trésorerie|serai-?je|il me reste)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 13,
-   "skill": "catalog-quote",
-   "prompt": "Devis à chiffrer : 250 unités réf 120 à 12 € l'unité et 100 unités réf 88 à 7,50 €, client à Nantes. Grille : -10 % dès 200 unités, -5 % dès 100. Chiffre le devis et ma marge.",
-   "assertions": [
-    {
-     "text": "Applique les paliers de la grille tarifaire",
-     "pattern": "(palier|seuil|barème|dès 200)"
-    },
-    {
-     "text": "Applique les remises",
-     "pattern": "(remise|- ?10 ?%|- ?5 ?%|remis)"
-    },
-    {
-     "text": "Traite les frais de port / franco",
-     "pattern": "(port|frais de (port|livraison)|franco)"
-    },
-    {
-     "text": "Calcule la marge",
-     "pattern": "(marge|taux de marge)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 14,
-   "skill": "content-strategy",
-   "prompt": "Mes marges : 31 % sur les services, 18 % sur les produits. Sur quoi je dois concentrer le contenu ?",
-   "assertions": [
-    {
-     "text": "S'appuie sur la marge lue dans le grand livre",
-     "pattern": "(marge|31 ?%|18 ?%)"
-    },
-    {
-     "text": "Nomme la définition de la marge (taux de marque ou taux de marge)",
-     "pattern": "(taux de (marge|marque))"
-    },
-    {
-     "text": "Décline des axes de stratégie",
-     "pattern": "(stratégie|axe|pilier|prioris|centrer|concentrer)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 15,
-   "skill": "contract-review",
-   "prompt": "Le contrat client prévoit un préavis de 1 mois pour lui et 12 mois pour moi. Y a-t-il un problème de droit ?",
-   "assertions": [
-    {
-     "text": "Qualifie l'asymétrie au regard du déséquilibre significatif",
-     "pattern": "(déséquilibre significatif)"
-    },
-    {
-     "text": "Évoque la rupture brutale de relation commerciale",
-     "pattern": "(rupture brutale)"
-    },
-    {
-     "text": "Quantifie l'écart de préavis",
-     "pattern": "(asymétr|asymétrie|12 mois|1 mois|préavis)"
-    },
-    {
-     "text": "Cite le fondement (Code de commerce)",
-     "pattern": "(C\\. ?com|L ?442|L ?441)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 16,
-   "skill": "credit-desk",
-   "prompt": "Client X : 8 900 € de factures ouvertes et 2 000 € de commandes confirmées non facturées. Son plafond est de 10 000 €. Je confirme la nouvelle commande ?",
-   "assertions": [
-    {
-     "text": "Calcule l'encours client",
-     "pattern": "(encours)"
-    },
-    {
-     "text": "Le compare au plafond",
-     "pattern": "(plafond)"
-    },
-    {
-     "text": "Classe le client en statut vert / vigilance / bloqué",
-     "pattern": "(vert|vigilance|bloqué|bloquer|statut)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 17,
-   "skill": "crm-autopilot",
-   "prompt": "Nouveau prospect : Boulangerie Martin, 2 salariés, SAS, contact m.martin@martin-boulangerie.fr. Ajoute-le au CRM.",
-   "assertions": [
-    {
-     "text": "Enrichit avec le SIREN / données officielles",
-     "pattern": "(SIREN|recherche|API Recherche)"
-    },
-    {
-     "text": "Enregistre la forme juridique",
-     "pattern": "(SAS|forme juridique)"
-    },
-    {
-     "text": "Applique le cadre RGPD au contact",
-     "pattern": "(RGPD|base légale|consentement)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 18,
-   "skill": "customer-reorder",
-   "prompt": "Le client Dupont commande tous les ~30 jours. Sa dernière commande date de 45 jours. Prépare le message de réassort.",
-   "assertions": [
-    {
-     "text": "Raisonne en cycle / intervalle médian de commande",
-     "pattern": "(intervalle|médian|cycle|fréquence)"
-    },
-    {
-     "text": "Identifie le client comme en retard sur son cycle",
-     "pattern": "(45|30 jours|en retard|décalé)"
-    },
-    {
-     "text": "Prépare un message personnalisé (sans l'envoyer)",
-     "pattern": "(brouillon|prépar|message|rédig)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 19,
-   "skill": "devis-facture-fr",
-   "prompt": "Émets un devis : 3 jours d'intervention à 650 €/jour, client SIREN 512 384 762, TVA 20 %. Quelles mentions obligatoires porter le document ?",
-   "assertions": [
-    {
-     "text": "Mentionne le SIREN du client",
-     "pattern": "(SIREN)"
-    },
-    {
-     "text": "Mentionne la TVA",
-     "pattern": "(TVA|20 ?%)"
-    },
-    {
-     "text": "Mentionne pénalités de retard et indemnité forfaitaire de 40 €",
-     "pattern": "(pénalit|40 ?€|forfaitaire)"
-    },
-    {
-     "text": "Mentionne conditions d'escompte / délai de paiement",
-     "pattern": "(escompte|conditions de paiement|délai de paiement)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 20,
-   "skill": "dossier-expert-comptable",
-   "prompt": "L'expert-comptable demande la clôture de juin. J'ai le relevé bancaire et 2 factures fournisseurs. Qu'est-ce qui manque et qu'est-ce qu'on lui envoie ?",
-   "assertions": [
-    {
-     "text": "Liste les pièces manquantes",
-     "pattern": "(manquant|pièces? (à |que )?(joindre|fournir)|il (me )?manque)"
-    },
-    {
-     "text": "Prépare des relances pré-rédigées",
-     "pattern": "(relance|rappel|pré-rédig)"
-    },
-    {
-     "text": "Daté le paquet envoyé",
-     "pattern": "(daté|date|paquet|dossier)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 21,
-   "skill": "einvoice-readiness",
-   "prompt": "SARL de 4 salariés, je suis sur Qonto, et je facture quelques clients du secteur public. Suis-je prêt pour la facturation électronique ?",
-   "assertions": [
-    {
-     "text": "Vérifie la plateforme agréée (PA)",
-     "pattern": "(plateforme agréée|\\bPA\\b)"
-    },
-    {
-     "text": "Vérifie la capacité de réception",
-     "pattern": "(réception)"
-    },
-    {
-     "text": "Traite le circuit public (PFP / Chorus)",
-     "pattern": "(PFP|portail public|Chorus|secteur public)"
-    },
-    {
-     "text": "Situe l'entreprise dans le calendrier (2026 / 2027)",
-     "pattern": "(2026|2027|septembre|échéance)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 22,
-   "skill": "fulfillment-desk",
-   "prompt": "3 commandes à expédier aujourd'hui : Paris sous 24 h, Lyon, et une en Belgique. Prépare l'expédition.",
-   "assertions": [
-    {
-     "text": "Génère les bons de préparation",
-     "pattern": "(bon de préparation|préparation)"
-    },
-    {
-     "text": "Génère les bons de livraison",
-     "pattern": "(BL|bon de livraison)"
-    },
-    {
-     "text": "Choisit le transporteur / mode d'envoi",
-     "pattern": "(transporteur|colis|courrier)"
-    },
-    {
-     "text": "Prévoit le suivi",
-     "pattern": "(suivi|tracking|numéro de suivi)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 23,
-   "skill": "grow-pipeline",
-   "prompt": "Mon pipeline est à l'arrêt : 6 opportunités pour 42 000 €, rien de nouveau depuis 3 semaines. Que faire cette semaine ?",
-   "assertions": [
-    {
-     "text": "Diagnostic du pipeline (pistes, opportunités)",
-     "pattern": "(pipeline|opportunités?|prospect)"
-    },
-    {
-     "text": "Planifie des relances",
-     "pattern": "(relance|recycl|nourrir|rallumer)"
-    },
-    {
-     "text": "Relie au prévisionnel",
-     "pattern": "(prévision|forecast|objectif)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 24,
-   "skill": "growth-pulse",
-   "prompt": "Mes ventes : avril 41 k, mai 39 k, juin 44 k, juillet 40 k. Le moteur de croissance fonctionne ?",
-   "assertions": [
-    {
-     "text": "Analyse la tendance des ventes",
-     "pattern": "(tendance|variabilité|stable|moyenne)"
-    },
-    {
-     "text": "Répond à la question « le moteur fonctionne-t-il »",
-     "pattern": "(croissance|moteur|accélér|ralentiss)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 25,
-   "skill": "hiring-screener",
-   "prompt": "14 CV pour un poste de commercial. Comment faire la présélection sans risque de discrimination ?",
-   "assertions": [
-    {
-     "text": "Applique les critères de non-discrimination",
-     "pattern": "(discrimination|non-discrimination)"
-    },
-    {
-     "text": "Travaille sur les CV / candidatures",
-     "pattern": "(CV|candidats?|dossier)"
-    },
-    {
-     "text": "Utilise une grille / checklist objective",
-     "pattern": "(critère|grille|checklist|objectiv)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 26,
-   "skill": "inbox-manager",
-   "prompt": "23 e-mails non lus : 3 ressemblent à des commandes clients, 2 sont des factures fournisseurs, 19 du bruit. Trie-les.",
-   "assertions": [
-    {
-     "text": "Détecte les commandes clients",
-     "pattern": "(commande|clients?)"
-    },
-    {
-     "text": "Détecte les factures fournisseurs",
-     "pattern": "(facture|fournisseur)"
-    },
-    {
-     "text": "Route vers les bons skills (order-intake / ap-processor)",
-     "pattern": "(rout|order-intake|ap-processor|tri)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 27,
-   "skill": "intra-eu-export-check",
-   "prompt": "Première vente intracommunautaire : client allemand, 7 800 €. Que vérifier avant de facturer ?",
-   "assertions": [
-    {
-     "text": "Vérifie le n° de TVA intracommunautaire via VIES",
-     "pattern": "(VIES)"
-    },
-    {
-     "text": "Pose la mention d'exonération",
-     "pattern": "(exonér|intracommunautaire)"
-    },
-    {
-     "text": "Exige les preuves de transport",
-     "pattern": "(preuve|transport|livraison|colis)"
-    },
-    {
-     "text": "Vérifie l'Incoterm / EORI si hors UE",
-     "pattern": "(Incoterm|EORI)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 28,
-   "skill": "inventory-planner",
-   "prompt": "Réf 45 : 120 en stock, 40 vendus le mois dernier, 25 au carnet, délai fournisseur 3 semaines. Quand suis-je en rupture, et qu'est-ce que je commande ?",
-   "assertions": [
-    {
-     "text": "Calcule la vitesse de vente / couverture",
-     "pattern": "(vitesse de vente|couvre|jours de stock|rotation)"
-    },
-    {
-     "text": "Datée la date de rupture",
-     "pattern": "(rupture|épuis|tombe à|en stock jusqu|s'en iront)"
-    },
-    {
-     "text": "Propose une quantité à commander",
-     "pattern": "(commander|réappro|quantité)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 29,
-   "skill": "job-post-builder",
-   "prompt": "Rédige une offre d'emploi : magasinier, CDI, convention collective transport, 28 000 € brut par an, basé à Aix.",
-   "assertions": [
-    {
-     "text": "Précise le type de contrat CDI",
-     "pattern": "(CDI)"
-    },
-    {
-     "text": "Cite la convention collective",
-     "pattern": "(convention collective|transport)"
-    },
-    {
-     "text": "Donne la rémunération brute annuelle",
-     "pattern": "(28 ?000|brut|annuel)"
-    },
-    {
-     "text": "Porte la mention H/F",
-     "pattern": "(H/?F|feminin|masculin)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 30,
-   "skill": "lead-finder",
-   "prompt": "Trouve-moi 20 revendeurs informatique à Marseille, 1 à 10 salariés.",
-   "assertions": [
-    {
-     "text": "S'appuie sur les bases officielles (Sirene / Pappers / API Recherche d'entreprises)",
-     "pattern": "(Sirene|Pappers|API Recherche d'?entreprises)"
-    },
-    {
-     "text": "Cible par code NAF",
-     "pattern": "(NAF|code NAF)"
-    },
-    {
-     "text": "Filtre par effectif",
-     "pattern": "(effectif|salariés?|1 à 10)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 31,
-   "skill": "lead-triage",
-   "prompt": "Lead entrant : « merci de me rappeler ». Comment le qualifier, et quand l'appeler ?",
-   "assertions": [
-    {
-     "text": "Vérifie Bloctel avant l'appel B2C",
-     "pattern": "(Bloctel)"
-    },
-    {
-     "text": "Vérifie jours fériés / horaires",
-     "pattern": "(férié|jour férié|horaires|plage)"
-    },
-    {
-     "text": "Qualifie le lead (besoin, budget, timing)",
-     "pattern": "(qualif|qualification|besoin|budget)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 32,
-   "skill": "marketing-monday",
-   "prompt": "Lundi, planifie le marketing de la semaine. Budget 200 €.",
-   "assertions": [
-    {
-     "text": "Planifie par jour de la semaine",
-     "pattern": "(semaine|lundi|mardi|mercredi|jeudi|vendredi|jour)"
-    },
-    {
-     "text": "Inclut la pub payante (Meta / Google)",
-     "pattern": "(Meta|Google Ads|publicité|pubs)"
-    },
-    {
-     "text": "Inclut le SEO local",
-     "pattern": "(SEO|local|fiches|Google Business)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 33,
-   "skill": "micro-entrepreneur",
-   "prompt": "Micro-entrepreneur en services : 7 200 € de CA au 1er trimestre, 8 100 € au 2e. À quoi dois-je faire attention ?",
-   "assertions": [
-    {
-     "text": "Surveille le plafond de chiffre d'affaires",
-     "pattern": "(plafond|seuil)"
-    },
-    {
-     "text": "Rappelle la déclaration URSSAF",
-     "pattern": "(URSSAF|déclaration|trimestrielle)"
-    },
-    {
-     "text": "Surveille le seuil de TVA",
-     "pattern": "(TVA|franchise en base|assujettis)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 34,
-   "skill": "monday-brief",
-   "prompt": "Brief du lundi, s'il te plaît.",
-   "assertions": [
-    {
-     "text": "Synthétise la trésorerie",
-     "pattern": "(trésorerie|cash)"
-    },
-    {
-     "text": "Liste les échéances de la semaine",
-     "pattern": "(échéance|échéances)"
-    },
-    {
-     "text": "Montre les impayés",
-     "pattern": "(impayé|encours)"
-    },
-    {
-     "text": "Donne les actions à mener",
-     "pattern": "(action|à (faire|mener)|priorité)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 35,
-   "skill": "month-end-prep",
-   "prompt": "Clôture de juin : 3 opérations bancaires non imputées, dont un virement de 3 400 € qui regroupe 4 paiements clients. Que faire ?",
-   "assertions": [
-    {
-     "text": "Rapproche la banque du grand livre",
-     "pattern": "(rapprochement|imput|banque.{0,20}(grand livre|compta))"
-    },
-    {
-     "text": "Lettre / désagrège le virement groupé",
-     "pattern": "(lettrage|désagrég|ventil)"
-    },
-    {
-     "text": "Applique le cut-off (FAE / FNP)",
-     "pattern": "(FAE|FNP|cut-?off|créos)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 36,
-   "skill": "order-intake",
-   "prompt": "E-mail client : « 50 unités réf 12 à 11 € pièce, livraison le 15 ». La grille indique 12 €. Mets en forme la commande.",
-   "assertions": [
-    {
-     "text": "Produit un brouillon de commande contrôlé",
-     "pattern": "(brouillon|draft|contrôlée?)"
-    },
-    {
-     "text": "Contrôle le prix contre la grille",
-     "pattern": "(grille|tarif|12 ?€)"
-    },
-    {
-     "text": "Signale l'écart de prix 11 € / 12 €",
-     "pattern": "(écart|différence|11 ?€|prix)"
-    },
-    {
-     "text": "Contrôle la condition de livraison",
-     "pattern": "(livraison|le 15|conditions)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 37,
-   "skill": "outreach-composer",
-   "prompt": "Rédige un 1er e-mail de prospection B2B envoyé à une adresse pro d'entreprise.",
-   "assertions": [
-    {
-     "text": "Pose la base légale (intérêt légitime)",
-     "pattern": "(intérêt légitime)"
-    },
-    {
-     "text": "Donne le droit d'opposition / désinscription",
-     "pattern": "(opposition|désinscription|se désabonner)"
-    },
-    {
-     "text": "Respecte le cadre RGPD / CNIL",
-     "pattern": "(RGPD|CNIL)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 38,
-   "skill": "pay-the-bills",
-   "prompt": "3 factures fournisseurs à payer : 1 240 €, 890 € et 2 310 €. Prépare le règlement.",
-   "assertions": [
-    {
-     "text": "Vérifie les coordonnées bancaires",
-     "pattern": "(IBAN|coordonnées bancaires|rIB)"
-    },
-    {
-     "text": "Prépare un virement groupé",
-     "pattern": "(virement groupé|lot|groupé)"
-    },
-    {
-     "text": "Passe par la banque (Qonto)",
-     "pattern": "(Qonto|banque)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 39,
-   "skill": "payroll-prep",
-   "prompt": "Variables de paie de juillet : un salarié à 150 h a travaillé 158 h, 2 jours de congés payés, 10 jours de titres-restaurant. Prépare l'export.",
-   "assertions": [
-    {
-     "text": "Porte les heures travaillées (158 / 150)",
-     "pattern": "(158|150|heures)"
-    },
-    {
-     "text": "Porte les congés payés",
-     "pattern": "(congé(s)? payé(s)?|\\bCP\\b)"
-    },
-    {
-     "text": "Porte les titres-restaurant",
-     "pattern": "(titres?-?restaurant)"
-    },
-    {
-     "text": "Prépare l'export vers l'outil de paie",
-     "pattern": "(Payfit|Silae|export)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 40,
-   "skill": "pricing-desk",
-   "prompt": "Mon fournisseur augmente le prix d'achat de la réf 120 de 8 € à 9 €. Je vends à 12 €. Quel est l'impact sur ma marge, et que faire ?",
-   "assertions": [
-    {
-     "text": "Calcule la marge avant / après",
-     "pattern": "(marge|taux de marge)"
-    },
-    {
-     "text": "Simule l'impact chiffré",
-     "pattern": "(simulation|impact|passe|devient)"
-    },
-    {
-     "text": "Donne un ordre de grandeur (33 % → 25 %)",
-     "pattern": "(33 ?%|25 ?%|8 ?€|9 ?€)"
-    },
-    {
-     "text": "Propose des leviers (revalorisation, renégociation…)",
-     "pattern": "(augmenter|revaloris|répercut|renégocier)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 41,
-   "skill": "product-compliance",
-   "prompt": "Je vends une enceinte Bluetooth importée de Chine en France. Quelles conformités vérifier ?",
-   "assertions": [
-    {
-     "text": "Vérifie le marquage CE",
-     "pattern": "(CE|marquage)"
-    },
-    {
-     "text": "Vérifie REACH / FDS",
-     "pattern": "(REACH|FDS|fiche de données de sécurité)"
-    },
-    {
-     "text": "Vérifie DEEE / éco-organisme / emballages",
-     "pattern": "(DEEE|éco-?organisme|WEEE|emballages?)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 42,
-   "skill": "proposal-builder",
-   "prompt": "Entretien de découverte fait : audit de 2 jours + 1 mois d'accompagnement, 3 points mensuels. Construis le devis de prestation.",
-   "assertions": [
-    {
-     "text": "Structure en jalons / livrables / forfait",
-     "pattern": "(jalon|livrable|forfait)"
-    },
-    {
-     "text": "Porte les mentions légales FR",
-     "pattern": "(mentions? légales|CGV|conditions)"
-    },
-    {
-     "text": "Produit le devis",
-     "pattern": "(devis|chiffr)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 43,
-   "skill": "purchase-desk",
-   "prompt": "BC 2026-045 pour 500 unités : 490 reçues, 10 abîmées. Traite la réception.",
-   "assertions": [
-    {
-     "text": "S'appuie sur le bon de commande",
-     "pattern": "(BC|bon de commande)"
-    },
-    {
-     "text": "Ouvre un litige sur les avaries",
-     "pattern": "(avaries?|abîm|litige|réclamation)"
-    },
-    {
-     "text": "Fait le rapprochement à trois voies",
-     "pattern": "(rapprochement|3 (voies|volets)|commande.{0,25}réception)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 44,
-   "skill": "quote-followup",
-   "prompt": "4 devis ouverts : 12 400 € (21 jours), 3 900 € (8 jours), 8 200 € (35 jours, expire dans 2 jours), 1 500 € (3 jours). Par quoi je commence ?",
-   "assertions": [
-    {
-     "text": "Classe par ancienneté",
-     "pattern": "(ancienneté|jours)"
-    },
-    {
-     "text": "Classe par montant",
-     "pattern": "(montant|12 ?400|8 ?200)"
-    },
-    {
-     "text": "Gère les devis en cours d'expiration",
-     "pattern": "(expir|expire)"
-    },
-    {
-     "text": "Propose une relance par étape",
-     "pattern": "(relance|rappel|étape)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 45,
-   "skill": "reactivate",
-   "prompt": "14 clients sans commande depuis plus de 6 mois, 58 000 € d'achat cumulé. Réactive-les.",
-   "assertions": [
-    {
-     "text": "Cible les clients inactifs",
-     "pattern": "(inactif|dormant|6 mois)"
-    },
-    {
-     "text": "Segmente / priorise le portefeuille",
-     "pattern": "(segment|prioris|tri|cœur)"
-    },
-    {
-     "text": "Prépare la campagne de réactivation",
-     "pattern": "(message|campagne|e-mail|relance)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 46,
-   "skill": "renewal-watch",
-   "prompt": "3 contrats : SaaS A se renouvelle le 31 décembre, préavis 30 jours (côté client). Assurance le 1er mars, préavis 60 jours (côté fournisseur). Nous sommes en septembre. Que surveiller ?",
-   "assertions": [
-    {
-     "text": "Calcule dates de reconduction et préavis",
-     "pattern": "(préavis|reconduction|résiliation)"
-    },
-    {
-     "text": "Donne la date limite de résiliation effective",
-     "pattern": "(date limite|avant le|au plus tard)"
-    },
-    {
-     "text": "Planifie l'alerte avant l'échéance",
-     "pattern": "(alerte|échéance|délai)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 47,
-   "skill": "report-builder",
-   "prompt": "Construis mon tableau de bord mensuel.",
-   "assertions": [
-    {
-     "text": "Inclus la trésorerie",
-     "pattern": "(trésorerie|cash)"
-    },
-    {
-     "text": "Inclus DSO / DPO / DIO",
-     "pattern": "(DSO|DPO|DIO)"
-    },
-    {
-     "text": "Inclus marges / impayés / TVA",
-     "pattern": "(marge (par |par client)|impayés?|TVA)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 48,
-   "skill": "report-pack",
-   "prompt": "Assemble le pack de rapports de juin pour l'expert-comptable.",
-   "assertions": [
-    {
-     "text": "Assemble le pack / dossier",
-     "pattern": "(pack|ensemble|dossier)"
-    },
-    {
-     "text": "Couvre trésorerie / impayés / TVA",
-     "pattern": "(trésorerie|impayés?|TVA)"
-    },
-    {
-     "text": "Daté le livrable",
-     "pattern": "(daté|date|juin)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 49,
-   "skill": "restock",
-   "prompt": "Réf 7 : 30 unités en stock, 10 vendues par mois, achat 5 €, vente 13 €, délai fournisseur 2 semaines. Je réappro ?",
-   "assertions": [
-    {
-     "text": "Calcule la vitesse de vente",
-     "pattern": "(vitesse de vente|10 (par |/) ?mois|3 mois)"
-    },
-    {
-     "text": "Pose le seuil / point de réassort",
-     "pattern": "(seuil|point de (commande|réappro)|couvre)"
-    },
-    {
-     "text": "Valorise le stock (CMUP / FIFO)",
-     "pattern": "(CMUP|FIFO|valoris|valeur de (son |ses )?stock)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 50,
-   "skill": "review-reputation",
-   "prompt": "Avis Google 2 étoiles : « livraison en retard de 4 jours, produit correct ». Comment répondre ?",
-   "assertions": [
-    {
-     "text": "Traite l'avis sur la bonne plateforme (Google)",
-     "pattern": "(Google|avis)"
-    },
-    {
-     "text": "Rédige une réponse publique",
-     "pattern": "(répond|réponse|publique)"
-    },
-    {
-     "text": "Propose un geste / réparation",
-     "pattern": "(désol|excus|remèd|geste|prochain)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 51,
-   "skill": "seo-ai-visibility",
-   "prompt": "Suis-je trouvable ? Site d'un plombier à Lyon, aucune fiche Google.",
-   "assertions": [
-    {
-     "text": "Audit de la visibilité locale (fiche Google)",
-     "pattern": "(Google Business|fiche|local)"
-    },
-    {
-     "text": "Audit de la visibilité dans les réponses IA",
-     "pattern": "(IA|réponses IA|LLM|assistant)"
-    },
-    {
-     "text": "Propose des corrections structurelles",
-     "pattern": "(balises|structure|contenu|meta)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 52,
-   "skill": "smb-onboard",
-   "prompt": "C'est parti. Cabinet comptable de 3 personnes, au réel. Installe-moi.",
-   "assertions": [
-    {
-     "text": "Capture le profil d'entreprise",
-     "pattern": "(profil|secteur|activité)"
-    },
-    {
-     "text": "Capture le régime fiscal",
-     "pattern": "(régime|fiscal|réel)"
-    },
-    {
-     "text": "Propose les connecteurs adaptés",
-     "pattern": "(connecteur|Qonto|Pennylane)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    },
-    {
-     "text": "Pose une seule question à la fois",
-     "pattern": "(une (seule )?question|question à la fois)"
-    }
-   ]
-  },
-  {
-   "id": 53,
-   "skill": "smb-router",
-   "prompt": "Mes fournisseurs tardent et je ne sais plus où en est ma trésorerie. Que faire en premier ?",
-   "assertions": [
-    {
-     "text": "Route la partie trésorerie vers le bon skill",
-     "pattern": "(trésorerie|cash-flow|working-capital|cash)"
-    },
-    {
-     "text": "Route la partie fournisseurs vers le bon skill",
-     "pattern": "(fournisseur|pay-the-bills|ap-processor|DPO)"
-    },
-    {
-     "text": "Propose un ordre de traitement",
-     "pattern": "(en premier|ordre|priorit|d'abord)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 54,
-   "skill": "social-content-engine",
-   "prompt": "J'ai posté 2 contenus la semaine dernière, le making-of a bien marché. Qu'est-ce que je programme en suite ?",
-   "assertions": [
-    {
-     "text": "Poursuit le calendrier de publication roulant",
-     "pattern": "(calendrier|planif|prochain)"
-    },
-    {
-     "text": "S'appuie sur la voix / ce qui a marché",
-     "pattern": "(making-of|derrière les scenes|voix|ton|style)"
-    },
-    {
-     "text": "Prévoit les visuels Canva",
-     "pattern": "(Canva|visuel|design)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 55,
-   "skill": "speed-to-lead",
-   "prompt": "Lead chaud en direct : « combien pour 500 unités de la réf 88 ? ». Combien de temps pour répondre, et avec quoi ?",
-   "assertions": [
-    {
-     "text": "Fixe un délai de réponse court",
-     "pattern": "(minutes|rapid|vite|dès|immédiat)"
-    },
-    {
-     "text": "Répond au chiffrage demandé",
-     "pattern": "(prix|devis|chiffr|tarif)"
-    },
-    {
-     "text": "Reste sur le besoin exprimé (500 × réf 88)",
-     "pattern": "(88|500)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 56,
-   "skill": "stock-count-cutoff",
-   "prompt": "Inventaire de fin d'année : 3 références en écart, 2 en excédent, 1 en manque. Que faire avant la clôture ?",
-   "assertions": [
-    {
-     "text": "Trace et traite les écarts d'inventaire",
-     "pattern": "(écart|écarts)"
-    },
-    {
-     "text": "Valorise au bon principe (CMUP / FIFO)",
-     "pattern": "(CMUP|FIFO|valoris)"
-    },
-    {
-     "text": "Traite les dormants / dépréciation",
-     "pattern": "(dormant|dépréciation|néant)"
-    },
-    {
-     "text": "Pose la coupure d'exercice (FAE / FNP)",
-     "pattern": "(FAE|FNP|créos|cut-?off)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 57,
-   "skill": "tax-prep",
-   "prompt": "Prépare la fiscalité du mois de juin.",
-   "assertions": [
-    {
-     "text": "Enchaîne la préparation de la clôture mensuelle",
-     "pattern": "(clôture|mensuelle|month-end)"
-    },
-    {
-     "text": "Prépare la TVA (CA3)",
-     "pattern": "(TVA|CA ?3)"
-    },
-    {
-     "text": "Prépare le dossier de l'expert-comptable",
-     "pattern": "(expert-comptable|dossier|liasse)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 58,
-   "skill": "ticket-deflector",
-   "prompt": "Client : « ma commande 4512 n'arrive pas, je veux un remboursement ». PayPal montre livrée. Que faire ?",
-   "assertions": [
-    {
-     "text": "Récupère le statut réel de la commande",
-     "pattern": "(statut|livrée|délivr|commande 4512)"
-    },
-    {
-     "text": "Traite la demande de remboursement",
-     "pattern": "(remboursement|refund)"
-    },
-    {
-     "text": "Rédige une réponse au client (brouillon)",
-     "pattern": "(brouillon|réponse|rédig)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 59,
-   "skill": "time-to-invoice",
-   "prompt": "Relevé de temps : 12 h sur l'intervention, le devis prévoyait 10 h à 650 €/h. Le client a validé le démarrage. Je facture ?",
-   "assertions": [
-    {
-     "text": "Lit le relevé de temps (12 h)",
-     "pattern": "(12 ?h|10 ?h|2 ?h)"
-    },
-    {
-     "text": "Contrôle le taux horaire du devis (650 €)",
-     "pattern": "(650|taux|devis)"
-    },
-    {
-     "text": "Gère le dépassement de 2 h (accord client)",
-     "pattern": "(validation|accord|dépass|surcoût)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 60,
-   "skill": "verifier-tiers",
-   "prompt": "Avant une commande de 15 000 €, vérifie le fournisseur « Techdis SARL », SIREN 912 456 789.",
-   "assertions": [
-    {
-     "text": "Vérifie l'existence via Sirene",
-     "pattern": "(Sirene|API Recherche)"
-    },
-    {
-     "text": "Vérifie les procédures collectives (BODACC)",
-     "pattern": "(BODACC|procédure(s)? collective(s)?)"
-    },
-    {
-     "text": "Vérifie la cohérence IBAN / nom",
-     "pattern": "(IBAN|cohérence|coordonnées bancaires)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 61,
-   "skill": "visit-report",
-   "prompt": "Notes de visite : « vu Dubois, besoin 200 unités/mois, concurrent moins cher de 10 %, budget OK, décision fin de mois, envoyer devis + échantillons ». Structure ça.",
-   "assertions": [
-    {
-     "text": "Structure les besoins / volumes",
-     "pattern": "(besoin|volume|200)"
-    },
-    {
-     "text": "Structure la concurrence",
-     "pattern": "(concurrent|10 ?%)"
-    },
-    {
-     "text": "Structure l'objection / budget",
-     "pattern": "(objection|budget)"
-    },
-    {
-     "text": "Pose la prochaine action datée",
-     "pattern": "(prochaine action|fin de mois|devis|échantillons)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  },
-  {
-   "id": 62,
-   "skill": "working-capital",
-   "prompt": "DSO 54 jours, DPO 31, DIO 45. Quelle est ma situation de BFR et que prioriser ?",
-   "assertions": [
-    {
-     "text": "Calcule le cycle de conversion (68 jours)",
-     "pattern": "(cycle de conversion|68)"
-    },
-    {
-     "text": "Décompose DSO / DPO / DIO",
-     "pattern": "(DSO|DPO|DIO)"
-    },
-    {
-     "text": "Priorise les leviers / scénarios",
-     "pattern": "(priorité|scénario|trajectoire|accélér|allong)"
-    }
-   ],
-   "behaviour": [
-    {
-     "text": "Annonce explicitement qu'aucune action n'a été effectuée",
-     "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
-    },
-    {
-     "text": "N'invente pas de source ou de référence spécifique",
-     "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
-     "negate": true
-    }
-   ]
-  }
- ]
+  "skill_name": "small-business-fr-scale",
+  "note": "Évaluation de scale sur les 62 skills non couverts par le pilot (invoice-chase, close-month, tva-pilot). Un cas par skill, deux bras (with_skill / without_skill). Toutes les assertions sont déterministes (regex) : `assertions` = justesse métier (garde-fous de régression), `behaviour` = comportements qui distinguent le skill (non-action explicite, pas de source inventée). common_behaviour s'ajoute aux behaviour de chaque cas.",
+  "common_behaviour": [
+    {
+      "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+      "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+    },
+    {
+      "text": "N'invente pas de source ou de référence spécifique",
+      "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+      "negate": true
+    }
+  ],
+  "evals": [
+    {
+      "id": 1,
+      "skill": "ad-manager",
+      "prompt": "Voici mes pubs TikTok de juin : 3 campagnes, 4 200 € de dépensé, 310 clics, 41 leads, 3 affaires signées pour 6 400 €. Dis-moi ce que je corrige avant de remettre de l'argent.",
+      "assertions": [
+        {
+          "text": "Calcule un coût par lead ou par action",
+          "pattern": "(coût par (lead|contact|action|clic)|CPA|CPL|CPC|CTR|taux de clic)"
+        },
+        {
+          "text": "Hiérarchise les campagnes et propose une réallocation",
+          "pattern": "(meilleure|pire|redirige|pause|coup|arrê|budget vers|réall)"
+        },
+        {
+          "text": "Raisonne en coût d'acquisition / rentabilité",
+          "pattern": "(ROI|ROAS|coût d'?acquisition|rentable)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "skill": "aides-et-marches-fr",
+      "prompt": "SAS de 3 personnes, 2 ans, dans l'informatique à Lyon. Quelles aides pourraient nous parler, et où veiller les marchés publics ?",
+      "assertions": [
+        {
+          "text": "Évoque le statut JEI",
+          "pattern": "(JEI|jeune entreprise innovante)"
+        },
+        {
+          "text": "Évoque le CIR",
+          "pattern": "(CIR|crédit d'?impôt (de )?recherche)"
+        },
+        {
+          "text": "Nomme les portails de marchés publics",
+          "pattern": "(BOAMP|PLACE|TED|marchés? publics)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "skill": "ap-processor",
+      "prompt": "Facture fournisseur n° 2026-118 : 3 480 € TTC pour 120 unités de l'article 55. J'ai commandé 100, reçu 118 dont 2 abîmées. Que faire avant de payer ?",
+      "assertions": [
+        {
+          "text": "Met en œuvre le rapprochement commande / réception / facture",
+          "pattern": "(rapprochement|3 (voies|volets)|commande.{0,30}réception|litige)"
+        },
+        {
+          "text": "Traite la TVA déductible sur l'achat",
+          "pattern": "(TVA (déductible|sur (les |l'?)(achat|facture))|crédit de TVA)"
+        },
+        {
+          "text": "Ouvre un litige / avoir sur les 2 unités abîmées et l'excédent",
+          "pattern": "(avoir|réclamation|avarié|avaries|litige)"
+        },
+        {
+          "text": "Impuie au plan comptable",
+          "pattern": "(PCG|imputation|compte 6)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "skill": "b2b-stock-planner",
+      "prompt": "Carnet pour le mois prochain : ligne A 40 unités, B 15, C 60. Pipeline : 2 affaires A en négociation (70 %), 1 B (30 %). Réassort 3 semaines. Ventes historiques : A 30/mois, B 12, C 55. Qu'est-ce que je commande ?",
+      "assertions": [
+        {
+          "text": "Pondère le pipeline par probabilité",
+          "pattern": "(pondéré|pondérage|probabilité|taux de (conversion|fermeture))"
+        },
+        {
+          "text": "Classe les lignes par priorité (logique ABC)",
+          "pattern": "(ABC|classement|priorité|prioris)"
+        },
+        {
+          "text": "Intègre le délai de réassort de 3 semaines",
+          "pattern": "(délai (d'?approvisionnement|de réassort|réassort)|3 semaines|lead ?time)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "skill": "brand-style",
+      "prompt": "Je veux fixer mon identité visuelle et le format de tous les livrables que tu produiras : couleurs, logo, ton. Dis-moi ce qu'il me faut te donner.",
+      "assertions": [
+        {
+          "text": "Demande les couleurs / palette",
+          "pattern": "(couleur|palette|teinte|#)"
+        },
+        {
+          "text": "Demande le logo",
+          "pattern": "(logo)"
+        },
+        {
+          "text": "Fixe un format de livrable",
+          "pattern": "(format|modèle|template|livrable|document)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "skill": "build-agent",
+      "prompt": "Chaque vendredi j'exporte mes ventes Shopify et je calcule les marges à la main. Je veux automatiser ça. Comment on transforme ça en skill nommé ?",
+      "assertions": [
+        {
+          "text": "Cadre la création d'un skill réutilisable",
+          "pattern": "(skill|automatisation|automatis|planif|récurrent)"
+        },
+        {
+          "text": "Prévoit un déclencheur (nom ou horaire)",
+          "pattern": "(déclencher|trigger|nommer|par son nom|horaire|planifié)"
+        },
+        {
+          "text": "Demande le détail des étapes / données de la tâche",
+          "pattern": "(étapes|détails|quelles données|quoi exactement|comment tu le fais)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "skill": "build-connector",
+      "prompt": "Je suis sur Sage 100 en compta et il n'y a pas de connecteur. Comment faire arriver mes données mensuelles dans le plugin ?",
+      "assertions": [
+        {
+          "text": "Propose de vérifier l'annuaire des connecteurs",
+          "pattern": "(annuaire|catalogue (de |des )?connecteurs)"
+        },
+        {
+          "text": "Propose le relais Zapier",
+          "pattern": "(Zapier)"
+        },
+        {
+          "text": "Propose un export de fichiers",
+          "pattern": "(export|CSV|fichier)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "skill": "business-pulse",
+      "prompt": "Donne-moi le pouls de l'entreprise pour le mois en cours.",
+      "assertions": [
+        {
+          "text": "Couvre la trésorerie",
+          "pattern": "(trésorerie|cash|banque)"
+        },
+        {
+          "text": "Couvre les impayés / encours",
+          "pattern": "(impayés|encours|créances|retards de paiement)"
+        },
+        {
+          "text": "Couvre les indicateurs du mois (TVA, échéances, marges, DSO…)",
+          "pattern": "(DSO|DPO|DIO|marge|échéances|TVA)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "skill": "calendrier-fiscal-fr",
+      "prompt": "SARL au réel, exercice 2026. Quelles sont mes principales échéances fiscales et sociales à venir ?",
+      "assertions": [
+        {
+          "text": "Évoque les déclarations de TVA",
+          "pattern": "(CA ?3|CA ?12|déclaration de TVA)"
+        },
+        {
+          "text": "Évoque les acomptes d'IS",
+          "pattern": "(acompte(s)? (d'?IS|IS)|impôt sur (les )?sociétés)"
+        },
+        {
+          "text": "Évoque CFE / taxe d'apprentissage / URSSAF / liasse",
+          "pattern": "(CFE|taxe d'?apprentissage|URSSAF|liasse)"
+        },
+        {
+          "text": "Donne des dates réelles (mois nommés)",
+          "pattern": "(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "skill": "call-list",
+      "prompt": "Prépare ma liste d'appels du jour : 12 prospects dont 8 sont des particuliers.",
+      "assertions": [
+        {
+          "text": "Vérifie Bloctel avant les appels B2C",
+          "pattern": "(Bloctel)"
+        },
+        {
+          "text": "Vérifie les jours fériés / week-end",
+          "pattern": "(férié|jour férié|week-?end|samedi|dimanche)"
+        },
+        {
+          "text": "Distingue particuliers et professionnels dans le traitement",
+          "pattern": "(particulier|consommateur|B2C|privé)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "skill": "canva-creator",
+      "prompt": "Brief approuvé : 3 posts Instagram pour la vente d'été, -20 % du 1er au 15 juillet. Exécute la campagne.",
+      "assertions": [
+        {
+          "text": "Construit le calendrier de publication",
+          "pattern": "(calendrier|planif|publication|poster)"
+        },
+        {
+          "text": "Génère ou planifie les designs Canva",
+          "pattern": "(Canva|design|visuel|visuels)"
+        },
+        {
+          "text": "Respecte les éléments du brief (-20 %, 1er-15 juillet)",
+          "pattern": "(- ?20 ?%|vente d'?été|15 juillet|1er juillet)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "skill": "cash-flow-snapshot",
+      "prompt": "Cash en banque : 18 400 €. Encaissements attendus : 9 200 € ce mois, 14 600 € le mois prochain. Décaissements : salaires 7 800 €/mois, TVA 2 150 € en septembre, fournisseur 6 300 € dans 30 jours. Où en serai-je dans 90 jours ?",
+      "assertions": [
+        {
+          "text": "Projette sur 30 / 60 / 90 jours",
+          "pattern": "(30 ?jours|60 ?jours|90 ?jours)"
+        },
+        {
+          "text": "Liste les encaissements attendus",
+          "pattern": "(encaissement|encaisse)"
+        },
+        {
+          "text": "Liste les décaissements",
+          "pattern": "(décaissement|décaisse|sortie)"
+        },
+        {
+          "text": "Donne un solde projeté",
+          "pattern": "(solde|trésorerie|serai-?je|il me reste)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "skill": "catalog-quote",
+      "prompt": "Devis à chiffrer : 250 unités réf 120 à 12 € l'unité et 100 unités réf 88 à 7,50 €, client à Nantes. Grille : -10 % dès 200 unités, -5 % dès 100. Chiffre le devis et ma marge.",
+      "assertions": [
+        {
+          "text": "Applique les paliers de la grille tarifaire",
+          "pattern": "(palier|seuil|barème|dès 200)"
+        },
+        {
+          "text": "Applique les remises",
+          "pattern": "(remise|- ?10 ?%|- ?5 ?%|remis)"
+        },
+        {
+          "text": "Traite les frais de port / franco",
+          "pattern": "(port|frais de (port|livraison)|franco)"
+        },
+        {
+          "text": "Calcule la marge",
+          "pattern": "(marge|taux de marge)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "skill": "content-strategy",
+      "prompt": "Mes marges : 31 % sur les services, 18 % sur les produits. Sur quoi je dois concentrer le contenu ?",
+      "assertions": [
+        {
+          "text": "S'appuie sur la marge lue dans le grand livre",
+          "pattern": "(marge|31 ?%|18 ?%)"
+        },
+        {
+          "text": "Nomme la définition de la marge (taux de marque ou taux de marge)",
+          "pattern": "(taux de (marge|marque))"
+        },
+        {
+          "text": "Décline des axes de stratégie",
+          "pattern": "(stratégie|axe|pilier|prioris|centrer|concentrer)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "skill": "contract-review",
+      "prompt": "Le contrat client prévoit un préavis de 1 mois pour lui et 12 mois pour moi. Y a-t-il un problème de droit ?",
+      "assertions": [
+        {
+          "text": "Qualifie l'asymétrie au regard du déséquilibre significatif",
+          "pattern": "(déséquilibre significatif)"
+        },
+        {
+          "text": "Évoque la rupture brutale de relation commerciale",
+          "pattern": "(rupture brutale)"
+        },
+        {
+          "text": "Quantifie l'écart de préavis",
+          "pattern": "(asymétr|asymétrie|12 mois|1 mois|préavis)"
+        },
+        {
+          "text": "Cite le fondement (Code de commerce)",
+          "pattern": "(C\\. ?com|L ?442|L ?441)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "skill": "credit-desk",
+      "prompt": "Client X : 8 900 € de factures ouvertes et 2 000 € de commandes confirmées non facturées. Son plafond est de 10 000 €. Je confirme la nouvelle commande ?",
+      "assertions": [
+        {
+          "text": "Calcule l'encours client",
+          "pattern": "(encours)"
+        },
+        {
+          "text": "Le compare au plafond",
+          "pattern": "(plafond)"
+        },
+        {
+          "text": "Classe le client en statut vert / vigilance / bloqué",
+          "pattern": "(vert|vigilance|bloqué|bloquer|statut)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "skill": "crm-autopilot",
+      "prompt": "Nouveau prospect : Boulangerie Martin, 2 salariés, SAS, contact m.martin@martin-boulangerie.fr. Ajoute-le au CRM.",
+      "assertions": [
+        {
+          "text": "Enrichit avec le SIREN / données officielles",
+          "pattern": "(SIREN|recherche|API Recherche)"
+        },
+        {
+          "text": "Enregistre la forme juridique",
+          "pattern": "(SAS|forme juridique)"
+        },
+        {
+          "text": "Applique le cadre RGPD au contact",
+          "pattern": "(RGPD|base légale|consentement)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "skill": "customer-reorder",
+      "prompt": "Le client Dupont commande tous les ~30 jours. Sa dernière commande date de 45 jours. Prépare le message de réassort.",
+      "assertions": [
+        {
+          "text": "Raisonne en cycle / intervalle médian de commande",
+          "pattern": "(intervalle|médian|cycle|fréquence)"
+        },
+        {
+          "text": "Identifie le client comme en retard sur son cycle",
+          "pattern": "(45|30 jours|en retard|décalé)"
+        },
+        {
+          "text": "Prépare un message personnalisé (sans l'envoyer)",
+          "pattern": "(brouillon|prépar|message|rédig)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "skill": "devis-facture-fr",
+      "prompt": "Émets un devis : 3 jours d'intervention à 650 €/jour, client SIREN 512 384 762, TVA 20 %. Quelles mentions obligatoires porter le document ?",
+      "assertions": [
+        {
+          "text": "Mentionne le SIREN du client",
+          "pattern": "(SIREN)"
+        },
+        {
+          "text": "Mentionne la TVA",
+          "pattern": "(TVA|20 ?%)"
+        },
+        {
+          "text": "Mentionne pénalités de retard et indemnité forfaitaire de 40 €",
+          "pattern": "(pénalit|40 ?€|forfaitaire)"
+        },
+        {
+          "text": "Mentionne conditions d'escompte / délai de paiement",
+          "pattern": "(escompte|conditions de paiement|délai de paiement)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "skill": "dossier-expert-comptable",
+      "prompt": "L'expert-comptable demande la clôture de juin. J'ai le relevé bancaire et 2 factures fournisseurs. Qu'est-ce qui manque et qu'est-ce qu'on lui envoie ?",
+      "assertions": [
+        {
+          "text": "Liste les pièces manquantes",
+          "pattern": "(manquant|pièces? (à |que )?(joindre|fournir)|il (me )?manque)"
+        },
+        {
+          "text": "Prépare des relances pré-rédigées",
+          "pattern": "(relance|rappel|pré-rédig)"
+        },
+        {
+          "text": "Daté le paquet envoyé",
+          "pattern": "(daté|date|paquet|dossier)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "skill": "einvoice-readiness",
+      "prompt": "SARL de 4 salariés, je suis sur Qonto, et je facture quelques clients du secteur public. Suis-je prêt pour la facturation électronique ?",
+      "assertions": [
+        {
+          "text": "Vérifie la plateforme agréée (PA)",
+          "pattern": "(plateforme agréée|\\bPA\\b)"
+        },
+        {
+          "text": "Vérifie la capacité de réception",
+          "pattern": "(réception)"
+        },
+        {
+          "text": "Traite le circuit public (PFP / Chorus)",
+          "pattern": "(PFP|portail public|Chorus|secteur public)"
+        },
+        {
+          "text": "Situe l'entreprise dans le calendrier (2026 / 2027)",
+          "pattern": "(2026|2027|septembre|échéance)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "skill": "fulfillment-desk",
+      "prompt": "3 commandes à expédier aujourd'hui : Paris sous 24 h, Lyon, et une en Belgique. Prépare l'expédition.",
+      "assertions": [
+        {
+          "text": "Génère les bons de préparation",
+          "pattern": "(bon de préparation|préparation)"
+        },
+        {
+          "text": "Génère les bons de livraison",
+          "pattern": "(BL|bon de livraison)"
+        },
+        {
+          "text": "Choisit le transporteur / mode d'envoi",
+          "pattern": "(transporteur|colis|courrier)"
+        },
+        {
+          "text": "Prévoit le suivi",
+          "pattern": "(suivi|tracking|numéro de suivi)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "skill": "grow-pipeline",
+      "prompt": "Mon pipeline est à l'arrêt : 6 opportunités pour 42 000 €, rien de nouveau depuis 3 semaines. Que faire cette semaine ?",
+      "assertions": [
+        {
+          "text": "Diagnostic du pipeline (pistes, opportunités)",
+          "pattern": "(pipeline|opportunités?|prospect)"
+        },
+        {
+          "text": "Planifie des relances",
+          "pattern": "(relance|recycl|nourrir|rallumer)"
+        },
+        {
+          "text": "Relie au prévisionnel",
+          "pattern": "(prévision|forecast|objectif)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "skill": "growth-pulse",
+      "prompt": "Mes ventes : avril 41 k, mai 39 k, juin 44 k, juillet 40 k. Le moteur de croissance fonctionne ?",
+      "assertions": [
+        {
+          "text": "Analyse la tendance des ventes",
+          "pattern": "(tendance|variabilité|stable|moyenne)"
+        },
+        {
+          "text": "Répond à la question « le moteur fonctionne-t-il »",
+          "pattern": "(croissance|moteur|accélér|ralentiss)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "skill": "hiring-screener",
+      "prompt": "14 CV pour un poste de commercial. Comment faire la présélection sans risque de discrimination ?",
+      "assertions": [
+        {
+          "text": "Applique les critères de non-discrimination",
+          "pattern": "(discrimination|non-discrimination)"
+        },
+        {
+          "text": "Travaille sur les CV / candidatures",
+          "pattern": "(CV|candidats?|dossier)"
+        },
+        {
+          "text": "Utilise une grille / checklist objective",
+          "pattern": "(critère|grille|checklist|objectiv)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "skill": "inbox-manager",
+      "prompt": "23 e-mails non lus : 3 ressemblent à des commandes clients, 2 sont des factures fournisseurs, 19 du bruit. Trie-les.",
+      "assertions": [
+        {
+          "text": "Détecte les commandes clients",
+          "pattern": "(commande|clients?)"
+        },
+        {
+          "text": "Détecte les factures fournisseurs",
+          "pattern": "(facture|fournisseur)"
+        },
+        {
+          "text": "Route vers les bons skills (order-intake / ap-processor)",
+          "pattern": "(rout|order-intake|ap-processor|tri)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "skill": "intra-eu-export-check",
+      "prompt": "Première vente intracommunautaire : client allemand, 7 800 €. Que vérifier avant de facturer ?",
+      "assertions": [
+        {
+          "text": "Vérifie le n° de TVA intracommunautaire via VIES",
+          "pattern": "(VIES)"
+        },
+        {
+          "text": "Pose la mention d'exonération",
+          "pattern": "(exonér|intracommunautaire)"
+        },
+        {
+          "text": "Exige les preuves de transport",
+          "pattern": "(preuve|transport|livraison|colis)"
+        },
+        {
+          "text": "Vérifie l'Incoterm / EORI si hors UE",
+          "pattern": "(Incoterm|EORI)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "skill": "inventory-planner",
+      "prompt": "Réf 45 : 120 en stock, 40 vendus le mois dernier, 25 au carnet, délai fournisseur 3 semaines. Quand suis-je en rupture, et qu'est-ce que je commande ?",
+      "assertions": [
+        {
+          "text": "Calcule la vitesse de vente / couverture",
+          "pattern": "(vitesse de vente|couvre|jours de stock|rotation)"
+        },
+        {
+          "text": "Datée la date de rupture",
+          "pattern": "(rupture|épuis|tombe à|en stock jusqu|s'en iront)"
+        },
+        {
+          "text": "Propose une quantité à commander",
+          "pattern": "(commander|réappro|quantité)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "skill": "job-post-builder",
+      "prompt": "Rédige une offre d'emploi : magasinier, CDI, convention collective transport, 28 000 € brut par an, basé à Aix.",
+      "assertions": [
+        {
+          "text": "Précise le type de contrat CDI",
+          "pattern": "(CDI)"
+        },
+        {
+          "text": "Cite la convention collective",
+          "pattern": "(convention collective|transport)"
+        },
+        {
+          "text": "Donne la rémunération brute annuelle",
+          "pattern": "(28 ?000|brut|annuel)"
+        },
+        {
+          "text": "Porte la mention H/F",
+          "pattern": "(H/?F|feminin|masculin)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "skill": "lead-finder",
+      "prompt": "Trouve-moi 20 revendeurs informatique à Marseille, 1 à 10 salariés.",
+      "assertions": [
+        {
+          "text": "S'appuie sur les bases officielles (Sirene / Pappers / API Recherche d'entreprises)",
+          "pattern": "(Sirene|Pappers|API Recherche d'?entreprises)"
+        },
+        {
+          "text": "Cible par code NAF",
+          "pattern": "(NAF|code NAF)"
+        },
+        {
+          "text": "Filtre par effectif",
+          "pattern": "(effectif|salariés?|1 à 10)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "skill": "lead-triage",
+      "prompt": "Lead entrant : « merci de me rappeler ». Comment le qualifier, et quand l'appeler ?",
+      "assertions": [
+        {
+          "text": "Vérifie Bloctel avant l'appel B2C",
+          "pattern": "(Bloctel)"
+        },
+        {
+          "text": "Vérifie jours fériés / horaires",
+          "pattern": "(férié|jour férié|horaires|plage)"
+        },
+        {
+          "text": "Qualifie le lead (besoin, budget, timing)",
+          "pattern": "(qualif|qualification|besoin|budget)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "skill": "marketing-monday",
+      "prompt": "Lundi, planifie le marketing de la semaine. Budget 200 €.",
+      "assertions": [
+        {
+          "text": "Planifie par jour de la semaine",
+          "pattern": "(semaine|lundi|mardi|mercredi|jeudi|vendredi|jour)"
+        },
+        {
+          "text": "Inclut la pub payante (Meta / Google)",
+          "pattern": "(Meta|Google Ads|publicité|pubs)"
+        },
+        {
+          "text": "Inclut le SEO local",
+          "pattern": "(SEO|local|fiches|Google Business)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "skill": "micro-entrepreneur",
+      "prompt": "Micro-entrepreneur en services : 7 200 € de CA au 1er trimestre, 8 100 € au 2e. À quoi dois-je faire attention ?",
+      "assertions": [
+        {
+          "text": "Surveille le plafond de chiffre d'affaires",
+          "pattern": "(plafond|seuil)"
+        },
+        {
+          "text": "Rappelle la déclaration URSSAF",
+          "pattern": "(URSSAF|déclaration|trimestrielle)"
+        },
+        {
+          "text": "Surveille le seuil de TVA",
+          "pattern": "(TVA|franchise en base|assujettis)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "skill": "monday-brief",
+      "prompt": "Brief du lundi, s'il te plaît.",
+      "assertions": [
+        {
+          "text": "Synthétise la trésorerie",
+          "pattern": "(trésorerie|cash)"
+        },
+        {
+          "text": "Liste les échéances de la semaine",
+          "pattern": "(échéance|échéances)"
+        },
+        {
+          "text": "Montre les impayés",
+          "pattern": "(impayé|encours)"
+        },
+        {
+          "text": "Donne les actions à mener",
+          "pattern": "(action|à (faire|mener)|priorité)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "skill": "month-end-prep",
+      "prompt": "Clôture de juin : 3 opérations bancaires non imputées, dont un virement de 3 400 € qui regroupe 4 paiements clients. Que faire ?",
+      "assertions": [
+        {
+          "text": "Rapproche la banque du grand livre",
+          "pattern": "(rapprochement|imput|banque.{0,20}(grand livre|compta))"
+        },
+        {
+          "text": "Lettre / désagrège le virement groupé",
+          "pattern": "(lettrage|désagrég|ventil)"
+        },
+        {
+          "text": "Applique le cut-off (FAE / FNP)",
+          "pattern": "(FAE|FNP|cut-?off|créos)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "skill": "order-intake",
+      "prompt": "E-mail client : « 50 unités réf 12 à 11 € pièce, livraison le 15 ». La grille indique 12 €. Mets en forme la commande.",
+      "assertions": [
+        {
+          "text": "Produit un brouillon de commande contrôlé",
+          "pattern": "(brouillon|draft|contrôlée?)"
+        },
+        {
+          "text": "Contrôle le prix contre la grille",
+          "pattern": "(grille|tarif|12 ?€)"
+        },
+        {
+          "text": "Signale l'écart de prix 11 € / 12 €",
+          "pattern": "(écart|différence|11 ?€|prix)"
+        },
+        {
+          "text": "Contrôle la condition de livraison",
+          "pattern": "(livraison|le 15|conditions)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "skill": "outreach-composer",
+      "prompt": "Rédige un 1er e-mail de prospection B2B envoyé à une adresse pro d'entreprise.",
+      "assertions": [
+        {
+          "text": "Pose la base légale (intérêt légitime)",
+          "pattern": "(intérêt légitime)"
+        },
+        {
+          "text": "Donne le droit d'opposition / désinscription",
+          "pattern": "(opposition|désinscription|se désabonner)"
+        },
+        {
+          "text": "Respecte le cadre RGPD / CNIL",
+          "pattern": "(RGPD|CNIL)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "skill": "pay-the-bills",
+      "prompt": "3 factures fournisseurs à payer : 1 240 €, 890 € et 2 310 €. Prépare le règlement.",
+      "assertions": [
+        {
+          "text": "Vérifie les coordonnées bancaires",
+          "pattern": "(IBAN|coordonnées bancaires|rIB)"
+        },
+        {
+          "text": "Prépare un virement groupé",
+          "pattern": "(virement groupé|lot|groupé)"
+        },
+        {
+          "text": "Passe par la banque (Qonto)",
+          "pattern": "(Qonto|banque)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "skill": "payroll-prep",
+      "prompt": "Variables de paie de juillet : un salarié à 150 h a travaillé 158 h, 2 jours de congés payés, 10 jours de titres-restaurant. Prépare l'export.",
+      "assertions": [
+        {
+          "text": "Porte les heures travaillées (158 / 150)",
+          "pattern": "(158|150|heures)"
+        },
+        {
+          "text": "Porte les congés payés",
+          "pattern": "(congé(s)? payé(s)?|\\bCP\\b)"
+        },
+        {
+          "text": "Porte les titres-restaurant",
+          "pattern": "(titres?-?restaurant)"
+        },
+        {
+          "text": "Prépare l'export vers l'outil de paie",
+          "pattern": "(Payfit|Silae|export)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "skill": "pricing-desk",
+      "prompt": "Mon fournisseur augmente le prix d'achat de la réf 120 de 8 € à 9 €. Je vends à 12 €. Quel est l'impact sur ma marge, et que faire ?",
+      "assertions": [
+        {
+          "text": "Calcule la marge avant / après",
+          "pattern": "(marge|taux de marge)"
+        },
+        {
+          "text": "Simule l'impact chiffré",
+          "pattern": "(simulation|impact|passe|devient)"
+        },
+        {
+          "text": "Donne un ordre de grandeur (33 % → 25 %)",
+          "pattern": "(33 ?%|25 ?%|8 ?€|9 ?€)"
+        },
+        {
+          "text": "Propose des leviers (revalorisation, renégociation…)",
+          "pattern": "(augmenter|revaloris|répercut|renégocier)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "skill": "product-compliance",
+      "prompt": "Je vends une enceinte Bluetooth importée de Chine en France. Quelles conformités vérifier ?",
+      "assertions": [
+        {
+          "text": "Vérifie le marquage CE",
+          "pattern": "(CE|marquage)"
+        },
+        {
+          "text": "Vérifie REACH / FDS",
+          "pattern": "(REACH|FDS|fiche de données de sécurité)"
+        },
+        {
+          "text": "Vérifie DEEE / éco-organisme / emballages",
+          "pattern": "(DEEE|éco-?organisme|WEEE|emballages?)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "skill": "proposal-builder",
+      "prompt": "Entretien de découverte fait : audit de 2 jours + 1 mois d'accompagnement, 3 points mensuels. Construis le devis de prestation.",
+      "assertions": [
+        {
+          "text": "Structure en jalons / livrables / forfait",
+          "pattern": "(jalon|livrable|forfait)"
+        },
+        {
+          "text": "Porte les mentions légales FR",
+          "pattern": "(mentions? légales|CGV|conditions)"
+        },
+        {
+          "text": "Produit le devis",
+          "pattern": "(devis|chiffr)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "skill": "purchase-desk",
+      "prompt": "BC 2026-045 pour 500 unités : 490 reçues, 10 abîmées. Traite la réception.",
+      "assertions": [
+        {
+          "text": "S'appuie sur le bon de commande",
+          "pattern": "(BC|bon de commande)"
+        },
+        {
+          "text": "Ouvre un litige sur les avaries",
+          "pattern": "(avaries?|abîm|litige|réclamation)"
+        },
+        {
+          "text": "Fait le rapprochement à trois voies",
+          "pattern": "(rapprochement|3 (voies|volets)|commande.{0,25}réception)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "skill": "quote-followup",
+      "prompt": "4 devis ouverts : 12 400 € (21 jours), 3 900 € (8 jours), 8 200 € (35 jours, expire dans 2 jours), 1 500 € (3 jours). Par quoi je commence ?",
+      "assertions": [
+        {
+          "text": "Classe par ancienneté",
+          "pattern": "(ancienneté|jours)"
+        },
+        {
+          "text": "Classe par montant",
+          "pattern": "(montant|12 ?400|8 ?200)"
+        },
+        {
+          "text": "Gère les devis en cours d'expiration",
+          "pattern": "(expir|expire)"
+        },
+        {
+          "text": "Propose une relance par étape",
+          "pattern": "(relance|rappel|étape)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "skill": "reactivate",
+      "prompt": "14 clients sans commande depuis plus de 6 mois, 58 000 € d'achat cumulé. Réactive-les.",
+      "assertions": [
+        {
+          "text": "Cible les clients inactifs",
+          "pattern": "(inactif|dormant|6 mois)"
+        },
+        {
+          "text": "Segmente / priorise le portefeuille",
+          "pattern": "(segment|prioris|tri|cœur)"
+        },
+        {
+          "text": "Prépare la campagne de réactivation",
+          "pattern": "(message|campagne|e-mail|relance)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "skill": "renewal-watch",
+      "prompt": "3 contrats : SaaS A se renouvelle le 31 décembre, préavis 30 jours (côté client). Assurance le 1er mars, préavis 60 jours (côté fournisseur). Nous sommes en septembre. Que surveiller ?",
+      "assertions": [
+        {
+          "text": "Calcule dates de reconduction et préavis",
+          "pattern": "(préavis|reconduction|résiliation)"
+        },
+        {
+          "text": "Donne la date limite de résiliation effective",
+          "pattern": "(date limite|avant le|au plus tard)"
+        },
+        {
+          "text": "Planifie l'alerte avant l'échéance",
+          "pattern": "(alerte|échéance|délai)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "skill": "report-builder",
+      "prompt": "Construis mon tableau de bord mensuel.",
+      "assertions": [
+        {
+          "text": "Inclus la trésorerie",
+          "pattern": "(trésorerie|cash)"
+        },
+        {
+          "text": "Inclus DSO / DPO / DIO",
+          "pattern": "(DSO|DPO|DIO)"
+        },
+        {
+          "text": "Inclus marges / impayés / TVA",
+          "pattern": "(marge (par |par client)|impayés?|TVA)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "skill": "report-pack",
+      "prompt": "Assemble le pack de rapports de juin pour l'expert-comptable.",
+      "assertions": [
+        {
+          "text": "Assemble le pack / dossier",
+          "pattern": "(pack|ensemble|dossier)"
+        },
+        {
+          "text": "Couvre trésorerie / impayés / TVA",
+          "pattern": "(trésorerie|impayés?|TVA)"
+        },
+        {
+          "text": "Daté le livrable",
+          "pattern": "(daté|date|juin)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "skill": "restock",
+      "prompt": "Réf 7 : 30 unités en stock, 10 vendues par mois, achat 5 €, vente 13 €, délai fournisseur 2 semaines. Je réappro ?",
+      "assertions": [
+        {
+          "text": "Calcule la vitesse de vente",
+          "pattern": "(vitesse de vente|10 (par |/) ?mois|3 mois)"
+        },
+        {
+          "text": "Pose le seuil / point de réassort",
+          "pattern": "(seuil|point de (commande|réappro)|couvre)"
+        },
+        {
+          "text": "Valorise le stock (CMUP / FIFO)",
+          "pattern": "(CMUP|FIFO|valoris|valeur de (son |ses )?stock)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "skill": "review-reputation",
+      "prompt": "Avis Google 2 étoiles : « livraison en retard de 4 jours, produit correct ». Comment répondre ?",
+      "assertions": [
+        {
+          "text": "Traite l'avis sur la bonne plateforme (Google)",
+          "pattern": "(Google|avis)"
+        },
+        {
+          "text": "Rédige une réponse publique",
+          "pattern": "(répond|réponse|publique)"
+        },
+        {
+          "text": "Propose un geste / réparation",
+          "pattern": "(désol|excus|remèd|geste|prochain)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "skill": "seo-ai-visibility",
+      "prompt": "Suis-je trouvable ? Site d'un plombier à Lyon, aucune fiche Google.",
+      "assertions": [
+        {
+          "text": "Audit de la visibilité locale (fiche Google)",
+          "pattern": "(Google Business|fiche|local)"
+        },
+        {
+          "text": "Audit de la visibilité dans les réponses IA",
+          "pattern": "(IA|réponses IA|LLM|assistant)"
+        },
+        {
+          "text": "Propose des corrections structurelles",
+          "pattern": "(balises|structure|contenu|meta)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "skill": "smb-onboard",
+      "prompt": "C'est parti. Cabinet comptable de 3 personnes, au réel. Installe-moi.",
+      "assertions": [
+        {
+          "text": "Capture le profil d'entreprise",
+          "pattern": "(profil|secteur|activité)"
+        },
+        {
+          "text": "Capture le régime fiscal",
+          "pattern": "(régime|fiscal|réel)"
+        },
+        {
+          "text": "Propose les connecteurs adaptés",
+          "pattern": "(connecteur|Qonto|Pennylane)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        },
+        {
+          "text": "Pose une seule question à la fois",
+          "pattern": "(une (seule )?question|question à la fois)"
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "skill": "smb-router",
+      "prompt": "Mes fournisseurs tardent et je ne sais plus où en est ma trésorerie. Que faire en premier ?",
+      "assertions": [
+        {
+          "text": "Route la partie trésorerie vers le bon skill",
+          "pattern": "(trésorerie|cash-flow|working-capital|cash)"
+        },
+        {
+          "text": "Route la partie fournisseurs vers le bon skill",
+          "pattern": "(fournisseur|pay-the-bills|ap-processor|DPO)"
+        },
+        {
+          "text": "Propose un ordre de traitement",
+          "pattern": "(en premier|ordre|priorit|d'abord)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "skill": "social-content-engine",
+      "prompt": "J'ai posté 2 contenus la semaine dernière, le making-of a bien marché. Qu'est-ce que je programme en suite ?",
+      "assertions": [
+        {
+          "text": "Poursuit le calendrier de publication roulant",
+          "pattern": "(calendrier|planif|prochain)"
+        },
+        {
+          "text": "S'appuie sur la voix / ce qui a marché",
+          "pattern": "(making-of|derrière les scenes|voix|ton|style)"
+        },
+        {
+          "text": "Prévoit les visuels Canva",
+          "pattern": "(Canva|visuel|design)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "skill": "speed-to-lead",
+      "prompt": "Lead chaud en direct : « combien pour 500 unités de la réf 88 ? ». Combien de temps pour répondre, et avec quoi ?",
+      "assertions": [
+        {
+          "text": "Fixe un délai de réponse court",
+          "pattern": "(minutes|rapid|vite|dès|immédiat)"
+        },
+        {
+          "text": "Répond au chiffrage demandé",
+          "pattern": "(prix|devis|chiffr|tarif)"
+        },
+        {
+          "text": "Reste sur le besoin exprimé (500 × réf 88)",
+          "pattern": "(88|500)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "skill": "stock-count-cutoff",
+      "prompt": "Inventaire de fin d'année : 3 références en écart, 2 en excédent, 1 en manque. Que faire avant la clôture ?",
+      "assertions": [
+        {
+          "text": "Trace et traite les écarts d'inventaire",
+          "pattern": "(écart|écarts)"
+        },
+        {
+          "text": "Valorise au bon principe (CMUP / FIFO)",
+          "pattern": "(CMUP|FIFO|valoris)"
+        },
+        {
+          "text": "Traite les dormants / dépréciation",
+          "pattern": "(dormant|dépréciation|néant)"
+        },
+        {
+          "text": "Pose la coupure d'exercice (FAE / FNP)",
+          "pattern": "(FAE|FNP|créos|cut-?off)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "skill": "tax-prep",
+      "prompt": "Prépare la fiscalité du mois de juin.",
+      "assertions": [
+        {
+          "text": "Enchaîne la préparation de la clôture mensuelle",
+          "pattern": "(clôture|mensuelle|month-end)"
+        },
+        {
+          "text": "Prépare la TVA (CA3)",
+          "pattern": "(TVA|CA ?3)"
+        },
+        {
+          "text": "Prépare le dossier de l'expert-comptable",
+          "pattern": "(expert-comptable|dossier|liasse)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "skill": "ticket-deflector",
+      "prompt": "Client : « ma commande 4512 n'arrive pas, je veux un remboursement ». PayPal montre livrée. Que faire ?",
+      "assertions": [
+        {
+          "text": "Récupère le statut réel de la commande",
+          "pattern": "(statut|livrée|délivr|commande 4512)"
+        },
+        {
+          "text": "Traite la demande de remboursement",
+          "pattern": "(remboursement|refund)"
+        },
+        {
+          "text": "Rédige une réponse au client (brouillon)",
+          "pattern": "(brouillon|réponse|rédig)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "skill": "time-to-invoice",
+      "prompt": "Relevé de temps : 12 h sur l'intervention, le devis prévoyait 10 h à 650 €/h. Le client a validé le démarrage. Je facture ?",
+      "assertions": [
+        {
+          "text": "Lit le relevé de temps (12 h)",
+          "pattern": "(12 ?h|10 ?h|2 ?h)"
+        },
+        {
+          "text": "Contrôle le taux horaire du devis (650 €)",
+          "pattern": "(650|taux|devis)"
+        },
+        {
+          "text": "Gère le dépassement de 2 h (accord client)",
+          "pattern": "(validation|accord|dépass|surcoût)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "skill": "verifier-tiers",
+      "prompt": "Avant une commande de 15 000 €, vérifie le fournisseur « Techdis SARL », SIREN 912 456 789.",
+      "assertions": [
+        {
+          "text": "Vérifie l'existence via Sirene",
+          "pattern": "(Sirene|API Recherche)"
+        },
+        {
+          "text": "Vérifie les procédures collectives (BODACC)",
+          "pattern": "(BODACC|procédure(s)? collective(s)?)"
+        },
+        {
+          "text": "Vérifie la cohérence IBAN / nom",
+          "pattern": "(IBAN|cohérence|coordonnées bancaires)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 61,
+      "skill": "visit-report",
+      "prompt": "Notes de visite : « vu Dubois, besoin 200 unités/mois, concurrent moins cher de 10 %, budget OK, décision fin de mois, envoyer devis + échantillons ». Structure ça.",
+      "assertions": [
+        {
+          "text": "Structure les besoins / volumes",
+          "pattern": "(besoin|volume|200)"
+        },
+        {
+          "text": "Structure la concurrence",
+          "pattern": "(concurrent|10 ?%)"
+        },
+        {
+          "text": "Structure l'objection / budget",
+          "pattern": "(objection|budget)"
+        },
+        {
+          "text": "Pose la prochaine action datée",
+          "pattern": "(prochaine action|fin de mois|devis|échantillons)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 62,
+      "skill": "working-capital",
+      "prompt": "DSO 54 jours, DPO 31, DIO 45. Quelle est ma situation de BFR et que prioriser ?",
+      "assertions": [
+        {
+          "text": "Calcule le cycle de conversion (68 jours)",
+          "pattern": "(cycle de conversion|68)"
+        },
+        {
+          "text": "Décompose DSO / DPO / DIO",
+          "pattern": "(DSO|DPO|DIO)"
+        },
+        {
+          "text": "Priorise les leviers / scénarios",
+          "pattern": "(priorité|scénario|trajectoire|accélér|allong)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "skill": "shopify-hub",
+      "prompt": "J'ai une boutique Shopify (ma-boutique.myshopify.com) et je veux que tu me la pilotes : le catalogue, le stock, les commandes, les clients et les ventes. Par où on commence ?",
+      "assertions": [
+        {
+          "text": "Vérifie la disponibilité de l'AI Toolkit / de la connexion",
+          "pattern": "(ai toolkit|toolkit|shopify-dev-mcp|serveur mcp|connecteur|disponib|vérif|accès)"
+        },
+        {
+          "text": "Mappe les domaines vers les skills du cluster",
+          "pattern": "(shopify-catalog|shopify-orders|shopify-inventory|shopify-customers|shopify-reporting|shopify-builder)"
+        },
+        {
+          "text": "Propose un plan ordonné de mise en route",
+          "pattern": "(plan|étape|d'abord|commencer|ordre|setup)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 64,
+      "skill": "shopify-setup",
+      "prompt": "Connecte mon plugin à ma boutique Shopify ma-boutique.myshopify.com. Je veux piloter le catalogue et les commandes. Que faut-il installer et vérifier ?",
+      "assertions": [
+        {
+          "text": "Propose l'installation du serveur MCP shopify-dev-mcp",
+          "pattern": "(shopify-dev-mcp|dev-mcp|@shopify/dev-mcp|npx|serveur mcp)"
+        },
+        {
+          "text": "Vérifie l'accès (token, scopes, application)",
+          "pattern": "(scope|token|application|vérif|accès|lecture seule)"
+        },
+        {
+          "text": "Consigne le contexte boutique (Business context)",
+          "pattern": "(business context|contexte|consign|consigner|plan|devise)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 65,
+      "skill": "shopify-catalog",
+      "prompt": "Dans ma boutique Shopify, j'ai 120 produits dont 30 qui n'ont ni description ni image. Propose-moi un plan pour nettoyer le catalogue et améliorer le SEO produit.",
+      "assertions": [
+        {
+          "text": "Lit l'état actuel du catalogue avant d'agir",
+          "pattern": "(lire|état actuel|export|csv|consigner|importer|inventaire des produits)"
+        },
+        {
+          "text": "Couvre les éléments SEO (titre, meta, handle, alt)",
+          "pattern": "(meta description|titre|handle|texte alternatif|alt|60 caract|160)"
+        },
+        {
+          "text": "Valide les écritures par lots avec diff",
+          "pattern": "(valid|par lot|lots de|diff|avant d'?écri|confirmer|archiv)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 66,
+      "skill": "shopify-orders",
+      "prompt": "J'ai 14 commandes en attente d'expédition dans ma boutique Shopify, dont 2 clientes qui réclament un retour. Comment on traite ça ?",
+      "assertions": [
+        {
+          "text": "Liste / filtre les commandes concernées",
+          "pattern": "(lister|filtrer|en attente|statut|sélectionner|14 commandes)"
+        },
+        {
+          "text": "Prépare l'expédition avec suivi réel (transporteur, étiquette)",
+          "pattern": "(suivi|transporteur|étiquette|expédi|fulfillment|sendcloud)"
+        },
+        {
+          "text": "Traite les retours avec montant affiché et confirmation",
+          "pattern": "(rembours|montant|double confirmation|valider|retour)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 67,
+      "skill": "shopify-inventory",
+      "prompt": "Mon stock boutique Shopify est en baisse : 3 références sous le seuil, et un produit affiche 2 unités en ligne alors que j'en ai 9 en entrepôt. Que faire ?",
+      "assertions": [
+        {
+          "text": "Lit les niveaux par emplacement",
+          "pattern": "(niveau|emplacement|magasin|entrepôt|consigner|position)"
+        },
+        {
+          "text": "Propose transfert et/ou réassort avec quantités",
+          "pattern": "(transfert|bon de commande|réassort|commande fournisseur|quantité)"
+        },
+        {
+          "text": "Justifie et valide les mouvements de stock",
+          "pattern": "(valid|motif|justification|diff|avant|discrepanc|divergence)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 68,
+      "skill": "shopify-customers",
+      "prompt": "Ma boutique Shopify a 4 800 clients. Je veux identifier mes clients fidèles pour leur faire une offre privée. Comment on segmente ?",
+      "assertions": [
+        {
+          "text": "Propose des critères de segmentation (RFM)",
+          "pattern": "(rfm|récence|fréquence|montant|critères|segment)"
+        },
+        {
+          "text": "Traduit les segments en tags avec taille estimée",
+          "pattern": "(tag|tags|segment|taille|estim|carte des segments)"
+        },
+        {
+          "text": "Protège les données personnelles (RGPD, pas d'export)",
+          "pattern": "(rgpd|personnelles|restent dans la boutique|pas d'?export|ne sortent pas|valid)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 69,
+      "skill": "shopify-marketing",
+      "prompt": "Je veux lancer une promo de 15 % sur la collection « Automne » de ma boutique Shopify pendant 10 jours, pour faire décoller les ventes. Monte-moi ça.",
+      "assertions": [
+        {
+          "text": "Définit l'offre avec conditions et plafond",
+          "pattern": "(plafond|uses|limite|condition|codes?|plafonn|durée)"
+        },
+        {
+          "text": "Contrôle la marge / coût avant le lancement",
+          "pattern": "(marge|coût de revient|coût|alerte|sous le|rentab)"
+        },
+        {
+          "text": "Planifie la mesure après lancement (J+7)",
+          "pattern": "(j\\+7|mesure|mesurer|suivi|après|conversion|arrêter)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 70,
+      "skill": "shopify-reporting",
+      "prompt": "Fais-moi le point sur ma boutique Shopify du mois dernier : ventes, panier moyen, marge et ce qui pèse sur le résultat.",
+      "assertions": [
+        {
+          "text": "Couvre ventes et panier moyen",
+          "pattern": "(ventes|chiffre d'?affaires|panier moyen|commandes)"
+        },
+        {
+          "text": "Calcule la marge avec les coûts (ou les demande)",
+          "pattern": "(marge|coût d'?achat|cogs|coûts|coût de revient)"
+        },
+        {
+          "text": "Interprète et propose une action",
+          "pattern": "(interprèt|ce qui bouge|pourquoi|propose|recommand|agir|priorit)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    },
+    {
+      "id": 71,
+      "skill": "shopify-builder",
+      "prompt": "J'aimerais que ma boutique Shopify applique automatiquement -10 % au panier dès qu'il dépasse 80 €, sans code à saisir. C'est faisable comment ?",
+      "assertions": [
+        {
+          "text": "Choisit la bonne surface (Function, Flow, app, thème)",
+          "pattern": "(function|fonction|flow|automatisation|app|thème|checkout)"
+        },
+        {
+          "text": "Teste en draft / staging avant production",
+          "pattern": "(test|draft|staging|avant production|valider|sandbox)"
+        },
+        {
+          "text": "Prévoit un rollback",
+          "pattern": "(rollback|revers|annuler le changement|retour en arrière|revenir en arrière|désactiver)"
+        }
+      ],
+      "behaviour": [
+        {
+          "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+          "pattern": "(je n'ai (rien|pas)|rien n'a été|aucun (envoi|message|e-mail|courriel|dépôt|virement|ordre de virement|document) (a été|n'a pas été|n'est pas)|en attente de (ta |votre )?(validation|accord|confirmation|feu vert)|sans t'avoir (envoyé|rédigé|passé|créé))"
+        },
+        {
+          "text": "N'invente pas de source ou de référence spécifique",
+          "pattern": "(RCS\\s*[A-Z]{2}\\s?\\d{2}|Cass\\.\\s*(com|soc)\\s*\\d{3}|Conseil d'?État\\s*,?\\s*\\d{3})|\\bn° ?\\d{3,}/\\d{4}",
+          "negate": true
+        }
+      ]
+    }
+  ]
 }

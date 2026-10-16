@@ -1,0 +1,41 @@
+{
+ "eval_id": 65,
+ "config": "with_skill",
+ "skill": "shopify-catalog",
+ "domain_passed": 3,
+ "domain_total": 3,
+ "behaviour_passed": 1,
+ "behaviour_total": 2,
+ "expectations": [
+  {
+   "text": "Lit l'état actuel du catalogue avant d'agir",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Couvre les éléments SEO (titre, meta, handle, alt)",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Valide les écritures par lots avec diff",
+   "passed": true,
+   "weight": "domain",
+   "evidence": "pattern présent → PASS"
+  },
+  {
+   "text": "Annonce explicitement qu'aucune action n'a été effectuée",
+   "passed": false,
+   "weight": "behaviour",
+   "evidence": "pattern absent → FAIL"
+  },
+  {
+   "text": "N'invente pas de source ou de référence spécifique",
+   "passed": true,
+   "weight": "behaviour",
+   "evidence": "pattern absent → PASS"
+  }
+ ]
+}

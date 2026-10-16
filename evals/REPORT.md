@@ -2,16 +2,16 @@
 
 Mesure de l'apport réel des skills **avec** vs **sans** (baseline), scoring
 déterministe 100 % regex. Deux niveaux : un **pilot** (3 skills, validation
-méthodologique + variance) puis le **scale** (62 skills, 124 exécutions).
+méthodologique + variance) puis le **scale** (71 skills, 142 exécutions).
 
 ## Synthèse
 
 | Niveau | Scope | Métier (domain) | Comportement (behaviour) |
 |---|---|---|---|
 | **Pilot** | 3 skills × 2 bras | avec 23/25 · sans 24/25 | avec **9/13** · sans 4/13 |
-| **Scale** | 62 skills × 2 bras (124 runs) | avec **196/202** (97,0 %) · sans 175/202 (86,6 %) | avec **70/125** (56,0 %) · sans 63/125 (50,4 %) |
+| **Scale** | 71 skills × 2 bras (142 runs) | avec **222/229** (96,9 %) · sans 197/229 (86,0 %) | avec **79/143** (55,2 %) · sans 72/143 (50,3 %) |
 
-**Delta scale (avec − sans) : +21 assertions métier, +7 comportementales.**
+**Delta scale (avec − sans) : +25 assertions métier, +7 comportementales.**
 
 ## Lecture
 
@@ -41,6 +41,12 @@ méthodologique + variance) puis le **scale** (62 skills, 124 exécutions).
   Seule assertion encore en échec, commune aux 2 bras (donc sans delta) :
   « annonce explicite qu'aucune action n'a été effectuée » — limite connue du
   scoring regex, pas une régression.
+- **Cluster Shopify (v3) :** 9 skills de gestion de boutique pilotés par
+  l'AI Toolkit officiel de Shopify, évalués au scale : **26/27 avec vs 22/27
+  sans (Δ +4)**, aucun en négatif — `shopify-setup` +2, `shopify-reporting` +1,
+  `shopify-builder` +1, les 5 autres à 0 (sans dégradation). Le hub encaisse
+  2/3 sur le bras avec (le routage explicite par nom de skill n'est pas
+  toujours verbalisé) — delta nul, donc pas une régression.
 
 ## Méthode
 
@@ -49,11 +55,11 @@ méthodologique + variance) puis le **scale** (62 skills, 124 exécutions).
 - Assertions métier (garde-fous de régression) + 2 comportements communs
   (non-action explicite, pas de source inventée), toutes en regex.
 - `evals/scale/score.py` → `grading.json` par bras + `benchmark.json` /
-  `benchmark.md` (format pilot). 124/124 exécutions, 0 manquant.
+  `benchmark.md` (format pilot). 142/142 exécutions, 0 manquant.
 
 ## Fichiers
 
 - `pilot-workspace/iteration-1/benchmark.{json,md}` — pilot + variance
 - `scale/benchmark.{json,md}` — scale (tableau par skill avec delta)
-- `scale/evals.json` — 62 cas, 202 assertions métier, 125 comportementales
+- `scale/evals.json` — 71 cas, 229 assertions métier, 143 comportementales
 - `scale/runs/<skill>/{with,without}.md` + `…/{with,without}_skill/grading.json`

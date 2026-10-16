@@ -244,11 +244,11 @@ https://github.com/anthropics/knowledge-work-plugins
     write(".claude-plugin/plugin.json", """{
   "name": "small-business-fr",
   "displayName": "Petite entreprise (France)",
-  "version": "1.1.1-fr.1",
-  "description": "Édition française du plugin small-business pour les TPE et PME de services et la vente B2B de produits physiques. Profils services / négoce / fabrication / mixte. Adapté au droit français, à la TVA, à la facturation électronique et aux connecteurs français (Qonto, Pennylane, Sendcloud).",
+  "version": "1.2.0-fr.1",
+  "description": "Édition française du plugin small-business pour les TPE et PME de services et la vente B2B de produits physiques. Profils services / négoce / fabrication / mixte. Adapté au droit français, à la TVA, à la facturation électronique et aux connecteurs français (Qonto, Pennylane, Sendcloud). Inclut un cluster Shopify (9 skills) pour piloter une boutique en ligne complète via l'AI Toolkit officiel de Shopify.",
   "author": {"name": "Jamin Rubio", "email": "franckqfr@hotmail.com"},
   "license": "Apache-2.0",
-  "keywords": ["france","tpe","pme","b2b","tva","facturation","negoce","services"]
+  "keywords": ["france","tpe","pme","b2b","tva","facturation","negoce","services","shopify","ecommerce"]
 }
 """)
 
@@ -264,6 +264,7 @@ https://github.com/anthropics/knowledge-work-plugins
             "stripe": {"url": "https://mcp.stripe.com/mcp", "transport": "http"},
             "paypal": {"url": "https://mcp.paypal.com/mcp", "transport": "http"},
             "shopify": {"url": "https://mcp.shopify.com/mcp", "transport": "http"},
+            "shopify-dev-mcp": {"command": "npx", "args": ["-y", "@shopify/dev-mcp@latest"]},
             "slack": {"url": "https://mcp.slack.com/mcp", "transport": "http"},
             "notion": {"url": "https://mcp.notion.com/mcp", "transport": "http"},
             "docusign": {"url": "https://mcp.docusign.com/mcp", "transport": "http"},
@@ -1743,6 +1744,629 @@ Envoi.
 
 # ================================================================ step 7 : router & onboard
 
+def write_shopify_skills():
+    print("== Cluster Shopify (9 skills + doc partagée) ==")
+
+    write("shared/shopify-ai-toolkit.md", """\
+# Shopify — AI Toolkit
+
+Source unique de vérité pour parler à la boutique. Documentation officielle :
+https://shopify.dev/docs/apps/build/ai-toolkit
+
+## Ce que c'est
+L'AI Toolkit officiel de Shopify apporte trois couches :
+1. Le serveur MCP `shopify-dev-mcp` : documentation à jour et surfaces
+   développeur accessibles à l'agent.
+2. Le skill `shopify` : couvre GraphQL Admin API, Shopify Functions, Polaris,
+   Liquid, Hydrogen et Shopify CLI. L'agent ne charge la guidance d'une
+   surface que quand la tâche l'exige.
+3. Le plugin `shopify-ai-toolkit` (mise à jour automatique).
+
+## Installation (3 options)
+- Plugin complet (Claude Code) :
+  `claude plugin install shopify-ai-toolkit@claude-plugins-official`
+- Serveur MCP seul :
+  `claude mcp add --transport stdio shopify-dev-mcp -- npx -y @shopify/dev-mcp@latest`
+- Skills seuls : `npx skills add Shopify/shopify-ai-toolkit`
+  (puis `npx skills update` pour rester à jour)
+
+## Serveur MCP dans ce plugin
+Déclaré dans `.mcp.json` :
+```json
+"shopify-dev-mcp": {"command": "npx", "args": ["-y", "@shopify/dev-mcp@latest"]}
+```
+Si le serveur est indisponible (pas de Node, pas de réseau) : repli sur le
+connecteur `shopify` déjà présent (lecture) ou sur le mode « coller » —
+l'export CSV de l'admin Shopify est collé ou déposé, les skills le traitent.
+On le dit explicitement, on ne simule jamais.
+
+## Pilote de la boutique : Shopify CLI (`store auth` / `store execute`)
+Le canal principal du toolkit pour agir sur la boutique :
+- `shopify store auth --store <domaine> --scopes <scopes>` — authentifie
+  la session CLI sur la boutique, avec les scopes minimaux validés.
+- `shopify store execute --store <domaine> --query '...'` — exécute du
+  GraphQL Admin :
+  - lecture seule → sans `--allow-mutations` ;
+  - mutation → `--allow-mutations` obligatoire ;
+  - `--query-file` pour les longues requêtes.
+- Scopes : le minimum validé (read_products, write_products,
+  read_inventory, write_inventory, read_reports…) — jamais de scope large
+  par confort.
+- Le GraphQL est validé contre l'Admin API avant exécution : le toolkit
+  embarque les schémas jusqu'à la version 2026-10.
+
+Alternative hors CLI : token d'application personnalisée (Admin → Apps →
+Développement) sur `https://<store>.myshopify.com/admin/api/<version>/graphql.json`.
+Le token reste dans l'environnement du dirigeant : jamais dans un fichier
+du plugin, jamais dans la conversation.
+
+## ShopifyQL (rapports)
+Ventes, commandes, revenu, conversion, tendances : les questions
+d'analyse se posent en **ShopifyQL** (langage type SQL de Shopify),
+exécuté via le champ `shopifyqlQuery` de l'Admin GraphQL dans le même
+flux `store execute` (lecture seule, scope `read_reports`). C'est le
+moteur du skill `shopify-reporting`.
+
+## Confidentialité
+Les scripts du toolkit envoient par défaut des télémétries d'usage à
+shopify.dev. Désactivation : `OPT_OUT_INSTRUMENTATION=true` ou un fichier
+vide `~/.config/shopify-ai-toolkit/opt-out`. À proposer au dirigeant à
+l'installation.
+
+## Politique lecture / écriture
+- Lecture (produits, commandes, stock, clients, rapports) : libre sur demande.
+- Écriture (prix, tags, remises, expédition, thème) : toujours validée
+  avant, en une passe, avec le diff de ce qui va changer.
+- Destructif (suppression, annulation, remboursement) : double confirmation
+  + montant concerné affiché.
+
+## Le cluster
+`shopify-hub` orchestre 8 skills couvrant tous les domaines de la boutique.
+Les tâches développeur (apps, thèmes, fonctions) vont à `shopify-builder`.
+""")
+
+    write("skills/shopify-hub/SKILL.md", """\
+> Language rule: see `shared/language.md`.
+
+---
+name: shopify-hub
+description: >
+  Point d'entrée du cluster Shopify : vérifie l'AI Toolkit, mappe les 8
+  skills qui couvrent tous les domaines de la boutique (catalogue,
+  commandes, stock, clients, marketing, reporting, builder) et route la
+  demande vers le bon. [EN] Hub of the Shopify skills: routes store requests.
+---
+
+# Shopify — Hub
+
+## But
+Porte d'entrée unique pour toute demande sur la boutique Shopify. Vérifie
+que l'AI Toolkit est disponible, puis transmet au skill du domaine
+concerné — sans répondre lui-même.
+
+## Étape 1 — Disponibilité
+Lis `shared/shopify-ai-toolkit.md` et vérifie :
+- serveur MCP `shopify-dev-mcp` disponible (ou connecteur `shopify`),
+- URL de la boutique et scopes connus,
+- contexte boutique présent (sinon : `shopify-setup`).
+Si rien n'est disponible : proposer `shopify-setup` et s'arrêter.
+
+## Étape 2 — Routage par domaine
+| Demande | Skill |
+|---|---|
+| produits, variantes, collections, SEO, prix boutique | shopify-catalog |
+| commandes, expédition, retours, remboursements | shopify-orders |
+| stock, transferts, réassort, bons de commande | shopify-inventory |
+| clients, segments, fidélité, RFM | shopify-customers |
+| promos, codes, campagnes, e-mail, publicités | shopify-marketing |
+| ventes, marge, profit, P&L, KPIs de la boutique | shopify-reporting |
+| automatisation, app, fonction, thème | shopify-builder |
+| connexion, installation, scopes | shopify-setup |
+
+## Étape 3 — Transfert
+Nommer le skill cible en une ligne et l'appliquer. Demande qui touche
+plusieurs domaines : proposer un plan ordonné (3 étapes max) et le faire
+valider avant d'agir.
+
+## Liens
+- Les skills B2B existants restent primaires : `catalog-quote`,
+  `order-intake`, `inventory-planner`, `crm-autopilot` — le cluster Shopify
+  est leur reflet dans la boutique en ligne.
+- `shared/shopify-ai-toolkit.md` — comment on parle à la boutique.
+
+## Garde-fous
+- Aucune écriture boutique sans validation.
+- Aucun chiffre inventé : donnée indisponible → on le dit.
+- Sujet développeur (app, thème, fonction) : `shopify-builder`, pas le hub.
+""")
+
+    write("skills/shopify-setup/SKILL.md", """\
+> Language rule: see `shared/language.md`.
+
+---
+name: shopify-setup
+description: >
+  Connecte la boutique au plugin : installe le Shopify AI Toolkit,
+  vérifie l'accès à la boutique (URL, scopes, token) et consigne le
+  contexte boutique. [EN] Sets up the Shopify store connection and access.
+---
+
+# Shopify — Setup
+
+## But
+Rendre le plugin capable de parler à la boutique, en une séance validée.
+
+## Entrées
+- URL de la boutique (`*.myshopify.com`).
+- Outil IA utilisé par le dirigeant (Claude Code, autre).
+- Ce qu'il veut piloter (catalogue, commandes, tout).
+
+## Étapes
+1. **État des lieux** — lire `shared/shopify-ai-toolkit.md`, vérifier :
+   serveur MCP `shopify-dev-mcp`, connecteur `shopify`, scopes.
+2. **Proposer l'installation** — l'une des 3 options de la doc, adaptée
+   à l'outil du dirigeant. Les commandes sont présentées, pas exécutées.
+   Proposer aussi la désactivation des télémétries du toolkit.
+3. **Vérifier l'accès** — `shopify store auth --store <domaine>
+   --scopes read_products` puis une requête en lecture seule via
+   `shopify store execute` (nom, devise, pays, plan). Si ça échoue :
+   diagnostiquer (Node, CLI, domaine, scopes) et re-proposer.
+4. **Consigner le contexte** — ajouter les champs boutique dans
+   `## Business context` (URL, plan, devise, canaux, emplacements) sans
+   renommer les champs existants.
+5. **Scopes par domaine** — table des scopes lecture/écriture nécessaires
+   par domaine à piloter (catalogue, commandes, stock, clients, marketing,
+   reporting), avec recommandation de n'accorder que le minimum.
+
+## Sortie
+Connexion prête + table des scopes + domaines que le cluster peut déjà
+couvrir. Prochaine étape proposée : `shopify-hub`.
+
+## Repli
+Pas de Node / pas de réseau : le cluster fonctionne en mode « coller » —
+le dirigeant exporte depuis l'admin Shopify (CSV) et les skills traitent.
+On le dit clairement, on ne simule pas.
+
+## Garde-fous
+- Le token n'est jamais demandé en clair dans la conversation : il vit
+  dans l'environnement du dirigeant.
+- Ne jamais créer l'application Shopify à la place du dirigeant sans
+  lui montrer le formulaire.
+""")
+
+    write("skills/shopify-catalog/SKILL.md", """\
+> Language rule: see `shared/language.md`.
+
+---
+name: shopify-catalog
+description: >
+  Gère le catalogue de la boutique : produits, variantes, collections,
+  tags, images, SEO (titre, description, meta) et prix.
+  [EN] Manages the Shopify catalog: products, variants, collections, SEO.
+---
+
+# Shopify — Catalogue
+
+## But
+Lire et mettre à jour le catalogue de la boutique via l'Admin API, de
+manière contrôlée.
+
+## Entrées
+Ce qu'on fait (lire / créer / modifier / archiver), quels produits, et
+pour une modification : la valeur cible exacte.
+
+## Contrôles avant toute écriture
+- Identification exacte du produit (titre, handle, ID) — zéro ambiguïté.
+- Valeur actuelle affichée avant le changement (diff).
+- Conséquences connexes vérifiées : variantes, collections, SEO, prix.
+
+## Étapes
+1. Lire l'état actuel (produits, variantes, collections).
+2. Rédiger le changement en liste : champ → valeur actuelle → nouvelle.
+3. Faire valider (une seule question oui/non).
+4. Exécuter (mutation), relire pour confirmer.
+5. Récapituler : ce qui a changé, ce qui reste.
+
+## SEO
+Chaque produit reçoit : titre sous 60 caractères, meta description sous
+160, handle pertinent, texte alternatif sur les images. Proposer les
+textes, les faire valider avant écriture (critères de visibilité :
+`seo-ai-visibility`).
+
+## Prix
+Jamais de changement de prix sans la justification de marge : afficher
+prix actuel, prix proposé, impact sur la marge (`pricing-desk`).
+
+## Liens
+- `shopify-reporting` — performance du catalogue (meilleurs/pires vendeurs).
+- `catalog-quote` (devis B2B) et `product-compliance` (mentions
+  réglementaires) — le cluster les reflète dans la boutique.
+
+## Garde-fous
+- Archiver ≠ supprimer : archivage par défaut, suppression en double
+  confirmation.
+- Aucun lot de plus de 20 produits sans accord explicite.
+""")
+
+    write("skills/shopify-orders/SKILL.md", """\
+> Language rule: see `shared/language.md`.
+
+---
+name: shopify-orders
+description: >
+  Gère les commandes de la boutique : consultation, statuts, expédition
+  (transporteur, suivi), retours et remboursements.
+  [EN] Manages Shopify orders: fulfillment, shipping, returns, refunds.
+---
+
+# Shopify — Commandes
+
+## But
+Suivre et traiter les commandes de la boutique : expédier, suivre,
+gérer les retours — sans jamais exécuter de paiement.
+
+## Entrées
+Période ou liste de commandes, statut visé, ou un cas de retour précis.
+
+## Étapes
+1. **Lister / filtrer** — commandes par période, statut, problème
+   (en attente, en retard, litige, retour demandé).
+2. **Préparer l'expédition** — pour chaque commande à expédier :
+   transporteur, service, étiquette. Le numéro de suivi vient du
+   transporteur (`sendcloud`, `fulfillment-desk`) — jamais inventé.
+3. **Faire valider** — lot d'expéditions présenté en une passe.
+4. **Exécuter** — créer les fulfillments, coller les suivi, relire.
+5. **Retours** — remboursement : montant exact affiché, restock proposé,
+   double confirmation si le montant dépasse le seuil du contexte.
+
+## Contrôles
+- Tout remboursement montre : commande, montant, motif, effet sur le stock.
+- Annulation de commande : double confirmation + montant.
+- Aucune demande de paiement ici : relance de paiement → `invoice-chase`.
+
+## Liens
+- `order-intake` (prise de commande B2B), `fulfillment-desk` (expédition),
+  `ticket-deflector` (service client), `invoice-chase` (recouvrement),
+  `einvoice-readiness` (facture électronique).
+- `shopify-reporting` — taux de retour, commandes par période.
+
+## Garde-fous
+- Jamais de remboursement au-delà du montant encaissé.
+- Lot d'expédition : un seul « oui » suffit, un récapitulatif est affiché.
+""")
+
+    write("skills/shopify-inventory/SKILL.md", """\
+> Language rule: see `shared/language.md`.
+
+---
+name: shopify-inventory
+description: >
+  Pilote le stock de la boutique : niveaux par emplacement, alertes de
+  seuil, transferts, bons de commande, inventaire.
+  [EN] Manages Shopify inventory: levels, transfers, purchase orders, counts.
+---
+
+# Shopify — Stock
+
+## But
+Voir et piloter le stock de la boutique : niveaux, alertes, mouvement —
+toujours avec une justification.
+
+## Entrées
+Quoi (produit / emplacement / global), quel besoin (état, alerte,
+transfert, réassort, comptage).
+
+## Étapes
+1. **Lire les niveaux** — par produit et emplacement ; mettre en avant
+   les sous le seuil et les surstocks.
+2. **Proposer l'action** — transfert entre emplacements ou bon de
+   commande au fournisseur : quantités, motif, coût estimé.
+3. **Faire valider** — le lot de mouvements en une passe.
+4. **Exécuter** — mutations d'inventaire ou création du BC, relire.
+5. **Récapituler** — nouveau niveau, ce qui reste à faire.
+
+## Règles
+- Tout mouvement de stock a un motif explicite : vente, perte, casse,
+  transfert, correction de comptage.
+- Jamais de stock négatif : un niveau qui y aboutit est bloqué et signalé.
+- Le seuil d'alerte vient du contexte ou de `inventory-planner`.
+
+## Liens
+- `inventory-planner` (points de réappro, prévisions), `b2b-stock-planner`,
+  `purchase-desk` (bons de commande), `stock-count-cutoff` (comptage).
+- `shopify-reporting` — rotation, jours de couverture.
+
+## Garde-fous
+- Une correction manuelle de stock = diff affiché + validation.
+- En cas de divergence boutique / comptabilité : on la signale, on ne
+  « corrige » pas en silence.
+""")
+
+    write("skills/shopify-customers/SKILL.md", """\
+> Language rule: see `shared/language.md`.
+
+---
+name: shopify-customers
+description: >
+  Gère les clients de la boutique : consultation, segments, tags,
+  historique d'achat, analyse RFM, fidélité.
+  [EN] Manages Shopify customers: segments, tags, purchase history, RFM.
+---
+
+# Shopify — Clients
+
+## But
+Travailler la base clients de la boutique : segmenter, taguer, analyser
+la fidélité — sans jamais exporter des données personnelles hors boutique.
+
+## Entrées
+Objectif (fidélité, réactivation, ciblage promo), périmètre de clients.
+
+## Étapes
+1. **Lire la base** — volumes, répartition par nombre d'achats, valeur
+   moyenne, ancienneté.
+2. **Proposer la segmentation** — critères précis (RFM : récence,
+   fréquence, montant) + les tags correspondants, avec la taille estimée
+   de chaque segment.
+3. **Faire valider** — le plan de tags en une passe.
+4. **Appliquer** — mutations de tags, relire l'échantillon.
+5. **Livrer** — la carte des segments, prêts à être ciblés par
+   `shopify-marketing`.
+
+## Règles
+- Un segment = des critères écrits + un tag lisible.
+- Les données personnelles restent dans la boutique : pas d'export vers
+  un outil tiers sans validation explicite (RGPD).
+- Personne n'est « supprimé » : on retire un tag, on n'efface pas.
+
+## Liens
+- `crm-autopilot` (CRM global), `customer-reorder` (récommande B2B),
+  `reactivate` (dormants), `lead-triage` (prospects).
+- `shopify-marketing` consomme les segments pour les campagnes.
+
+## Garde-fous
+- Aucun e-mail, aucun envoi depuis ce skill : préparation uniquement.
+- Segment vide ou flou : on le dit, on le reformule.
+""")
+
+    write("skills/shopify-marketing/SKILL.md", """\
+> Language rule: see `shared/language.md`.
+
+---
+name: shopify-marketing
+description: >
+  Lance les promotions de la boutique : remises, codes, campagnes,
+  e-mails, publicités — avec budget, conditions et mesure.
+  [EN] Runs Shopify promotions: discounts, codes, campaigns, email.
+---
+
+# Shopify — Marketing
+
+## But
+Préparer et lancer des promotions boutique : l'offre, ses conditions,
+son budget — et mesurer après coup.
+
+## Entrées
+Objectif (débutter un produit, remplir un panier, relancer des segments),
+budget, durée.
+
+## Étapes
+1. **Diagnostiquer** — quel levier : remise, code, offerte, livraison
+   gratuite ? Sur quel segment (`shopify-customers`) ?
+2. **Rédiger l'offre** — type de remise, valeur, conditions, plafond
+   (nombre de uses ou durée), dates.
+3. **Contrôler la marge** — coût de la remise estimé ; si la marge passe
+   sous le seuil : alerte avant validation (`pricing-desk`).
+4. **Faire valider** — l'offre complète en une passe.
+5. **Créer** — discount + campagne dans la boutique, relire.
+6. **Mesurer** — à J+7 : uses, conversion, panier moyen, marge nette.
+
+## Règles
+- Tout code est plafonné (uses ou durée) — jamais de code illimité.
+- Aucune remise sous le coût de revient sans alerte explicite.
+- Les e-mails ne partent pas d'ici : la liste est livrée à l'outil
+  e-mail du dirigeant, prêt à envoyer.
+
+## Liens
+- `marketing-monday` (plan de semaine), `ad-manager` (publicités payantes),
+  `content-strategy`, `social-content-engine`, `growth-pulse`.
+- `shopify-customers` (segments) et `shopify-reporting` (mesure).
+
+## Garde-fous
+- Une seule campagne active par objectif à la fois.
+- Mesure J+7 obligatoire : on arrête ce qui ne marche pas.
+""")
+
+    write("skills/shopify-reporting/SKILL.md", """\
+> Language rule: see `shared/language.md`.
+
+---
+name: shopify-reporting
+description: >
+  Produit les rapports de la boutique : ventes, panier moyen, marge,
+  profit, cohortes, retours, TVA, P&L et KPIs hebdomadaires.
+  [EN] Produces Shopify store reports: sales, margin, profit, KPIs, P&L.
+---
+
+# Shopify — Reporting
+
+## But
+Le set de rapports de la boutique : des chiffres tirés de la store,
+interprétés en 3 lignes, reliés aux décisions.
+
+## Choix du rapport
+Le catalogue des rapports est dans [reference/reports.md](reference/reports.md) :
+pulse hebdo, ventes par produit/collection, marge, panier moyen, cohortes,
+taux de retour, coût des remises, TVA collectée, P&L boutique, trésorerie.
+
+## Étapes
+1. **Choisir** — le rapport demandé (sinon : proposer le pulse hebdo).
+2. **Tirer les données** — ShopifyQL via `shopify store execute`
+   (sinon Admin API, ou export collé en repli) : jamais de chiffre
+   estimé pour se passer de données.
+3. **Calculer** — les métriques du rapport, avec la période exacte.
+4. **Interpréter** — 3 lignes : ce qui bouge, pourquoi (hypothèse),
+   ce qu'on propose de faire.
+5. **Livrable** — le rapport + la relance du rapport suivant.
+
+## Contrôles
+- Période et devise affichées en tête de chaque rapport.
+- La marge exige les coûts d'achat : s'ils manquent, on les demande —
+  on n'invente pas.
+- Un écart boutique / comptable > 5 % est signalé, pas lissé.
+
+## Liens
+- `report-builder`, `business-pulse`, `growth-pulse` (pouls global),
+  `cash-flow-snapshot`, `month-end-prep`, `tva-pilot` (TVA boutique),
+  `pricing-desk` (marges).
+- `shopify-catalog` et `shopify-marketing` quand l'interprétation vise
+  le catalogue ou les promotions.
+
+## Garde-fous
+- Tout chiffre a sa source : requête, export, ou calcul affiché.
+- Pas de rapport « au feeling » : si les données manquent, le rapport
+  le dit.
+""")
+
+    write("skills/shopify-reporting/reference/reports.md", """\
+# Catalogue des rapports boutique
+
+Chaque rapport : but, données (Admin API), fréquence, lecture.
+
+## 1. Pulse hebdo
+Ventes, commandes, panier moyen, marge brute, top 3 produits, alertes
+stock. Fréquence : chaque lundi. Sert de point de départ de la semaine.
+
+## 2. Ventes par produit / collection
+CA, quantité, marge par ligne. Fréquence : mensuel. Sert à `shopify-catalog`
+(déclasser, promouvoir) et à `pricing-desk`.
+
+## 3. Marge
+Marge brute par période et par produit ; écart vs prévision. Exige les
+coûts d'achat. Sert à `pricing-desk`.
+
+## 4. Panier moyen
+Évolution, par segment de clients (`shopify-customers`). Sert à
+`shopify-marketing` (seuils de panier, offres).
+
+## 5. Cohortes
+Nouveaux vs clients de retour, valeur client dans le temps. Sert à
+`shopify-customers` et `shopify-marketing`.
+
+## 6. Taux de retour
+Par produit et motif. Au-dessus du seuil : renvoi à `shopify-catalog`
+(fiche produit) ou `shopify-orders` (processus).
+
+## 7. Coût des remises
+Montant cédé par campagne, vs objectif. Sert à `shopify-marketing`
+(arrêter / corriger).
+
+## 8. TVA collectée
+TVA sur la période par taux, base taxable. Sert à `tva-pilot`.
+
+## 9. P&L boutique
+Revenus, COGS, frais (expédition, remises, publicités), résultat.
+Fréquence : mensuel, alimente `month-end-prep` et `cash-flow-snapshot`.
+
+## 10. Trésorerie boutique
+Encaissements / décaissements par canal de paiement. Sert à
+`cash-flow-snapshot`.
+""")
+
+    write("skills/shopify-builder/SKILL.md", """\
+> Language rule: see `shared/language.md`.
+
+---
+name: shopify-builder
+description: >
+  Construit dans la boutique : automatisations Flow, Shopify Functions
+  (remises, checkout), thème (Liquid, Polaris), installation d'apps —
+  en s'appuyant sur l'AI Toolkit.
+  [EN] Builds in the Shopify store: flows, functions, theme, apps, via the AI Toolkit.
+---
+
+# Shopify — Builder
+
+## But
+La brique « builder » du cluster : construire dans la boutique ce que les
+7 autres skills pilotent — automatisations, règles, pages, apps — en
+s'appuyant sur l'AI Toolkit officiel.
+
+## Socle
+`shared/shopify-ai-toolkit.md` : serveur MCP `shopify-dev-mcp` + skill
+`shopify` (guidance GraphQL Admin API, Functions, Liquid, Polaris, CLI).
+On charge la guidance d'une surface seulement quand la tâche l'exige.
+Chaque code généré est validé par le toolkit avant d'être présenté.
+
+## Étapes
+1. **Cadrer le besoin** — automatiser quoi ? Une règle (remise, checkout) ?
+   Une page ? Une app ? Une automatisation Flow ?
+2. **Choisir la surface** — Flow / Function / thème / app, avec le critère
+   de choix affiché (déclaratif vs code, périmètre).
+3. **Rédiger la solution** — le code ou la config, avec ce qu'il change
+   exactement dans la boutique.
+4. **Faire valider** — solution + plan de test + plan de rollback, en une
+   passe.
+5. **Déployer en sûr** — snapshot du thème avant toute modification ;
+   test sur commande draft ou store de staging ; puis production.
+6. **Vérifier** — test fonctionnel décrit, puis mesure après 7 jours.
+
+## Règles
+- Aucune déploye en production sans test préalable (draft / staging).
+- Tout déploiement a un rollback écrit avant d'agir.
+- Une Function de remise se coordinate avec `shopify-marketing` (conditions
+  et plafond).
+- Le besoin dépasse le périmètre (app complexe, extension) : on le dit et
+  on propose le périmètre restreint ou l'aide externe.
+
+## Liens
+- `build-connector` et `build-agent` (automatisations génériques).
+- `shopify-marketing` (fonctions de remise), `shopify-catalog` (thème du
+  catalogue), `shopify-orders` (règles de fulfillment).
+
+## Garde-fous
+- Snapshot avant, test avant, rollback écrit : les trois sont obligatoires.
+- Pas de secret (token, clé) dans le code déployé.
+""")
+
+
+SHOPIFY_BACKLINKS = {
+    "inventory-planner": "shopify-inventory",
+    "crm-autopilot": "shopify-customers",
+    "growth-pulse": "shopify-reporting",
+    "fulfillment-desk": "shopify-orders",
+    "marketing-monday": "shopify-marketing",
+    "business-pulse": "shopify-reporting",
+    "order-intake": "shopify-orders",
+    "catalog-quote": "shopify-catalog",
+    "pricing-desk": "shopify-catalog",
+    "ticket-deflector": "shopify-orders",
+    "cash-flow-snapshot": "shopify-reporting",
+    "report-builder": "shopify-reporting",
+}
+
+def patch_shopify_links():
+    """Relie chaque skill concerné au cluster Shopify (lien de retour)."""
+    print("== Liens cluster Shopify ==")
+    n = 0
+    for skill, target in SHOPIFY_BACKLINKS.items():
+        p = ROOT / "skills" / skill / "SKILL.md"
+        if not p.exists():
+            continue
+        t = p.read_text(encoding="utf-8")
+        if "shopify-hub" in t:
+            continue
+        t = t.rstrip() + (
+            "\n\n## Lien cluster Shopify\n"
+            f"Cette compétence dialogue avec la boutique en ligne via "
+            f"`{target}` (hub : `shopify-hub`, doc : "
+            f"[AI Toolkit](../../shared/shopify-ai-toolkit.md)).\n"
+        )
+        p.write_text(t, encoding="utf-8")
+        n += 1
+    print(f"  {n} skills reliés au cluster Shopify")
+
+
 def write_router_onboard():
     print("== smb-router + smb-onboard ==")
     write("skills/smb-router/SKILL.md", """\
@@ -1808,6 +2432,17 @@ TVA, Stock, Canaux de commande). Si absent : appeler smb-onboard.
 - « chiffrer une prestation » → proposal-builder
 - « émettre un devis » → devis-facture-fr
 
+### Shopify (boutique en ligne)
+- « ma boutique », « mon Shopify », « la store » → shopify-hub
+- « connecter ma boutique », « installer le toolkit » → shopify-setup
+- « mes produits », « catalogue », « collection » (boutique) → shopify-catalog
+- « commander boutique », « expédier en ligne », « retour client » → shopify-orders
+- « stock boutique », « réassort en ligne » → shopify-inventory
+- « mes clients boutique », « segment », « fidélité » → shopify-customers
+- « promo », « code réduction », « campagne boutique » → shopify-marketing
+- « ventes boutique », « marge boutique », « P&L de la store » → shopify-reporting
+- « automatiser », « app », « fonction », « thème » → shopify-builder
+
 ## Étape 3 — Désambiguïsation
 | Phrase | Cible | Pièges |
 |---|---|---|
@@ -1820,8 +2455,10 @@ TVA, Stock, Canaux de commande). Si absent : appeler smb-onboard.
 | « la TVA » | tva-pilot | tax-prep |
 | « facture » (émettre) | devis-facture-fr | ap-processor |
 | « commande » (client) | order-intake | purchase-desk |
-| « stock » | b2b-stock-planner / inventory-planner | selon profil |
+| « stock » | b2b-stock-planner / inventory-planner / shopify-inventory | B2B ou boutique ? |
 | « expédier » | fulfillment-desk | intra-eu-export-check |
+| « produits » (catalogue boutique) | shopify-catalog | catalog-quote (devis B2B) |
+| « promo » | pricing-desk (grille B2B) / shopify-marketing (boutique) | canal de vente |
 
 Doute entre deux skills : une seule question fermée en français.
 
@@ -1875,7 +2512,8 @@ Ni conseil fiscal, ni juridique, ni social.
 
 ## Secteurs hors périmètre v1
 BTP, restauration, santé, professions réglementées, alimentaire à traçabilité
-sanitaire stricte, alcool, grande distribution EDI, vente B2C en ligne.
+sanitaire stricte, alcool, grande distribution EDI.
+La vente en ligne est couverte par le cluster Shopify (`shopify-hub`).
 Le plugin fonctionne sur le socle commun et le dit.
 """)
 
@@ -2729,7 +3367,7 @@ def write_tests():
 """)
 
     write("tests/routing-fr.md", """\
-# Jeu de routage FR — v1.1.1-fr.1 270 phrases. Seuils : 95 % sur phrases claires, 85 % sur ambiguës.
+# Jeu de routage FR — v1.2.0-fr.1 270 phrases. Seuils : 95 % sur phrases claires, 85 % sur ambiguës.
 
 ## invoice-chase
 qui me doit de l'argent / j'ai des impayés / relance mes mauvais payeurs /
@@ -3341,6 +3979,7 @@ def main():
     write_commands()
     write_scripts()
     write_new_skills()
+    write_shopify_skills()
     write_router_onboard()
 
     patch_deep_skills()
@@ -3351,6 +3990,7 @@ def main():
     fix_lint()
     write_tests()
     post_process()
+    patch_shopify_links()
     write("UPSTREAM.md", upstream_changelog())
     fr_pending()
 
